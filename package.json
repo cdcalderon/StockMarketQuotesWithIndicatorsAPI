@@ -1,0 +1,42 @@
+{
+  "name": "stock-market-node-quotes-with-indicators-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "mocha server/**/*.test.js",
+    "test-watch": "nodemon --exec 'npm test'",
+    "startlocal": "npm-run-all --parallel open:src lint:watch",
+    "open:src": "node server/server.js",
+    "lint": "esw playground --color",
+    "lint:watch": "npm run lint -- --watch"
+  },
+  "engines": {
+    "node": "6.9.4"
+  },
+  "author": "carlos calderon",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "body-parser": "^1.16.1",
+    "cors": "^2.8.1",
+    "express": "^4.14.1",
+    "mongodb": "^2.2.24",
+    "mongoose": "^4.8.3",
+    "node-schedule": "^1.2.0",
+    "talib": "^1.0.2",
+    "technicalindicators": "^0.2.24",
+    "yahoo-finance": "^0.2.16"
+  },
+  "devDependencies": {
+    "eslint": "^3.15.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-watch": "^2.1.14",
+    "expect": "^1.20.2",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "npm-run-all": "^4.0.1",
+    "supertest": "^3.0.0"
+  }
+}
