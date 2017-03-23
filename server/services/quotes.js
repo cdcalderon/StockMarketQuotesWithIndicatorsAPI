@@ -136,7 +136,6 @@ let populateIndicators = (quotes) => {
                 SMA10: smas[i]
             }
         });
-
     });
 
     // talib.execute({
@@ -152,6 +151,31 @@ let populateIndicators = (quotes) => {
     // });
 
 
+}
+
+let isSMAGreen = (lastClose, movingAverage10) => {
+    if(lastClose > movingAverage10) {
+        return true
+    } else if (movingAverage10 >= lastClose) {
+        return false;
+    }
+    return false;
+}
+
+let isMACDGreen = (macdSignal) => {
+    if(macdSignal > 0) {
+        return true;
+    } else if (macdSignal <=0) {
+        return false;
+    }
+}
+
+let isSTOCHGreen = (slowK, slowD) => {
+    if((slowK < 20 || slowD < 20) & slowK > slowd) {
+        return true;
+    } else if ((slowK > 80 || slowd > 80) && slowK < slowD) {
+        return false;
+    }
 }
 
 module.exports = {
