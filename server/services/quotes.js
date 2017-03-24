@@ -121,7 +121,7 @@ let populateIndicators = (quotes) => {
 
 
         //TODO: Use promises
-        let loadedQuotes = quotes.map((q, i) => {
+        let loadedQuotes = quotes.map((q, i, quotesArr) => {
             return {
                 date: q.date,
                 open: q.open,
@@ -131,11 +131,36 @@ let populateIndicators = (quotes) => {
                 MACD: macds[i] ? macds[i].MACD : 0,
                 MACDSignal: macds[i] ? macds[i].signal : 0,
                 histogram: macds[i] ? macds[i].histogram : 0,
-                stochasticsK: talibStochastics.outSlowK[i] ? talibStochastics.outSlowK[i] : 0,
-                stochasticsD: talibStochastics.outSlowD[i] ? talibStochastics.outSlowD[i] : 0,
-                SMA10: smas[i]
+                stochasticsK: talibStochastics.outSlowK[i] ? talibStochastics.outSlowK[i] : undefined,
+                stochasticsD: talibStochastics.outSlowD[i] ? talibStochastics.outSlowD[i] : undefined,
+                SMA10: smas[i],
+                // isMACDGreen: isMACDGreen(macds[i]),
+                // isSMAGreen: isSMAGreen(q.close,smas[i]),
+                // isSTOCHGreen: isSTOCHGreen(talibStochastics.outSlowK[i],talibStochastics.outSlowD[i]
+                // ),
+                isSMAGreenIT: isSMAGreenIT(quotesArr[i-1],smas[i-1],q.close,smas[i]),
+                isMACDGreenIT: isMACDGreenIT(macds[i-1],macds[i]),
+                isSTOCHGreenIT: isSTOCHGreenIT(talibStochastics.outSlowK[i-1],
+                                               talibStochastics.outSlowK[i], 
+                                               talibStochastics.outSlowD[i])
             }
         });
+
+        var filterQuotesSMAsGreen = loadedQuotes.filter(q => q.isSMAGreenIT === true);
+        var filterQuotesMACDsGreen = loadedQuotes.filter(q => q.isMACDGreenIT === true);
+        var filterQuotesSTOCHsGreen = loadedQuotes.filter(q => q.isSTOCHGreenIT === true);
+
+        loadedQuotes.map((q,i,quotesArr) => {
+            return {
+                date: q.date,
+                open: q.open,
+                close: q.close,
+                high: q.high,
+                low: q.low,
+                is3ArrowGreenPositive: is3GreenArrowPositive(q,i,quotesArr)
+            }
+        });
+
     });
 
     // talib.execute({
@@ -152,14 +177,15 @@ let populateIndicators = (quotes) => {
 
 
 }
-
 let isSMAGreen = (lastClose, movingAverage10) => {
-    if(lastClose > movingAverage10) {
-        return true
-    } else if (movingAverage10 >= lastClose) {
+    if (lastClose && movingAverage10 ) {
+        if (lastClose > movingAverage10) {
+            return true
+        } else if (movingAverage10 >= lastClose) {
+            return false;
+        }
         return false;
     }
-    return false;
 }
 
 let isMACDGreen = (macdSignal) => {
@@ -171,11 +197,62 @@ let isMACDGreen = (macdSignal) => {
 }
 
 let isSTOCHGreen = (slowK, slowD) => {
-    if((slowK < 20 || slowD < 20) & slowK > slowd) {
-        return true;
-    } else if ((slowK > 80 || slowd > 80) && slowK < slowD) {
+    if (slowD & slowK ) {
+        if ((slowK < 20 || slowD < 20) & slowK > slowD) {
+            return true;
+        } else if ((slowK > 80 || slowD > 80) && slowK < slowD) {
+            return false;
+        }
+    }
+    return false;
+}
+
+let isSMAGreenIT = (previousQuote, previousSMA10, currentClose, currentSMA10) => {
+    if (previousQuote && previousSMA10 && currentClose && currentSMA10 ) {
+        if (currentClose > currentSMA10 && previousQuote.close < previousSMA10) {
+            return true
+        }
         return false;
     }
+}
+
+let isMACDGreenIT = (previousMacd, currentMacd) => {
+    if (previousMacd && currentMacd) {
+        if (currentMacd.histogram > 0 && previousMacd.histogram < 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+let isSTOCHGreenIT = (previousSlowK, currentSlowK, currentSlowD) => {
+    if (previousSlowK & currentSlowK && currentSlowD) {
+        if ((currentSlowK > 20 && previousSlowK < 20 && currentSlowD < currentSlowK)) {
+            return true;
+        } 
+    }
+    return false;
+}
+
+let is3GreenArrowPositive = (currentQuote, currentDayIndex, quotes) => {
+    if(currentQuote.isSMAGreenIT === true && 
+       currentQuote.isMACDGreenIT === true && 
+       currentQuote.isSTOCHGreenIT === true)  {
+        return true;
+    } else if(currentQuote.isSMAGreenIT === true &&
+              currentQuote.isMACDGreenIT === true &&
+              currentQuote.isSTOCHGreenIT === false){
+       if(isSTOCHGreenITPreviousDays(3, currentDayIndex, quotes)) {
+           return true;
+       } else {
+           return false;
+       }
+    }
+}
+
+let isSTOCHGreenITPreviousDays = () => {
+    return true;
 }
 
 module.exports = {
