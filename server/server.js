@@ -4,7 +4,7 @@ var earningJobs = require('./services/earnings.jobs');
 var quotes = require('./services/quotes');
 var cors = require('cors');
 
-quotes.getHistoricalQuotes('AAPL', '2016-01-01', '2016-12-31');
+quotes.getHistoricalQuotes('AAPL', '2015-12-01', '2016-12-31');
 quotes.getSimpleMovingAverage(5, [1,2,3,4,5,6,7,8,9]);
 
 //earningJobs.populateEarnings('3/16/2017', '1/1/2018');

@@ -13,7 +13,7 @@ let getSimpleMovingAverage = (period, values) => {
         period: 5,
         values: values
     });
-    console.log('SMAs :', smas);
+    //console.log('SMAs :', smas);
 }
 
 let getHistoricalQuotes = (symbol, from, to) => {
@@ -116,8 +116,8 @@ let populateIndicators = (quotes) => {
         let offsetSTOCH = new Array(data.begIndex).fill(undefined)
         talibStochastics.outSlowD = [...offsetSTOCH, ...talibStochastics.outSlowD];
         talibStochastics.outSlowK = [...offsetSTOCH, ...talibStochastics.outSlowK];
-        console.log("Stoch Function Results:");
-        console.log(data.result);
+        //console.log("Stoch Function Results:");
+       // console.log(data.result);
 
 
         //TODO: Use promises
@@ -146,21 +146,48 @@ let populateIndicators = (quotes) => {
             }
         });
 
-        var filterQuotesSMAsGreen = loadedQuotes.filter(q => q.isSMAGreenIT === true);
-        var filterQuotesMACDsGreen = loadedQuotes.filter(q => q.isMACDGreenIT === true);
-        var filterQuotesSTOCHsGreen = loadedQuotes.filter(q => q.isSTOCHGreenIT === true);
-
-        loadedQuotes.map((q,i,quotesArr) => {
+        var loadedQuotesWithArrows = loadedQuotes.map((q,i,quotesArr) => {
             return {
                 date: q.date,
                 open: q.open,
                 close: q.close,
                 high: q.high,
                 low: q.low,
+                histogram: q.histogram,
+                stochasticsK: q.stochasticsK,
+                SMA10: q.SMA10,
                 is3ArrowGreenPositive: is3GreenArrowPositive(q,i,quotesArr)
             }
         });
 
+        loadedQuotesWithArrows = loadedQuotesWithArrows.map((q,i, quotesArr) => {
+            return {
+                date: q.date,
+                open: q.open,
+                close: q.close,
+                high: q.high,
+                low: q.low,
+                is3ArrowGreenPositive: validateGreenArrow(i,quotesArr)
+            }
+        });
+
+        var filterQuotesSMAsGreen = loadedQuotes.filter(q => q.isSMAGreenIT === true);
+        var filterQuotesMACDsGreen = loadedQuotes.filter(q => q.isMACDGreenIT === true);
+        var filterQuotesSTOCHsGreen = loadedQuotes.filter(q => q.isSTOCHGreenIT === true);
+
+        var filterQuotesWith3GreenArrows = loadedQuotesWithArrows.filter(q => q.is3ArrowGreenPositive === true);
+        filterQuotesWith3GreenArrows = filterQuotesWith3GreenArrows.map((q,i, quotesArr) => {
+            return {
+                date: q.date,
+                open: q.open,
+                close: q.close,
+                high: q.high,
+                low: q.low,
+                is3ArrowGreenPositive: validateGreenArrow(q,i,quotesArr)
+            }
+        });
+
+        console.log(filterQuotesWith3GreenArrows);
     });
 
     // talib.execute({
@@ -236,23 +263,134 @@ let isSTOCHGreenIT = (previousSlowK, currentSlowK, currentSlowD) => {
 }
 
 let is3GreenArrowPositive = (currentQuote, currentDayIndex, quotes) => {
-    if(currentQuote.isSMAGreenIT === true && 
+    if(are3IndicatorsPositive(currentQuote)) {
+            return true;
+    } else {
+        if(isSMAreenPositive(currentQuote, 3, currentDayIndex, quotes) &&
+           isMACDGreenPositive(currentQuote, 3, currentDayIndex, quotes) &&
+           isSTOCHGreenPositive(currentQuote, 3, currentDayIndex, quotes) ) {
+               return true;
+           }
+    }
+    return false;
+}
+
+let are3IndicatorsPositive = (currentQuote) => {
+    return currentQuote.isSMAGreenIT === true && 
        currentQuote.isMACDGreenIT === true && 
-       currentQuote.isSTOCHGreenIT === true)  {
+       currentQuote.isSTOCHGreenIT === true;
+}
+
+let isSMAreenPositive = (currentQuote, dayScope, currentDayIndex, quotes) => {
+    if(isSMA10(currentQuote)) {
         return true;
-    } else if(currentQuote.isSMAGreenIT === true &&
-              currentQuote.isMACDGreenIT === true &&
-              currentQuote.isSTOCHGreenIT === false){
-       if(isSTOCHGreenITPreviousDays(3, currentDayIndex, quotes)) {
-           return true;
-       } else {
-           return false;
-       }
+    } else {
+        if(isSMAGreenITPreviousDays(dayScope, currentDayIndex, quotes)){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
-let isSTOCHGreenITPreviousDays = () => {
-    return true;
+let isSMA10 = (currentQuote) => {
+    return currentQuote.isSMAGreenIT === true;
+}
+
+let isSMAGreenITPreviousDays = (daysScope, currentDayIndex, quotes) => {
+    let indexDay = 1;
+    let daysToLookBack = daysScope;
+    while(daysToLookBack > 0){
+            let quote = quotes[currentDayIndex - indexDay];
+            if(quote) {
+                if(quote.isSMAGreenIT === true) {
+                    return true;
+                }
+            }
+            indexDay++;
+            daysToLookBack--;
+    }
+    return false;
+}
+
+let isMACDGreenPositive = (currentQuote, dayScope, currentDayIndex, quotes) => {
+    if(isMACD(currentQuote)) {
+        return true;
+    } else {
+        if(isMACDGreenITPreviousDays(dayScope, currentDayIndex, quotes)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+let isMACD = (currentQuote) => {
+    return currentQuote.isMACDGreenIT === true;
+}
+
+let isMACDGreenITPreviousDays = (daysScope, currentDayIndex, quotes) => {
+    let indexDay = 1;
+    let daysToLookBack = daysScope;
+    while (daysToLookBack > 0) {
+        let quote = quotes[currentDayIndex - indexDay];
+        if (quote) {
+            if (quote.isMACDGreenIT === true) {
+                return true;
+            }
+        }
+
+        indexDay++;
+        daysToLookBack--;
+    }
+    return false;
+}
+
+
+let isSTOCHGreenPositive = (currentQuote, dayScope, currentDayIndex, quotes) => {
+    if(isSTOCH(currentQuote)) {
+        return true;
+    } else {
+        if(isSTOCHGreenITPreviousDays(dayScope, currentDayIndex, quotes)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+let isSTOCH = (currentQuote) => {
+    return currentQuote.isSTOCHGreenIT === true;
+}
+
+let isSTOCHGreenITPreviousDays = (daysScope, currentDayIndex, quotes) => {
+    let indexDay = 1;
+    let daysToLookBack = daysScope;
+    while(daysToLookBack > 0){
+        let quote = quotes[currentDayIndex - indexDay];
+        if(quote) {
+            if(quote.isSTOCHGreenIT === true){
+                return true;
+            }
+        }
+            
+            indexDay++;
+            daysToLookBack--;
+    }
+    return false;
+}
+
+let validateGreenArrow = (currentDayIndex, quotes) => {
+    let currentQuote = quotes[currentDayIndex]
+    if(currentDayIndex > 0){
+        let previousDayQuote = quotes[currentDayIndex - 1];
+        if(currentQuote.is3ArrowGreenPositive === true && 
+           previousDayQuote.is3ArrowGreenPositive === true) {
+            return false;
+        } 
+    }
+
+    return currentQuote.is3ArrowGreenPositive;
 }
 
 module.exports = {
