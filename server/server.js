@@ -10,12 +10,22 @@ quotes.getSimpleMovingAverage(5, [1,2,3,4,5,6,7,8,9]);
 //earningJobs.populateEarnings('3/16/2017', '1/1/2018');
 //var { mongoose } = require('./db/mongoose');
 var { StockEarning } = require('./models/stockEarning');
+var { StockQuote } = require('./models/stockQuote');
+var quotes = require('./services/quotes');
 
 var app = express();
 const port = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+app.get('/quotes', (req, res) => {
+  StockQuote.find().then((stockQuote) => {
+    res.send(stockQuote);
+  }, (e) => {
+    res.status(400).send(e);
+  });
+});
 
 app.post('/earnings', (req, res) => {
   var stockEarning = new StockEarning({
