@@ -2,7 +2,67 @@ const yahooFinance = require('yahoo-finance');
 const SMA = require('technicalindicators').SMA;
 const talib = require("talib")
 const MACD = require('technicalindicators').MACD;
-const Stochastic = require('technicalindicators').Stochastic;
+const _ = require('lodash-node');
+
+let getSMAs = (period, values) => {
+    let offsetSMA = new Array(period -1).fill(undefined);
+    let smas =  SMA.calculate({
+        period: period,
+        values: values
+    });
+    return [...offsetSMA, ...smas];// unshift undefined period - 1 times
+};
+
+let getMACDs = (values, fastPeriod, slowPeriod, signalPeriod,
+                isSimpleMAOscillator, isSimpleMASignal) => {
+    let offsetMACD = new Array(16).fill(undefined);
+
+    let macdInput = {
+        values: values,
+        fastPeriod: 8,
+        slowPeriod: 17,
+        signalPeriod: 9,
+        SimpleMAOscillator: isSimpleMAOscillator, //working with true
+        SimpleMASignal: isSimpleMASignal // working with true
+    }
+
+    let macds = MACD.calculate(macdInput);
+    return [...offsetMACD, ...macds];
+};
+
+let getSTOCHs = (name, slowK_Period, fastK_Period, slowKMAType,
+                 slowD_Period, slowD_MAType, startIdx, endIdx,
+                 highs, lows, closes, resolve, reject ) => {
+
+    talib.execute({
+        name: name,
+        optInSlowK_Period: slowK_Period,
+        optInFastK_Period: fastK_Period,
+        optInSlowK_MAType: slowKMAType,
+        optInSlowD_Period: slowD_Period,
+        optInSlowD_MAType: slowD_MAType,
+        startIdx: startIdx,
+        endIdx: endIdx,
+        high: highs,
+        low: lows,
+        close: closes,
+    }, function(data) {
+        if(data.error != null){
+            reject("Something when wrong getting STOCHs");
+        }
+        let offsetSTOCH = new Array(data.begIndex).fill(undefined);
+        let talibStochastics = data.result;
+        //
+        // talibStochastics.outSlowD = [...offsetSTOCH, ...talibStochastics.outSlowD];
+        // talibStochastics.outSlowK = [...offsetSTOCH, ...talibStochastics.outSlowK];
+
+        resolve({
+            outSlowD: [...offsetSTOCH, ...talibStochastics.outSlowD],
+            outSlowK: [...offsetSTOCH, ...talibStochastics.outSlowK]
+        });
+    });
+
+};
 
 let getSimpleMovingAverage = (period, values) => {
     var smas = SMA.calculate({
@@ -164,7 +224,7 @@ let isSTOCHGreenITPreviousDays = (daysScope, currentDayIndex, quotes) => {
         daysToLookBack--;
     }
     return false;
-}
+};
 
 let validateGreenArrow = (currentDayIndex, quotes) => {
     let currentQuote = quotes[currentDayIndex]
@@ -177,7 +237,66 @@ let validateGreenArrow = (currentDayIndex, quotes) => {
     }
 
     return currentQuote != null ? currentQuote.is3ArrowGreenPositive : false;
-}
+};
+
+let createQuotesWithIndicatorsAndArrowSignals = (quotes,smas,macds,stochs ) => {
+    let loadedQuotes = quotes.map((q, i, quotesArr) => {
+        return {
+            date: q.date,
+            open: q.open,
+            close: q.close,
+            high: q.high,
+            low: q.low,
+            MACD: macds[i] ? macds[i].MACD : 0,
+            MACDSignal: macds[i] ? macds[i].signal : 0,
+            histogram: macds[i] ? macds[i].histogram : 0,
+            stochasticsK: stochs.outSlowK[i] ? stochs.outSlowK[i] : undefined,
+            stochasticsD: stochs.outSlowD[i] ? stochs.outSlowD[i] : undefined,
+            SMA10: smas[i],
+            isSMAGreenIT: isSMAGreenIT(quotesArr[i-1],smas[i-1],q.close,smas[i]),
+            isMACDGreenIT: isMACDGreenIT(macds[i-1],macds[i]),
+            isSTOCHGreenIT: isSTOCHGreenIT(stochs.outSlowK[i-1],
+                stochs.outSlowK[i],
+                stochs.outSlowD[i])
+        }
+    });
+
+    return loadedQuotes.map((q,i,quotesArr) => {
+        return {
+            date: q.date,
+            open: q.open,
+            close: q.close,
+            high: q.high,
+            low: q.low,
+            histogram: q.histogram,
+            stochasticsK: q.stochasticsK,
+            SMA10: q.SMA10,
+            is3ArrowGreenPositive: is3GreenArrowPositive(q,i,quotesArr)
+        }
+    });
+};
+
+let getHistoricalQuotes = (symbol, from, to, resolve, reject)=> {
+    yahooFinance.historical({
+        symbol: symbol,
+        from: from,
+        to: to,
+        // period: 'd'  // 'd' (daily), 'w' (weekly), 'm' (monthly), 'v' (dividends only)
+    }, function(err, quotes) {
+        resolve(quotes);
+       // populateIndicators(quotes);
+
+    });
+};
+
+let getHLC = (quotes) => {
+    return {
+        closes: _.pluck(quotes, 'close'),
+        lows: _.pluck(quotes, 'low'),
+        highs: _.pluck(quotes, 'high')
+    }
+};
+
 
 module.exports = {
     getSimpleMovingAverage,
@@ -196,6 +315,12 @@ module.exports = {
     isSTOCHGreenPositive,
     isSTOCH,
     isSTOCHGreenITPreviousDays,
-    validateGreenArrow
+    validateGreenArrow,
+    getSMAs,
+    getMACDs,
+    getSTOCHs,
+    createQuotesWithIndicatorsAndArrowSignals,
+    getHistoricalQuotes,
+    getHLC
 
 };
