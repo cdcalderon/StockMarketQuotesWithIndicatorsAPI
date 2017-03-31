@@ -1,12 +1,16 @@
 var schedule = require('node-schedule');
+
 const {ObjectID} = require('mongodb');
 const {StockEarning} = require('./../models/stockEarning');
+var { StockQuote } = require('./../models/stockQuote');
+
 const axios = require('axios');
 const yahooFinance = require('yahoo-finance');
 const SMA = require('technicalindicators').SMA;
 const talib = require("talib")
 const MACD = require('technicalindicators').MACD;
 const Stochastic = require('technicalindicators').Stochastic
+
 
 let getSimpleMovingAverage = (period, values) => {
     var smas = SMA.calculate({
@@ -188,6 +192,7 @@ let populateIndicators = (quotes) => {
         });
 
         console.log(filterQuotesWith3GreenArrows);
+        return filterQuotesWith3GreenArrows;
     });
 
     // talib.execute({
@@ -390,7 +395,7 @@ let validateGreenArrow = (currentDayIndex, quotes) => {
         } 
     }
 
-    return currentQuote.is3ArrowGreenPositive;
+    return currentQuote != null ? currentQuote.is3ArrowGreenPositive : false;
 }
 
 module.exports = {
