@@ -290,11 +290,7 @@ let getSTOCHs = (name, slowK_Period, fastK_Period, slowKMAType,
 
 };
 
-
-
 ///////////////////// Quote Request  /////////////////////
-
-
 let getQuoteSnapshot = (symbol, fields) => {
     yahooFinance.snapshot({
         symbol: symbol,
@@ -320,7 +316,6 @@ let getHLC = (quotes) => {
         highs: _.pluck(quotes, 'high')
     }
 };
-
 
 module.exports = {
     getQuoteSnapshot,
