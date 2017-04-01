@@ -47,7 +47,7 @@ var getEarningInformation = (dateString) => {
     return axios.get(`${earningUrl + dateString}`, {
         dateString
     });
-}
+};
 
 var getDatesArray = (startDateString, endDateString) => {
     var start = new Date(startDateString);
@@ -62,7 +62,7 @@ var getDatesArray = (startDateString, endDateString) => {
         datesArray.push(startDateString);
     }
     return datesArray;
-}
+};
 
 var insertEarning = (earnings, event, symbol, dateString) => {
     if (!earnings.length) {
@@ -77,7 +77,7 @@ var insertEarning = (earnings, event, symbol, dateString) => {
     } else {
         console.log('exits, so i can not add it');
     }
-}
+};
 
 var createStockEarning = (event, symbol, dateString) => {
     return new StockEarning({
@@ -105,6 +105,6 @@ var createStockEarning = (event, symbol, dateString) => {
             isConfirmed: event.isConfirmed
 
         });
-}
+};
 
 module.exports.populateEarnings = populateEarnings;
