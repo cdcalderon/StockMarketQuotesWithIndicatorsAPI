@@ -26,7 +26,7 @@ let createQuotesWithIndicatorsAndArrowSignals = (quotes,smas,macds,stochs ) => {
         }
     });
 
-    loadedQuotes =  loadedQuotes.map((q,i,quotesArr) => {
+    loadedQuotes = loadedQuotes.map((q,i,quotesArr) => {
         return {
             date: q.date,
             open: q.open,
@@ -55,7 +55,22 @@ let createQuotesWithIndicatorsAndArrowSignals = (quotes,smas,macds,stochs ) => {
     });
 };
 
+let calculateIsGreenArrow = (previousQuote, previousSMA10, currentClose, currentSMA10,
+                             previousMacd, currentMacd,
+                             previousSlowK, currentSlowK, currentSlowD,
+                             currentQuote, currentDayIndex, quotes) => {
+    let isSMAGreen = isSMAGreenIT(previousQuote, previousSMA10, currentClose, currentSMA10);
+    let isMACDGreen = isMACDGreenIT(previousMacd, currentMacd);
+    let isSTOCHGreen = isSTOCHGreenIT(previousSlowK, currentSlowK, currentSlowD);
 
+    return is3GreenArrowPositive({
+        isSMAGreenIT: isSMAGreen,
+        isMACDGreenIT: isMACDGreen,
+        isSTOCHGreenIT: isSTOCHGreen
+    },currentDayIndex,quotes);
+};
+
+// 3 arrows Algorithm
 let isSMAGreenIT = (previousQuote, previousSMA10, currentClose, currentSMA10) => {
     if (previousQuote && previousSMA10 && currentClose && currentSMA10 ) {
         if (currentClose > currentSMA10 && previousQuote.close < previousSMA10) {
@@ -83,8 +98,6 @@ let isSTOCHGreenIT = (previousSlowK, currentSlowK, currentSlowD) => {
     }
     return false;
 };
-
-
 
 let is3GreenArrowPositive = (currentQuote, currentDayIndex, quotes) => {
     if(are3IndicatorsPositive(currentQuote)) {
@@ -205,7 +218,7 @@ let isSTOCHGreenITPreviousDays = (daysScope, currentDayIndex, quotes) => {
 };
 
 let validateGreenArrow = (currentDayIndex, quotes) => {
-    let currentQuote = quotes[currentDayIndex]
+    let currentQuote = quotes[currentDayIndex];
     if(currentDayIndex > 0){
         let previousDayQuote = quotes[currentDayIndex - 1];
         if(currentQuote.is3ArrowGreenPositive === true &&
@@ -216,13 +229,6 @@ let validateGreenArrow = (currentDayIndex, quotes) => {
 
     return currentQuote != null ? currentQuote.is3ArrowGreenPositive : false;
 };
-
-
-
-
-
-
-
 
 
 ///////////////////////    Indicators   /////////////////////////////
@@ -314,21 +320,6 @@ let getHLC = (quotes) => {
         highs: _.pluck(quotes, 'high')
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 module.exports = {
