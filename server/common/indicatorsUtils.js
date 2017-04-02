@@ -3,6 +3,7 @@ const SMA = require('technicalindicators').SMA;
 const talib = require("talib")
 const MACD = require('technicalindicators').MACD;
 const _ = require('lodash-node');
+var moment = require('moment');
 
 let createQuotesWithIndicatorsAndArrowSignals = (quotes,smas,macds,stochs ) => {
     let loadedQuotes = quotes.map((q, i, quotesArr) => {
@@ -35,20 +36,24 @@ let createQuotesWithIndicatorsAndArrowSignals = (quotes,smas,macds,stochs ) => {
             low: q.low,
             histogram: q.histogram,
             stochasticsK: q.stochasticsK,
+            stochasticsD: q.stochasticsD,
             SMA10: q.SMA10,
             is3ArrowGreenPositive: is3GreenArrowPositive(q,i,quotesArr)
         }
     });
 
     return loadedQuotes.map((q,i, quotesArr) => {
+        var dataA = moment(q.date).utc();
         return {
+            timeStampDate: dataA.valueOf(),
             date: q.date,
             open: q.open,
             close: q.close,
             high: q.high,
             low: q.low,
-            istogram: q.histogram,
+            histogram: q.histogram,
             stochasticsK: q.stochasticsK,
+            stochasticsD: q.stochasticsD,
             SMA10: q.SMA10,
             is3ArrowGreenPositive: validateGreenArrow(i,quotesArr)
         }
