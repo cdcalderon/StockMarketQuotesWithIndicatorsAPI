@@ -62,29 +62,58 @@ app.get('/marks', (req, res) => {
         .then(quotes.getIndicators)
         .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
         .then((fullQuotes) => {
-        var signals = fullQuotes.filter((q) => {
+
+        //3 arrows signals
+        let signals = fullQuotes.filter((q) => {
            return q.is3ArrowGreenPositive === true;
         }).map((q, i) => {
             return {
                 id:i,
                 time:q.timeStampDate,
                 color:"green",
-                text:"test",
-                label:"labeltest",
+                text:"3 Green Arrows",
+                label:"^",
                 labelFontColor:"black",
                 minSize:20
             }
         });
 
-        let marks = {
-            id: _.pluck(signals, 'id'),
-            time: _.pluck(signals, 'time'),
-            color: _.pluck(signals, 'color'),
-            text: _.pluck(signals, 'text'),
-            label: _.pluck(signals, 'label'),
-            labelFontColor: _.pluck(signals, 'labelFontColor'),
-            minSize: _.pluck(signals, 'minSize')
-        };
+
+        let gapSignals = fullQuotes.filter((q,i,qts) => {
+            let diffCriteria = getDiffAmount(q);
+            let diffCriteriaPercent = q.close * .10;
+            if(i > 0) {
+                let diffBetweenCurrentPreviousClose = Math.abs((q.close - qts[i-1].close));
+                let diffBetweenCurrentOpenPreviousClose = Math.abs((q.open - qts[i-1].close));
+                return ((diffBetweenCurrentPreviousClose > diffCriteria) || (diffBetweenCurrentPreviousClose >= diffCriteriaPercent)) &&
+                       ((diffBetweenCurrentOpenPreviousClose > diffCriteria) || (diffBetweenCurrentOpenPreviousClose >= diffCriteriaPercent));
+            }
+            return false;
+         }).map((q, i) => {
+             return {
+                 id:i,
+                 time:q.timeStampDate,
+                 color:"blue",
+                 text:"Gap",
+                 label:"G",
+                 labelFontColor:"black",
+                 minSize:20
+             }
+         });
+
+        let mergedSignals = gapSignals.concat(signals);
+
+            mergedSignals = _.sortBy(mergedSignals, [function(o) { return o.time; }]);
+
+            let marks = {
+                id: _.pluck(mergedSignals, 'id'),
+                time: _.pluck(mergedSignals, 'time'),
+                color: _.pluck(mergedSignals, 'color'),
+                text: _.pluck(mergedSignals, 'text'),
+                label: _.pluck(mergedSignals, 'label'),
+                labelFontColor: _.pluck(mergedSignals, 'labelFontColor'),
+                minSize: _.pluck(mergedSignals, 'minSize')
+            };
             res.send(marks);
         })
         .catch((error) => {
@@ -106,6 +135,33 @@ app.get('/marks', (req, res) => {
     //     res.send(err)
     // });
 });
+
+let notReturn = (qToday, qYesterday)=> {
+    if(qToday.open > qYesterday.close) {
+        if(qToday.close > qYesterday.close && qToday.close > qYesterday.open) {
+            return true
+        }
+    }
+
+    if(qToday.open < qYesterday.close) {
+        if(qToday.close < qYesterday.close && qToday.close < qYesterday.open) {
+            return true
+        }
+    }
+
+};
+
+let getDiffAmount = (q) => {
+    if(q.close > 0  && q.close < 200) {
+        return 3.5;
+    } else if (q.close > 200 && q.close < 400){
+        return 5;
+    } else if(q.close > 400 && q.close < 600) {
+        return 6.5
+    } else if(q.close > 600) {
+        return 8
+    }
+};
 
 app.get('/timescale_marks', (req, res) => {
     let symbol = req.query.symbol;
