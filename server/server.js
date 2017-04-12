@@ -2,9 +2,18 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var quotes = require('./services/quotes.jobs');
 var cors = require('cors');
+var querystring = require('querystring');
+const _ = require('lodash-node');
 
 var { StockQuote } = require('./models/stockQuote');
 var quotes = require('./services/quotes.jobs');
+const axios = require('axios');
+const historyQuotes = 'https://demo_feed.tradingview.com/history';
+const symbolsQuotes = 'https://demo_feed.tradingview.com/symbols';
+const marksQuotes = 'https://demo_feed.tradingview.com/marks';
+const timescale_marksQuotes = 'https://demo_feed.tradingview.com/timescale_marks';
+const configQuotes = 'https://demo_feed.tradingview.com/config';
+
 
 var app = express();
 const port = process.env.PORT || 4000;
@@ -13,7 +22,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/quotes', (req, res) => {
-    quotes.getHistoricalQuotes('AAPL', '2015-12-01', '2016-12-31')
+    quotes.getHistoricalQuotes(req.query.symbol, req.query.from, req.query.to)
         .then(quotes.getIndicators)
         .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
         .then((fullQuotes) => {
@@ -21,10 +30,187 @@ app.get('/quotes', (req, res) => {
         });
 });
 
+app.get('/config', (req, res) => {
+    res.send(tradingViewConfig);
+    // axios.get(configQuotes).then(function(data) {
+    //     res.send(data.data)
+    // }).catch(function(err){
+    //     res.send(err)
+    // });
+});
 
+app.get('/symbols', (req, res) => {
+    let symbol = req.query.symbol;
+
+    axios.get(symbolsQuotes, {
+        params: {
+            symbol: symbol
+        }
+    }).then(function(data) {
+        res.send(data.data)
+    }).catch(function(err){
+        res.send(err)
+    });
+});
+
+app.get('/marks', (req, res) => {
+    let symbol = req.query.symbol;
+    let resolution = req.query.resolution;
+    let from = new Date(req.query.from);
+    let to = new Date(req.query.to);
+    quotes.getHistoricalQuotes(symbol, from, to)
+        .then(quotes.getIndicators)
+        .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
+        .then((fullQuotes) => {
+        var signals = fullQuotes.filter((q) => {
+           return q.is3ArrowGreenPositive === true;
+        }).map((q, i) => {
+            return {
+                id:i,
+                time:q.timeStampDate,
+                color:"green",
+                text:"test",
+                label:"labeltest",
+                labelFontColor:"black",
+                minSize:20
+            }
+        });
+
+        let marks = {
+            id: _.pluck(signals, 'id'),
+            time: _.pluck(signals, 'time'),
+            color: _.pluck(signals, 'color'),
+            text: _.pluck(signals, 'text'),
+            label: _.pluck(signals, 'label'),
+            labelFontColor: _.pluck(signals, 'labelFontColor'),
+            minSize: _.pluck(signals, 'minSize')
+        };
+            res.send(marks);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+    // let symbol = req.query.symbol;
+    // let resolution = req.query.resolution;
+    // let from = req.query.from;
+    // let to = req.query.to;
+    //
+    // axios.get(marksQuotes, {
+    //     params: {
+    //         symbol: symbol, resolution: resolution, from: from, tom: to
+    //     }
+    // }).then(function(data) {
+    //     res.send(data.data)
+    // }).catch(function(err){
+    //     res.send(err)
+    // });
+});
+
+app.get('/timescale_marks', (req, res) => {
+    let symbol = req.query.symbol;
+    let resolution = req.query.resolution;
+    let from = new Date(req.query.from);
+    let to = new Date(req.query.to);
+
+    axios.get(timescale_marksQuotes, {
+        params: {
+            symbol: symbol, resolution: resolution, from: from, tom: to
+        }
+    }).then(function(data) {
+        res.send(data.data)
+    }).catch(function(err){
+        res.send(err)
+    });
+});
+
+app.get('/history', (req, res) => {
+    let symbol = req.query.symbol;
+    let resolution = req.query.resolution;
+    let from = req.query.from;
+    let to = req.query.to;
+
+    axios.get(historyQuotes, {
+        params: {
+            symbol: symbol, resolution: resolution, from: from, tom: to
+        }
+    }).then(function(data) {
+        res.send(data.data)
+    }).catch(function(err){
+        res.send(err)
+    });
+});
 
 app.listen(port, () => {
   console.log(`Started up at port ${port}`)
 });
 
 module.exports = { app };
+
+let tradingViewConfig = `{
+    "supports_search": true,
+        "supports_group_request": false,
+        "supports_marks": true,
+        "supports_timescale_marks": true,
+        "supports_time": true,
+        "exchanges": [
+        {
+            "value": "",
+            "name": "All Exchanges",
+            "desc": ""
+        },
+        {
+            "value": "XETRA",
+            "name": "XETRA",
+            "desc": "XETRA"
+        },
+        {
+            "value": "NSE",
+            "name": "NSE",
+            "desc": "NSE"
+        },
+        {
+            "value": "NasdaqNM",
+            "name": "NasdaqNM",
+            "desc": "NasdaqNM"
+        },
+        {
+            "value": "NYSE",
+            "name": "NYSE",
+            "desc": "NYSE"
+        },
+        {
+            "value": "CDNX",
+            "name": "CDNX",
+            "desc": "CDNX"
+        },
+        {
+            "value": "Stuttgart",
+            "name": "Stuttgart",
+            "desc": "Stuttgart"
+        }
+    ],
+        "symbolsTypes": [
+        {
+            "name": "All types",
+            "value": ""
+        },
+        {
+            "name": "Stock",
+            "value": "stock"
+        },
+        {
+            "name": "Index",
+            "value": "index"
+        }
+    ],
+        "supportedResolutions": [
+        "D",
+        "2D",
+        "3D",
+        "W",
+        "3W",
+        "M",
+        "6M"
+    ]
+}`;

@@ -45,7 +45,7 @@ let createQuotesWithIndicatorsAndArrowSignals = (quotes,smas,macds,stochs ) => {
     return loadedQuotes.map((q,i, quotesArr) => {
         var dataA = moment(q.date).utc();
         return {
-            timeStampDate: dataA.valueOf(),
+            timeStampDate: dataA.valueOf() / 1000,
             date: q.date,
             open: q.open,
             close: q.close,
