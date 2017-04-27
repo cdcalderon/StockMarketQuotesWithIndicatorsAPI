@@ -21,6 +21,28 @@ const port = process.env.PORT || 4000;
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get('/signals', (req, res) => {
+    let signals = [
+          {
+            id: 'PNRA',
+            date: '04/07/2017',
+            type: 'Carlos Special'
+          },
+          {
+            id: 'CMG',
+            date: '05/07/2016',
+            type: 'Gap'
+          },
+          {
+            id: 'PLCE',
+            date: '02/07/2017',
+            type: '3-Arrow'
+          }
+        ];
+    res.send(signals);
+
+});
+
 app.get('/quotes', (req, res) => {
     quotes.getHistoricalQuotes(req.query.symbol, req.query.from, req.query.to)
         .then(quotes.getIndicators)
@@ -207,7 +229,7 @@ let tradingViewConfig = `{
     "supports_search": true,
         "supports_group_request": false,
         "supports_marks": true,
-        "supports_timescale_marks": true,
+        "supports_timescale_marks": false,
         "supports_time": true,
         "exchanges": [
         {
