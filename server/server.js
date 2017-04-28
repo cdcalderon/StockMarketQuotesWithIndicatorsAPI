@@ -22,24 +22,25 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/signals', (req, res) => {
-    let signals = [
-          {
-            id: 'PNRA',
-            date: '04/07/2017',
-            type: 'Carlos Special'
-          },
-          {
-            id: 'CMG',
-            date: '05/07/2016',
-            type: 'Gap'
-          },
-          {
-            id: 'PLCE',
-            date: '02/07/2017',
-            type: '3-Arrow'
-          }
-        ];
-    res.send(signals);
+    let symbol = req.query.symbol;
+    let from = new Date(req.query.from);
+    let to = new Date(req.query.to);
+    quotes.getHistoricalQuotes(symbol, from, to)
+        .then(quotes.getIndicators)
+        .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
+        .then((fullQuotes) => {
+
+            let threeArrowSignals = getThreeArrowSignals(fullQuotes);
+
+            let gapSignals = getGapSignals(fullQuotes);
+
+            let mergedSignals = mergeSignalsAndSortByTime(gapSignals, threeArrowSignals);
+
+            res.send(mergedSignals);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 
 });
 
@@ -85,77 +86,19 @@ app.get('/marks', (req, res) => {
         .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
         .then((fullQuotes) => {
 
-        //3 arrows signals
-        let signals = fullQuotes.filter((q) => {
-           return q.is3ArrowGreenPositive === true;
-        }).map((q, i) => {
-            return {
-                id:i,
-                time:q.timeStampDate,
-                color:"green",
-                text:"3 Green Arrows",
-                label:"^",
-                labelFontColor:"black",
-                minSize:20
-            }
-        });
+        let threeArrowSignals = getThreeArrowChartMarks(fullQuotes);
 
+        let gapSignals = getGapChartMarks(fullQuotes);
 
-        let gapSignals = fullQuotes.filter((q,i,qts) => {
-            let diffCriteria = getDiffAmount(q);
-            let diffCriteriaPercent = q.close * .10;
-            if(i > 0) {
-                let diffBetweenCurrentPreviousClose = Math.abs((q.close - qts[i-1].close));
-                let diffBetweenCurrentOpenPreviousClose = Math.abs((q.open - qts[i-1].close));
-                return ((diffBetweenCurrentPreviousClose > diffCriteria) || (diffBetweenCurrentPreviousClose >= diffCriteriaPercent)) &&
-                       ((diffBetweenCurrentOpenPreviousClose > diffCriteria) || (diffBetweenCurrentOpenPreviousClose >= diffCriteriaPercent));
-            }
-            return false;
-         }).map((q, i) => {
-             return {
-                 id:i,
-                 time:q.timeStampDate,
-                 color:"blue",
-                 text:"Gap",
-                 label:"G",
-                 labelFontColor:"black",
-                 minSize:20
-             }
-         });
+        let mergedSignals = mergeSignalsAndSortByTime(gapSignals, threeArrowSignals);
 
-        let mergedSignals = gapSignals.concat(signals);
+        let marks = formatMarksResult(mergedSignals);
 
-            mergedSignals = _.sortBy(mergedSignals, [function(o) { return o.time; }]);
-
-            let marks = {
-                id: _.pluck(mergedSignals, 'id'),
-                time: _.pluck(mergedSignals, 'time'),
-                color: _.pluck(mergedSignals, 'color'),
-                text: _.pluck(mergedSignals, 'text'),
-                label: _.pluck(mergedSignals, 'label'),
-                labelFontColor: _.pluck(mergedSignals, 'labelFontColor'),
-                minSize: _.pluck(mergedSignals, 'minSize')
-            };
-            res.send(marks);
+        res.send(marks);
         })
         .catch((error) => {
             console.log(error);
         });
-
-    // let symbol = req.query.symbol;
-    // let resolution = req.query.resolution;
-    // let from = req.query.from;
-    // let to = req.query.to;
-    //
-    // axios.get(marksQuotes, {
-    //     params: {
-    //         symbol: symbol, resolution: resolution, from: from, tom: to
-    //     }
-    // }).then(function(data) {
-    //     res.send(data.data)
-    // }).catch(function(err){
-    //     res.send(err)
-    // });
 });
 
 let notReturn = (qToday, qYesterday)=> {
@@ -219,9 +162,121 @@ app.get('/history', (req, res) => {
     });
 });
 
+// Helper functions , NOTE: refactor and move to helper library
+
+function getThreeArrowSignals(fullQuotes){
+    return fullQuotes.filter((q) => {
+        return q.is3ArrowGreenPositive === true;
+    }).map((q, i) => {
+        return formatSignals(q, i, '3arrow', 2);
+    });
+}
+
+function getGapSignals(fullQuotes) {
+    return fullQuotes.filter((q,i,qts) => {
+        let diffCriteria = getDiffAmount(q);
+        let diffCriteriaPercent = q.close * .10;
+        if(i > 0) {
+            let diffBetweenCurrentPreviousClose = Math.abs((q.close - qts[i-1].close));
+            let diffBetweenCurrentOpenPreviousClose = Math.abs((q.open - qts[i-1].close));
+            return ((diffBetweenCurrentPreviousClose > diffCriteria) || (diffBetweenCurrentPreviousClose >= diffCriteriaPercent)) &&
+                ((diffBetweenCurrentOpenPreviousClose > diffCriteria) || (diffBetweenCurrentOpenPreviousClose >= diffCriteriaPercent));
+        }
+        return false;
+    }).map((q, i) => {
+        return formatSignals(q, i, 'gap', 1);
+    });
+}
+
+function getThreeArrowChartMarks(fullQuotes){
+    return fullQuotes.filter((q) => {
+        return q.is3ArrowGreenPositive === true;
+    }).map((q, i) => {
+        return formatThreeArrowChartMark(q, i);
+    });
+}
+
+function getGapChartMarks(fullQuotes) {
+   return fullQuotes.filter((q,i,qts) => {
+        let diffCriteria = getDiffAmount(q);
+        let diffCriteriaPercent = q.close * .10;
+        if(i > 0) {
+            let diffBetweenCurrentPreviousClose = Math.abs((q.close - qts[i-1].close));
+            let diffBetweenCurrentOpenPreviousClose = Math.abs((q.open - qts[i-1].close));
+            return ((diffBetweenCurrentPreviousClose > diffCriteria) || (diffBetweenCurrentPreviousClose >= diffCriteriaPercent)) &&
+                ((diffBetweenCurrentOpenPreviousClose > diffCriteria) || (diffBetweenCurrentOpenPreviousClose >= diffCriteriaPercent));
+        }
+        return false;
+    }).map((q, i) => {
+        return formatGapChartMark(q,i);
+    });
+}
+
+
+function formatSignals(quote, index, typeName, typeId){
+    return {
+        id:index,
+        date: quote.date,
+        time:quote.timeStampDate,
+        typeName: typeName,
+        typeId: typeId,
+        open: quote.open,
+        close: quote.close,
+        high: quote.high,
+        low: quote.low,
+        histogram: quote.histogram,
+        stochasticsK: quote.stochasticsK,
+        SMA10: quote.SMA10
+    }
+}
+
+function formatGapChartMark(quote, index){
+    return {
+        id:index,
+        time:quote.timeStampDate,
+        color:"blue",
+        text:"Gap",
+        label:"G",
+        labelFontColor:"black",
+        minSize:20
+    }
+}
+
+function formatThreeArrowChartMark(quote, index){
+    return {
+        id:index,
+        time:quote.timeStampDate,
+        color:"green",
+        text:"3 Green Arrows",
+        label:"^",
+        labelFontColor:"black",
+        minSize:20
+    }
+}
+
+function mergeSignalsAndSortByTime(signalsSet1, signalsSet2 ){
+    let mergedSignals = signalsSet1.concat(signalsSet2);
+
+    return _.sortBy(mergedSignals, [function(o) { return o.time; }]);
+}
+
+function formatMarksResult(signals){
+    return {
+        id: _.pluck(signals, 'id'),
+        time: _.pluck(signals, 'time'),
+        color: _.pluck(signals, 'color'),
+        text: _.pluck(signals, 'text'),
+        label: _.pluck(signals, 'label'),
+        labelFontColor: _.pluck(signals, 'labelFontColor'),
+        minSize: _.pluck(signals, 'minSize')
+    }
+}
+
 app.listen(port, () => {
   console.log(`Started up at port ${port}`)
 });
+
+
 
 module.exports = { app };
 
