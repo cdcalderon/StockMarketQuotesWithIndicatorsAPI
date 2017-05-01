@@ -55,11 +55,6 @@ app.get('/quotes', (req, res) => {
 
 app.get('/config', (req, res) => {
     res.send(tradingViewConfig);
-    // axios.get(configQuotes).then(function(data) {
-    //     res.send(data.data)
-    // }).catch(function(err){
-    //     res.send(err)
-    // });
 });
 
 app.get('/symbols', (req, res) => {
