@@ -21,7 +21,16 @@ const port = process.env.PORT || 4000;
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get('/threearrowsignals', (req, res) => {
+    let symbol = req.query.symbol;
+    let from = new Date(req.query.from);
+    let to = new Date(req.query.to);
 
+    getThreeArrowSignal(from, to , symbol).then((result) => {
+        console.log(result);
+    });
+
+});
 
 app.get('/signals', (req, res) => {
     let symbol = req.query.symbol;
