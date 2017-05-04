@@ -21,6 +21,8 @@ const port = process.env.PORT || 4000;
 app.use(cors());
 app.use(bodyParser.json());
 
+
+
 app.get('/signals', (req, res) => {
     let symbol = req.query.symbol;
     let from = new Date(req.query.from);
@@ -95,6 +97,17 @@ app.get('/marks', (req, res) => {
             console.log(error);
         });
 });
+
+let getThreeArrowSignal = (from, to, symbol) => {
+    quotes.getHistoricalQuotes(symbol, from, to)
+        .then(quotes.getIndicators)
+        .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
+        .then((fullQuotes) => {
+
+            return  getThreeArrowChartMarks(fullQuotes);
+
+        });
+};
 
 let notReturn = (qToday, qYesterday)=> {
     if(qToday.open > qYesterday.close) {
