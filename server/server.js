@@ -4,6 +4,7 @@ var quotes = require('./services/quotes.jobs');
 var cors = require('cors');
 var querystring = require('querystring');
 const _ = require('lodash-node');
+var { mongoose } = require('./db/mongoose');
 
 var { StockQuote } = require('./models/stockQuote');
 var quotes = require('./services/quotes.jobs');
@@ -20,6 +21,8 @@ const port = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+quotes.populateThreeArrowSignal("01/01/16", "04/04/17", "aapl");
 
 app.get('/threearrowsignals', (req, res) => {
     let symbol = req.query.symbol;

@@ -1,5 +1,5 @@
 const indicatorsUtils = require('../common/indicatorsUtils');
-
+const { StockQuote } = require('./../models/stockQuote');
 
 let getHistoricalQuotes = (symbol, from, to, resolve, reject) => {
     return Promise.resolve(indicatorsUtils.getHistoricalQuotes(symbol,from,to,resolve, reject));
@@ -51,8 +51,46 @@ let createQuotesWithIndicatorsAndArrowSignals = (indicators) => {
       stochs));
 };
 
+let populateThreeArrowSignal = (from, to, symbol) => {
+    getHistoricalQuotes(symbol, from, to)
+        .then(getIndicators)
+        .then(createQuotesWithIndicatorsAndArrowSignals)
+        .then((fullQuotes) => {
+
+            fullQuotes = fullQuotes.filter((q) => {
+                return q.is3ArrowGreenPositive === true;
+            });
+
+            for(quote of fullQuotes) {
+
+                let sQuote = new StockQuote({
+                    symbol:symbol,
+                    dateStr: quote.date,
+                    open: quote.open,
+                    high: quote.high,
+                    low: quote.low,
+                    close: quote.close,
+                    movingAvg10: quote.SMA10,
+                    stochasticsK: quote.stochasticsK,
+                    stochasticsD: quote.stochasticsD,
+                    macdHistogram: quote.histogram,
+                    isGreenArrow: quote.is3ArrowGreenPositive,
+                });
+
+                sQuote.save().then((doc) => {
+                    console.log('success saving.. : ', doc);
+                }, (e) => {
+                    console.log('error saving.. : ', e);
+                });
+
+            }
+
+        });
+};
+
 module.exports = {
     getHistoricalQuotes,
     getIndicators,
-    createQuotesWithIndicatorsAndArrowSignals
+    createQuotesWithIndicatorsAndArrowSignals,
+    populateThreeArrowSignal
 };
