@@ -1,5 +1,5 @@
 {
-  "name": "stock-market-node-quotes-with-indicators-api",
+  "name": "stock-market-quote-with-indicators",
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",

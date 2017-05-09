@@ -22,15 +22,16 @@ const port = process.env.PORT || 4000;
 app.use(cors());
 app.use(bodyParser.json());
 
-quotes.populateThreeArrowSignal("01/01/16", "04/04/17", "aapl");
+//quotes.populateThreeArrowSignal("01/01/16", "04/04/17", "aapl");
 
 app.get('/threearrowsignals', (req, res) => {
     let symbol = req.query.symbol;
     let from = new Date(req.query.from);
     let to = new Date(req.query.to);
 
-    getThreeArrowSignal(from, to , symbol).then((result) => {
+    getThreeArrowSignalRequest(from, to , symbol).then((result) => {
         console.log(result);
+        res.send(result);
     });
 
 });
@@ -110,8 +111,8 @@ app.get('/marks', (req, res) => {
         });
 });
 
-let getThreeArrowSignal = (from, to, symbol) => {
-    quotes.getHistoricalQuotes(symbol, from, to)
+let getThreeArrowSignalRequest = (from, to, symbol) => {
+    return quotes.getHistoricalQuotes(symbol, from, to)
         .then(quotes.getIndicators)
         .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
         .then((fullQuotes) => {
