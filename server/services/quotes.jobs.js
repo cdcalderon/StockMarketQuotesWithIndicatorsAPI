@@ -52,7 +52,7 @@ let createQuotesWithIndicatorsAndArrowSignals = (indicators) => {
 };
 
 let populateThreeArrowSignal = (from, to, symbol) => {
-    getHistoricalQuotes(symbol, from, to)
+    return getHistoricalQuotes(symbol, from, to)
         .then(getIndicators)
         .then(createQuotesWithIndicatorsAndArrowSignals)
         .then((fullQuotes) => {
@@ -85,6 +85,7 @@ let populateThreeArrowSignal = (from, to, symbol) => {
 
             }
 
+            return 1;
         });
 };
 

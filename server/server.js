@@ -29,11 +29,11 @@ app.get('/threearrowsignals', (req, res) => {
     let from = new Date(req.query.from);
     let to = new Date(req.query.to);
 
-    getThreeArrowSignalRequest(from, to , symbol).then((result) => {
-        console.log(result);
-        res.send(result);
-    });
-
+    quotes.populateThreeArrowSignal(from, to, symbol)
+        .then((result) => {
+        console.log(`about to send response::  ${result}` );
+            res.send("OK");
+        });
 });
 
 app.get('/signals', (req, res) => {
