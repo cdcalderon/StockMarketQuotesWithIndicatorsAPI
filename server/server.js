@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 //quotes.populateThreeArrowSignal("01/01/16", "04/04/17", "aapl");
 
-app.get('/threearrowsignals', (req, res) => {
+app.post('/threearrowsignals', (req, res) => {
     let symbol = req.query.symbol;
     let from = new Date(req.query.from);
     let to = new Date(req.query.to);
@@ -34,6 +34,16 @@ app.get('/threearrowsignals', (req, res) => {
         console.log(`about to send response::  ${result}` );
             res.send("OK");
         });
+});
+
+app.get('/threearrowsignals', (req, res) => {
+    let symbol = req.query.symbol;
+    let from = new Date(req.query.from);
+    let to = new Date(req.query.to);
+
+    StockQuote.find().then((stockQuotes) => {
+        res.send(stockQuotes)
+    });
 });
 
 app.get('/signals', (req, res) => {
@@ -111,6 +121,40 @@ app.get('/marks', (req, res) => {
         });
 });
 
+app.get('/timescale_marks', (req, res) => {
+    let symbol = req.query.symbol;
+    let resolution = req.query.resolution;
+    let from = new Date(req.query.from);
+    let to = new Date(req.query.to);
+
+    axios.get(timescale_marksQuotes, {
+        params: {
+            symbol: symbol, resolution: resolution, from: from, tom: to
+        }
+    }).then(function(data) {
+        res.send(data.data)
+    }).catch(function(err){
+        res.send(err)
+    });
+});
+
+app.get('/history', (req, res) => {
+    let symbol = req.query.symbol;
+    let resolution = req.query.resolution;
+    let from = req.query.from;
+    let to = req.query.to;
+
+    axios.get(historyQuotes, {
+        params: {
+            symbol: symbol, resolution: resolution, from: from, tom: to
+        }
+    }).then(function(data) {
+        res.send(data.data)
+    }).catch(function(err){
+        res.send(err)
+    });
+});
+
 let getThreeArrowSignalRequest = (from, to, symbol) => {
     return quotes.getHistoricalQuotes(symbol, from, to)
         .then(quotes.getIndicators)
@@ -149,39 +193,7 @@ let getDiffAmount = (q) => {
     }
 };
 
-app.get('/timescale_marks', (req, res) => {
-    let symbol = req.query.symbol;
-    let resolution = req.query.resolution;
-    let from = new Date(req.query.from);
-    let to = new Date(req.query.to);
 
-    axios.get(timescale_marksQuotes, {
-        params: {
-            symbol: symbol, resolution: resolution, from: from, tom: to
-        }
-    }).then(function(data) {
-        res.send(data.data)
-    }).catch(function(err){
-        res.send(err)
-    });
-});
-
-app.get('/history', (req, res) => {
-    let symbol = req.query.symbol;
-    let resolution = req.query.resolution;
-    let from = req.query.from;
-    let to = req.query.to;
-
-    axios.get(historyQuotes, {
-        params: {
-            symbol: symbol, resolution: resolution, from: from, tom: to
-        }
-    }).then(function(data) {
-        res.send(data.data)
-    }).catch(function(err){
-        res.send(err)
-    });
-});
 
 // Helper functions , NOTE: refactor and move to helper library
 
