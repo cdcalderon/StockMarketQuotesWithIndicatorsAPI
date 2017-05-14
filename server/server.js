@@ -25,9 +25,9 @@ app.use(bodyParser.json());
 //quotes.populateThreeArrowSignal("01/01/16", "04/04/17", "aapl");
 
 app.post('/threearrowsignals', (req, res) => {
-    let symbol = req.query.symbol;
-    let from = new Date(req.query.from);
-    let to = new Date(req.query.to);
+    let symbol = req.body.params.symbol;
+    let from = new Date(req.body.params.from);
+    let to = new Date(req.body.params.to);
 
     quotes.populateThreeArrowSignal(from, to, symbol)
         .then((result) => {
