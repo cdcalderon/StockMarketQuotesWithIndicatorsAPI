@@ -1,5 +1,6 @@
 const indicatorsUtils = require('../common/indicatorsUtils');
 const { StockQuote } = require('./../models/stockQuote');
+const moment = require('moment');
 
 let getHistoricalQuotes = (symbol, from, to, resolve, reject) => {
     return Promise.resolve(indicatorsUtils.getHistoricalQuotes(symbol,from,to,resolve, reject));
