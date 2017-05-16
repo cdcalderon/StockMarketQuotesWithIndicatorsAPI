@@ -138,6 +138,8 @@ app.get('/timescale_marks', (req, res) => {
     });
 });
 
+//Implement new yahoo UDP quotes service
+//https://github.com/tradingview/yahoo_datafeed/blob/master/yahoo.js
 app.get('/history', (req, res) => {
     let symbol = req.query.symbol;
     let resolution = req.query.resolution;
