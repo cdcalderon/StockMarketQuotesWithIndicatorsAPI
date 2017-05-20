@@ -16,7 +16,6 @@ const timescale_marksQuotes = 'https://demo_feed.tradingview.com/timescale_marks
 const configQuotes = 'https://demo_feed.tradingview.com/config';
 const moment = require('moment');
 
-
 var app = express();
 const port = process.env.PORT || 4000;
 
