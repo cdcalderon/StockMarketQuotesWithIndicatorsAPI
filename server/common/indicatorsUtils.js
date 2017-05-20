@@ -4,6 +4,7 @@ const talib = require("talib")
 const MACD = require('technicalindicators').MACD;
 const _ = require('lodash-node');
 var moment = require('moment');
+var googleFinance = require('google-finance');
 
 let createQuotesWithIndicatorsAndArrowSignals = (quotes,smas,macds,stochs ) => {
     let loadedQuotes = quotes.map((q, i, quotesArr) => {
@@ -306,12 +307,18 @@ let getQuoteSnapshot = (symbol, fields) => {
 };
 
 let getHistoricalQuotes = (symbol, from, to)=> {
-    return yahooFinance.historical({
+    return googleFinance.historical({
         symbol: symbol,
         from: from,
-        to: to,
-        // period: 'd'  // 'd' (daily), 'w' (weekly), 'm' (monthly), 'v' (dividends only)
+        to: to
     });
+
+    // return yahooFinance.historical({
+    //     symbol: symbol,
+    //     from: from,
+    //     to: to,
+    //     // period: 'd'  // 'd' (daily), 'w' (weekly), 'm' (monthly), 'v' (dividends only)
+    // });
 };
 
 let getHLC = (quotes) => {

@@ -14,6 +14,7 @@ const symbolsQuotes = 'https://demo_feed.tradingview.com/symbols';
 const marksQuotes = 'https://demo_feed.tradingview.com/marks';
 const timescale_marksQuotes = 'https://demo_feed.tradingview.com/timescale_marks';
 const configQuotes = 'https://demo_feed.tradingview.com/config';
+const moment = require('moment');
 
 
 var app = express();
@@ -99,8 +100,8 @@ app.get('/symbols', (req, res) => {
 app.get('/marks', (req, res) => {
     let symbol = req.query.symbol;
     let resolution = req.query.resolution;
-    let from = new Date(req.query.from);
-    let to = new Date(req.query.to);
+    let from = moment.unix(req.query.from).format("MM/DD/YYYY");
+    let to = moment.unix(req.query.to).format("MM/DD/YYYY");
     quotes.getHistoricalQuotes(symbol, from, to)
         .then(quotes.getIndicators)
         .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
