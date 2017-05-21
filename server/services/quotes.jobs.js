@@ -1,7 +1,9 @@
 const indicatorsUtils = require('../common/indicatorsUtils');
-const { StockQuote } = require('./../models/stockQuote');
+const { ThreeArrowSignal } = require('../models/threeArrowSignal');
+const { GapSignal} = require('../models/gapSignal');
 const moment = require('moment');
 const quotesService = require('../common/stockMarketQuotesService');
+const gapValidatorService = require('../common/gapValidatorUtils');
 
 let getHistoricalQuotes = (symbol, from, to, resolve, reject) => {
     return Promise.resolve(quotesService.getHistoricalQuotes(symbol,from,to,resolve, reject));
@@ -65,7 +67,7 @@ let populateThreeArrowSignal = (from, to, symbol) => {
 
             for(quote of fullQuotes) {
 
-                let sQuote = new StockQuote({
+                let sQuote = new ThreeArrowSignal({
                     symbol:symbol,
                     dateStr: quote.date,
                     open: quote.open,
@@ -91,9 +93,47 @@ let populateThreeArrowSignal = (from, to, symbol) => {
         });
 };
 
+let populateGapSignals = (from, to, symbol) => {
+    return getHistoricalQuotes(symbol, from, to)
+        .then((fullQuotes) => {
+
+            let gapSignals = gapValidatorService.getGapSignals(fullQuotes);
+
+            // fullQuotes = fullQuotes.filter((q) => {
+            //     return q.is3ArrowGreenPositive === true;
+            // });
+
+            for(quote of gapSignals) {
+
+                let sQuote = new GapSignal({
+                    symbol:symbol,
+                    dateStr: quote.date,
+                    open: quote.open,
+                    high: quote.high,
+                    low: quote.low,
+                    close: quote.close,
+                    gapSize: quote.gapSize,
+                    previousClose: quote.previousClose,
+                    direction: quote.direction
+                });
+
+                sQuote.save().then((doc) => {
+                    console.log('success saving.. : ', doc);
+                }, (e) => {
+                    console.log('error saving.. : ', e);
+                });
+
+            }
+
+            return 1;
+        });
+};
+
+
 module.exports = {
     getHistoricalQuotes,
     getIndicators,
     createQuotesWithIndicatorsAndArrowSignals,
-    populateThreeArrowSignal
+    populateThreeArrowSignal,
+    populateGapSignals
 };

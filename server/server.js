@@ -6,7 +6,7 @@ var querystring = require('querystring');
 const _ = require('lodash-node');
 var { mongoose } = require('./db/mongoose');
 
-var { StockQuote } = require('./models/stockQuote');
+var { ThreeArrowSignal } = require('./models/threeArrowSignal');
 var quotes = require('./services/quotes.jobs');
 const axios = require('axios');
 const historyQuotes = 'https://demo_feed.tradingview.com/history';
@@ -36,15 +36,28 @@ app.post('/threearrowsignals', (req, res) => {
         });
 });
 
+app.post('/gapsignals', (req, res) => {
+    let symbol = req.body.params.symbol;
+    let from = new Date(req.body.params.from);
+    let to = new Date(req.body.params.to);
+
+    quotes.populateGapSignals(from, to, symbol)
+        .then((result) => {
+            console.log(`about to send response::  ${result}` );
+            res.send("OK");
+        });
+});
+
 app.get('/threearrowsignals', (req, res) => {
     let symbol = req.query.symbol;
     let from = new Date(req.query.from);
     let to = new Date(req.query.to);
 
-    StockQuote.find().then((stockQuotes) => {
-        res.send(stockQuotes)
+    ThreeArrowSignal.find().then((signals) => {
+        res.send(signals)
     });
 });
+
 
 app.get('/signals', (req, res) => {
     let symbol = req.query.symbol;
@@ -115,6 +128,56 @@ app.get('/marks', (req, res) => {
         let marks = formatMarksResult(mergedSignals);
 
         res.send(marks);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+});
+
+app.get('/marksgaps', (req, res) => {
+    let symbol = req.query.symbol;
+    let resolution = req.query.resolution;
+    let from = moment.unix(req.query.from).format("MM/DD/YYYY");
+    let to = moment.unix(req.query.to).format("MM/DD/YYYY");
+    quotes.getHistoricalQuotes(symbol, from, to)
+        .then(quotes.getIndicators)
+        .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
+        .then((fullQuotes) => {
+
+            //let threeArrowSignals = getThreeArrowChartMarks(fullQuotes);
+
+            let gapSignals = getGapChartMarks(fullQuotes);
+
+           // let mergedSignals = mergeSignalsAndSortByTime(gapSignals, threeArrowSignals);
+
+            let marks = formatMarksResult(gapSignals);
+
+            res.send(marks);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+});
+
+app.get('/marksgreenarrows', (req, res) => {
+    let symbol = req.query.symbol;
+    let resolution = req.query.resolution;
+    let from = moment.unix(req.query.from).format("MM/DD/YYYY");
+    let to = moment.unix(req.query.to).format("MM/DD/YYYY");
+    quotes.getHistoricalQuotes(symbol, from, to)
+        .then(quotes.getIndicators)
+        .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
+        .then((fullQuotes) => {
+
+            let threeArrowSignals = getThreeArrowChartMarks(fullQuotes);
+
+           // let gapSignals = getGapChartMarks(fullQuotes);
+
+           // let mergedSignals = mergeSignalsAndSortByTime(gapSignals, threeArrowSignals);
+
+            let marks = formatMarksResult(mergedSignals);
+
+            res.send(marks);
         })
         .catch((error) => {
             console.log(error);
