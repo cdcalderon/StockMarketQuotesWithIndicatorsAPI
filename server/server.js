@@ -7,6 +7,7 @@ const _ = require('lodash-node');
 var { mongoose } = require('./db/mongoose');
 
 var { ThreeArrowSignal } = require('./models/threeArrowSignal');
+var { GapSignal } = require('./models/gapSignal');
 var quotes = require('./services/quotes.jobs');
 const axios = require('axios');
 const historyQuotes = 'https://demo_feed.tradingview.com/history';
@@ -36,6 +37,16 @@ app.post('/threearrowsignals', (req, res) => {
         });
 });
 
+app.get('/threearrowsignals', (req, res) => {
+    let symbol = req.query.symbol;
+    let from = new Date(req.query.from);
+    let to = new Date(req.query.to);
+
+    ThreeArrowSignal.find().then((signals) => {
+        res.send(signals)
+    });
+});
+
 app.post('/gapsignals', (req, res) => {
     let symbol = req.body.params.symbol;
     let from = new Date(req.body.params.from);
@@ -48,16 +59,15 @@ app.post('/gapsignals', (req, res) => {
         });
 });
 
-app.get('/threearrowsignals', (req, res) => {
+app.get('/gapsignals', (req, res) => {
     let symbol = req.query.symbol;
     let from = new Date(req.query.from);
     let to = new Date(req.query.to);
 
-    ThreeArrowSignal.find().then((signals) => {
+    GapSignal.find().then((signals) => {
         res.send(signals)
     });
 });
-
 
 app.get('/signals', (req, res) => {
     let symbol = req.query.symbol;
