@@ -185,7 +185,7 @@ app.get('/marksgreenarrows', (req, res) => {
 
            // let mergedSignals = mergeSignalsAndSortByTime(gapSignals, threeArrowSignals);
 
-            let marks = formatMarksResult(mergedSignals);
+            let marks = formatMarksResult(threeArrowSignals);
 
             res.send(marks);
         })
