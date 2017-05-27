@@ -268,8 +268,6 @@ let getDiffAmount = (q) => {
     }
 };
 
-
-
 // Helper functions , NOTE: refactor and move to helper library
 
 function getThreeArrowSignals(fullQuotes){
@@ -319,7 +317,6 @@ function getGapChartMarks(fullQuotes) {
         return formatGapChartMark(q,i);
     });
 }
-
 
 function formatSignals(quote, index, typeName, typeId){
     return {
@@ -383,8 +380,6 @@ function formatMarksResult(signals){
 app.listen(port, () => {
   console.log(`Started up at port ${port}`)
 });
-
-
 
 module.exports = { app };
 
