@@ -1,6 +1,7 @@
 const _ = require('lodash-node');
+const charMarkUtils = require('./charMarkUtils');
 
-function getGapSignals(fullQuotes) {
+let getGapSignals = (fullQuotes) => {
      fullQuotes = _.map(fullQuotes, function(element, i, arr) {
         return _.extend({}, element, {
             gapSize: i > 0 ? Math.abs((element.close - arr[i-1].close)): 0,
@@ -31,6 +32,23 @@ let isGapValid = (currentQuote, previousQuote) => {
     return false;
 };
 
+let getGapChartMarks = (fullQuotes) => {
+    return fullQuotes.filter((q,i,qts) => {
+        let diffCriteria = getDiffAmount(q);
+        let diffCriteriaPercent = q.close * .10;
+        if(i > 0) {
+            let diffBetweenCurrentPreviousClose = Math.abs((q.close - qts[i-1].close));
+            let diffBetweenCurrentOpenPreviousClose = Math.abs((q.open - qts[i-1].close));
+            return ((diffBetweenCurrentPreviousClose > diffCriteria) || (diffBetweenCurrentPreviousClose >= diffCriteriaPercent)) &&
+                ((diffBetweenCurrentOpenPreviousClose > diffCriteria) || (diffBetweenCurrentOpenPreviousClose >= diffCriteriaPercent));
+        }
+        return false;
+    }).map((q, i) => {
+        return charMarkUtils.formatGapChartMark(q,i);
+    });
+}
+
+
 let getDiffAmount = (q) => {
     if(q.close > 0  && q.close < 200) {
         return 3.5;
@@ -44,5 +62,6 @@ let getDiffAmount = (q) => {
 };
 
 module.exports = {
-    getGapSignals
+    getGapSignals,
+    getGapChartMarks
 };
