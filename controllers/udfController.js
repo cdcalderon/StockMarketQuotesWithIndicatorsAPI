@@ -7,7 +7,8 @@ let udfController = (
     threeArrowValidatorUtils,
     stockSignalsUtils) => {
 
-    const historyQuotesUrl = 'https://demo_feed.tradingview.com/history';
+    //const historyQuotesUrl = 'https://demo_feed.tradingview.com/history';
+    const historyQuotesUrl = 'http://localhost:4600/api/udf/history';
     const symbolsQuotesUrl  = 'https://demo_feed.tradingview.com/symbols';
     const marksQuotesUrl  = 'https://demo_feed.tradingview.com/marks';
     const timescale_marksQuotesUrl  = 'https://demo_feed.tradingview.com/timescale_marks';
@@ -23,7 +24,7 @@ let udfController = (
 
         axios.get(historyQuotesUrl, {
             params: {
-                symbol: symbol, resolution: resolution, from: from, tom: to
+                symbol: symbol, resolution: resolution, from: from, to: to
             }
         }).then(function(data) {
             res.send(data.data)
