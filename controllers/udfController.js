@@ -7,12 +7,9 @@ let udfController = (
     threeArrowValidatorUtils,
     stockSignalsUtils) => {
 
-    //const historyQuotesUrl = 'https://demo_feed.tradingview.com/history';
     const historyQuotesUrl = 'http://localhost:4600/api/udf/history';
-    const symbolsQuotesUrl  = 'https://demo_feed.tradingview.com/symbols';
-    const marksQuotesUrl  = 'https://demo_feed.tradingview.com/marks';
+    const symbolsQuotesUrl  = 'http://localhost:4600/api/udf/symbols';
     const timescale_marksQuotesUrl  = 'https://demo_feed.tradingview.com/timescale_marks';
-    const configQuotesUrl  = 'https://demo_feed.tradingview.com/config';
 
     //Implement new yahoo UDP quotes service
     //https://github.com/tradingview/yahoo_datafeed/blob/master/yahoo.js
@@ -63,10 +60,6 @@ let udfController = (
             .then((fullQuotes) => {
 
                 let threeArrowSignals = threeArrowValidatorUtils.getThreeArrowChartMarks(fullQuotes);
-
-                // let gapSignals = getGapChartMarks(fullQuotes);
-
-                // let mergedSignals = mergeSignalsAndSortByTime(gapSignals, threeArrowSignals);
 
                 let marks = charMarkUtils.formatMarksResult(threeArrowSignals);
 
@@ -221,25 +214,11 @@ let tradingViewConfig = `{
     ],
         "symbolsTypes": [
         {
-            "name": "All types",
-            "value": ""
-        },
-        {
             "name": "Stock",
             "value": "stock"
-        },
-        {
-            "name": "Index",
-            "value": "index"
         }
     ],
         "supportedResolutions": [
-        "D",
-        "2D",
-        "3D",
-        "W",
-        "3W",
-        "M",
-        "6M"
+        "D"
     ]
 }`;
