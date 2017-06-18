@@ -7,9 +7,12 @@ let udfController = (
     threeArrowValidatorUtils,
     stockSignalsUtils) => {
 
-    const historyQuotesUrl = 'http://localhost:4600/api/udf/history';
-    const symbolsQuotesUrl  = 'http://localhost:4600/api/udf/symbols';
-    const timescale_marksQuotesUrl  = 'https://demo_feed.tradingview.com/timescale_marks';
+    // const historyQuotesUrl = 'http://localhost:4600/api/udf/history';
+    // const symbolsQuotesUrl  = 'http://localhost:4600/api/udf/symbols';
+
+    const historyQuotesUrl = 'https://enigmatic-waters-56889.herokuapp.com/api/udf/history';
+    const symbolsQuotesUrl = 'https://enigmatic-waters-56889.herokuapp.com/api/udf/symbols';
+    const timescale_marksQuotesUrl = 'https://demo_feed.tradingview.com/timescale_marks';
 
     //Implement new yahoo UDP quotes service
     //https://github.com/tradingview/yahoo_datafeed/blob/master/yahoo.js
