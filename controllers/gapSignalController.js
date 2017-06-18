@@ -1,15 +1,32 @@
 let gapSignalController = (GapSignal, quotes) => {
 
     let post = (req, res) => {
-        let symbol = req.body.params.symbol;
+        let symbols = req.body.params.symbols;
         let from = new Date(req.body.params.from);
         let to = new Date(req.body.params.to);
 
-        quotes.populateGapSignals(from, to, symbol)
-            .then((result) => {
-                console.log(`about to send response::  ${result}` );
+        let generatedSymbols = genSymbols(symbols);
+        let symbol = generatedSymbols.next();
+
+        let intervalGapId = setInterval(() => {
+            console.log("Current Symbol" + symbol.value);
+
+            quotes.populateGapSignals(from, to, symbol.value)
+                .then((result) => {
+                    console.log(`about to send response::  ${result}` );
+                    res.send("OK");
+                });
+
+            symbol = generatedSymbols.next();
+
+            if(symbol.done === true){
+                clearInterval(intervalGapId);
+                console.log("Done with GapSignals");
                 res.send("OK");
-            });
+            }
+
+        },7500);
+
     };
 
     let get = (req, res) => {
@@ -21,6 +38,12 @@ let gapSignalController = (GapSignal, quotes) => {
             res.send(signals)
         });
     };
+
+    function *genSymbols(array) {
+        for (let i = 0; i < array.length; i++) {
+            yield array[i];
+        }
+    }
 
     return {
         post: post,

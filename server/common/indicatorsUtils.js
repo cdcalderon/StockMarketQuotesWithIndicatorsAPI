@@ -109,6 +109,7 @@ let getSTOCHs = (name, slowK_Period, fastK_Period, slowKMAType,
                  slowD_Period, slowD_MAType, startIdx, endIdx,
                  highs, lows, closes, resolve, reject) => {
 
+    console.log(startIdx, endIdx);
     talib.execute({
         name: name,
         optInSlowK_Period: slowK_Period,
