@@ -1,5 +1,5 @@
 const express = require('express');
-var quotes = require('../server/services/quotes.jobs');
+var quotes = require('../server/services/quote.service');
 
 let routes = function(ThreeArrowSignal){
     let threeArrowSignalRouter = express.Router();
