@@ -14,7 +14,7 @@ let gapSignalController = (GapSignal, quotes) => {
             quotes.populateGapSignals(from, to, symbol.value)
                 .then((result) => {
                     console.log(`about to send response::  ${result}` );
-                    res.send("OK");
+
                 });
 
             symbol = generatedSymbols.next();

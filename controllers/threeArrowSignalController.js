@@ -22,6 +22,7 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
 
         let intervalGapId = setInterval(() => {
             console.log("Current Symbol" + symbol.value);
+
             quotes.populateThreeArrowSignal(from, to, symbol.value)
                 .then((result) => {
                     console.log(`about to send response::  ${result}` );
