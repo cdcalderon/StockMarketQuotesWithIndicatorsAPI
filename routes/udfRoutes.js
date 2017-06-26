@@ -28,6 +28,9 @@ let routes = function(){
     udfRouter.route('/marksgaps')
         .get(udfController.getMarksGaps);
 
+    udfRouter.route('/marksgapswithpreviousquote')
+        .get(udfController.getMarksGapWithPreviousQuote);
+
     udfRouter.route('/marks')
         .get(udfController.getMarks);
 

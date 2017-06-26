@@ -20,7 +20,13 @@ let formatGapChartMark = (quote, index) => {
         text:"Gap",
         label:"G",
         labelFontColor:"black",
-        minSize:20
+        minSize:20,
+        previousQuote: quote.previousQuote,
+        high: quote.high,
+        low: quote.low,
+        open: quote.open,
+        direction: quote.direction
+
     }
 }
 
