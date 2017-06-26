@@ -84,9 +84,11 @@ let getDiffAmount = (q) => {
     } else if(q.close > 400 && q.close < 600) {
         return 12.5;
     } else if(q.close > 600 && q.close < 800) {
+        return 20;
+    } else if(q.close > 800 && q.close < 1000) {
         return 25;
-    } else if(q.close > 800) {
-        return 50;
+    } else if(q.close > 1000 ) {
+        return 30;
     }
 };
 
