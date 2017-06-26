@@ -25,7 +25,8 @@ let formatGapChartMark = (quote, index) => {
         high: quote.high,
         low: quote.low,
         open: quote.open,
-        direction: quote.direction
+        direction: quote.direction,
+        gapSize: quote.gapSize
 
     }
 }

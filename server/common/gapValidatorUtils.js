@@ -50,6 +50,7 @@ let getGapChartMarks = (fullQuotes) => {
                 ((diffBetweenCurrentOpenPreviousClose > diffCriteria) || (diffBetweenCurrentOpenPreviousClose >= diffCriteriaPercent))) {
 
                 q.direction = (q.close - qts[i-1].close) < 0 ? 'down' : 'up';
+                q.gapSize = (q.close - qts[i-1].close);
                 gaps.push(q);
             }
         }

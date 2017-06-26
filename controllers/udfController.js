@@ -75,6 +75,7 @@ let udfController = (
                         high: q.high,
                         low: q.low,
                         direction: q.direction,
+                        gapSize:q.gapSize,
                         signalDate: q.time,
                         drawExtensionDate: Math.floor(new Date(q.time * 1000) / 1000 + 4 * 30 * 24 * 60 * 60),
                         projection382: getFibonacciProjection(q.direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, 0.382),
