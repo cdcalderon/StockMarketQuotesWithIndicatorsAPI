@@ -43,7 +43,7 @@ let getGapChartMarks = (fullQuotes) => {
     quotesWithPreviosQuotesIncluded.forEach((q, i, qts) => {
         let diffCriteria = getDiffAmount(q);
         let diffCriteriaPercent = q.close * .10;
-        if(i > 0) {
+        if(i > 0 && (q.close > q.open)) {
             let diffBetweenCurrentPreviousClose = Math.abs((q.close - qts[i-1].close));
             let diffBetweenCurrentOpenPreviousClose = Math.abs((q.open - qts[i-1].close));
             if (((diffBetweenCurrentPreviousClose > diffCriteria) || (diffBetweenCurrentPreviousClose >= diffCriteriaPercent)) &&
