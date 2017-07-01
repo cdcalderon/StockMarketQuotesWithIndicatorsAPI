@@ -16,6 +16,7 @@ let formatGapChartMark = (quote, index) => {
     return {
         id:index,
         time:quote.timeStampDate,
+        dateStr: new Date(quote.timeStampDate * 1000).toString(),
         color:"blue",
         text:"Gap",
         label:"G",
@@ -25,8 +26,10 @@ let formatGapChartMark = (quote, index) => {
         high: quote.high,
         low: quote.low,
         open: quote.open,
+        close: quote.close,
         direction: quote.direction,
-        gapSize: quote.gapSize
+        gapSize: quote.gapSize,
+        previousClose: quote.previousQuote.close
 
     }
 }

@@ -28,6 +28,9 @@ let routes = function(){
     udfRouter.route('/marksgaps')
         .get(udfController.getMarksGaps);
 
+    udfRouter.route('/historicalgaps')
+        .get(udfController.getHistoricalGaps);
+
     udfRouter.route('/marksgapswithpreviousquote')
         .get(udfController.getMarksGapWithPreviousQuote);
 
@@ -47,6 +50,6 @@ let routes = function(){
         .get(udfController.getTimescaleMarks);
 
     return udfRouter;
-}
+};
 
 module.exports = routes;

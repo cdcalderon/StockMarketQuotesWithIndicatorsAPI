@@ -54,6 +54,26 @@ let udfController = (
             });
     };
 
+    let getHistoricalGaps = (req, res) => {
+        let symbol = req.query.symbol;
+        let resolution = req.query.resolution;
+        // let from = moment.unix(req.query.from).format("MM/DD/YYYY");
+        // let to = moment.unix(req.query.to).format("MM/DD/YYYY");
+        let from = new Date(req.query.from * 1000);
+        let to = new Date(req.query.to * 1000);
+        quotes.getHistoricalQuotes(symbol, from, to)
+            .then(quotes.getIndicators)
+            .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
+            .then((fullQuotes) => {
+                let gapSignals = gapValidatorUtils.getGapChartMarks(fullQuotes);
+
+                res.send(gapSignals);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     let getMarksGapWithPreviousQuote = (req, res) => {
         let symbol = req.query.symbol;
         let from = req.query.from;
@@ -231,6 +251,7 @@ let udfController = (
         getHistory: getHistory,
         getConfig: getConfig,
         getMarksGaps: getMarksGaps,
+        getHistoricalGaps: getHistoricalGaps,
         getMarks: getMarks,
         getSignals: getSignals,
         getMarksGreenArrows: getMarksGreenArrows,
