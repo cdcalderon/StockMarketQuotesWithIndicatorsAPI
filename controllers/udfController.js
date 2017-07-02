@@ -138,6 +138,7 @@ let udfController = (
         return confirmationEntryPrice;
     };
 
+
     let getFibonacciProjection = (direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, fibPercentage) => {
         let projection = 0;
 
@@ -186,8 +187,8 @@ let udfController = (
     let getMarksGreenArrowsProjections = (req, res) => {
         let symbol = req.query.symbol;
         let resolution = req.query.resolution;
-        let from = new Date(req.query.from * 1000);
-        let to = new Date(req.query.to * 1000);
+        let from = req.query.from;
+        let to = req.query.to;
         quotes.getHistoricalQuotes(symbol, from, to)
             .then(quotes.getIndicators)
             .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
@@ -296,19 +297,22 @@ let udfController = (
             let a = signal.low;
             let b = signal.high;
             let c = signal.low;
-            let priceRange = 1;
+            let priceRange = 2;
 
             a = find_A_fibPivotPoint(a, quotes, sigIndex, priceRange);
             let fibPivotBPoint = find_B_fibPivotPoint(b, quotes, sigIndex, priceRange);
             b = fibPivotBPoint.b;
-            c = find_C_fibPivotPoint(c, quotes, fibPivotBPoint.bIndex, priceRange);
+            c = find_C_fibPivotPoint(b, quotes, fibPivotBPoint.bIndex, priceRange);
 
             let fib618Projection = getFibonacciProjection('up', a, b, c, null, null, 0.618);
             let fib382Projection = getFibonacciProjection('up', a, b, c, null, null, 0.382);
-            let confirmationEntryPrice = getGapEntryPoint('up', fib382Projection, fib618Projection);
+            let confirmationEntryPrice = fib618Projection;
 
             signalProjections.push(
                 {
+                    a:a,
+                    b:b,
+                    c:c,
                     high: signal.high,
                     low: signal.low,
                     direction: 'up',
