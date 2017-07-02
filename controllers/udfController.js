@@ -98,6 +98,8 @@ let udfController = (
                     let previousHigh = q.previousQuote.high;
 
                     let fib618Projection = getFibonacciProjection(q.direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, 0.618);
+                    let fib382Projection = getFibonacciProjection(q.direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, 0.382);
+                    let confirmationEntryPrice = getGapEntryPoint(q.high, fib382Projection, fib618Projection);
                     return {
                         high: q.high,
                         low: q.low,
@@ -105,7 +107,7 @@ let udfController = (
                         gapSize:q.gapSize,
                         signalDate: q.time,
                         drawExtensionDate: Math.floor(new Date(q.time * 1000) / 1000 + 4 * 30 * 24 * 60 * 60),
-                        projection382: getFibonacciProjection(q.direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, 0.382),
+                        projection382: fib382Projection,
                         projection50: getFibonacciProjection(q.direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, 0.5),
                         projection618: getFibonacciProjection(q.direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, 0.618),
                         projection100: getFibonacciProjection(q.direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, 1),
@@ -115,7 +117,7 @@ let udfController = (
                         retracement618: getFibonacciRetracement(q.direction, previousLow, currentHigh, previousHigh, 0.618),
                         retracement100: getFibonacciRetracement(q.direction, previousLow, currentHigh, previousHigh, 1),
                         retracement1618: getFibonacciRetracement(q.direction, previousLow, currentHigh, previousHigh, 1.618),
-                        confirmationEntryPrice: fib618Projection
+                        confirmationEntryPrice: confirmationEntryPrice
                     }
                 });
                 res.send(gapSignals);
@@ -125,13 +127,14 @@ let udfController = (
             });
     };
 
-    let getGapEntryPoint = (signalHigh, signalFibProjection) => {
+    let getGapEntryPoint = (signalHigh, signalFib382Projection,  signalFib618Projection) => {
         let confirmationEntryPrice = 0;
         if (signal.direction === 'up') {
-            confirmationEntryPrice = signalHigh;
+            confirmationEntryPrice = signalHigh > signalFib382Projection ? signalHigh : signalFib382Projection;
         } else if (signal.direction === 'down') {
-            confirmationEntryPrice = signalFibProjection;
+            confirmationEntryPrice = signalFib618Projection;
         }
+        return confirmationEntryPrice;
     };
 
     let getFibonacciProjection = (direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, fibPercentage) => {
