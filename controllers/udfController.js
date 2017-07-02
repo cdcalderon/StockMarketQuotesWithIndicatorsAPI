@@ -59,12 +59,12 @@ let udfController = (
         let resolution = req.query.resolution;
         let from;
         let to;
-        if(Number.isInteger(parseInt(req.query.from, 10))) {
+        if((parseInt(req.query.from, 10) >10000)) {
             from = new Date(req.query.from * 1000);
             to = new Date(req.query.to * 1000);
         } else {
-            from = new Date(req.query.from) / 1000;
-            to = new Date(req.query.to) / 1000;
+            from = req.query.from;
+            to = req.query.to;
         }
 
         quotes.getHistoricalQuotes(symbol, from, to)
@@ -97,6 +97,7 @@ let udfController = (
 
                     let previousHigh = q.previousQuote.high;
 
+                    let fib618Projection = getFibonacciProjection(q.direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, 0.618);
                     return {
                         high: q.high,
                         low: q.low,
@@ -114,14 +115,23 @@ let udfController = (
                         retracement618: getFibonacciRetracement(q.direction, previousLow, currentHigh, previousHigh, 0.618),
                         retracement100: getFibonacciRetracement(q.direction, previousLow, currentHigh, previousHigh, 1),
                         retracement1618: getFibonacciRetracement(q.direction, previousLow, currentHigh, previousHigh, 1.618),
+                        confirmationEntryPrice: fib618Projection
                     }
-
                 });
                 res.send(gapSignals);
             })
             .catch((error) => {
                 console.log(error);
             });
+    };
+
+    let getGapEntryPoint = (signalHigh, signalFibProjection) => {
+        let confirmationEntryPrice = 0;
+        if (signal.direction === 'up') {
+            confirmationEntryPrice = signalHigh;
+        } else if (signal.direction === 'down') {
+            confirmationEntryPrice = signalFibProjection;
+        }
     };
 
     let getFibonacciProjection = (direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, fibPercentage) => {

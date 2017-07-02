@@ -1,4 +1,5 @@
 const _ = require('lodash-node');
+const moment = require('moment');
 
 let formatMarksResult = (signals) => {
     return {
@@ -16,7 +17,7 @@ let formatGapChartMark = (quote, index) => {
     return {
         id:index,
         time:quote.timeStampDate,
-        dateStr: new Date(quote.timeStampDate * 1000).toString(),
+        dateStr: moment(new Date(quote.timeStampDate * 1000)).format('ll'),
         color:"blue",
         text:"Gap",
         label:"G",
