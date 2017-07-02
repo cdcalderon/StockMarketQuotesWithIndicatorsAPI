@@ -99,7 +99,7 @@ let udfController = (
 
                     let fib618Projection = getFibonacciProjection(q.direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, 0.618);
                     let fib382Projection = getFibonacciProjection(q.direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, 0.382);
-                    let confirmationEntryPrice = getGapEntryPoint(q.high, fib382Projection, fib618Projection);
+                    let confirmationEntryPrice = getGapEntryPoint(q, fib382Projection, fib618Projection);
                     return {
                         high: q.high,
                         low: q.low,
@@ -127,10 +127,10 @@ let udfController = (
             });
     };
 
-    let getGapEntryPoint = (signalHigh, signalFib382Projection,  signalFib618Projection) => {
+    let getGapEntryPoint = (signal, signalFib382Projection,  signalFib618Projection) => {
         let confirmationEntryPrice = 0;
         if (signal.direction === 'up') {
-            confirmationEntryPrice = signalHigh > signalFib382Projection ? signalHigh : signalFib382Projection;
+            confirmationEntryPrice = signal.high > signalFib382Projection ? signal.high : signalFib382Projection;
         } else if (signal.direction === 'down') {
             confirmationEntryPrice = signalFib618Projection;
         }
