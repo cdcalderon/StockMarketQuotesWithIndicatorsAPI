@@ -2,6 +2,7 @@ let udfController = (
     axios,
     quotes,
     moment,
+    _,
     gapValidatorUtils,
     charMarkUtils,
     threeArrowValidatorUtils,
@@ -112,11 +113,11 @@ let udfController = (
                         projection618: getFibonacciProjection(q.direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, 0.618),
                         projection100: getFibonacciProjection(q.direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, 1),
                         projection1618: getFibonacciProjection(q.direction, previousLow, currentHigh, currentLow, previousHigh, currentOpen, 1.618),
-                        retracement382: getFibonacciRetracement(q.direction, previousLow, currentHigh, previousHigh, 0.382),
-                        retracement50: getFibonacciRetracement(q.direction, previousLow, currentHigh, previousHigh, 0.5),
-                        retracement618: getFibonacciRetracement(q.direction, previousLow, currentHigh, previousHigh, 0.618),
-                        retracement100: getFibonacciRetracement(q.direction, previousLow, currentHigh, previousHigh, 1),
-                        retracement1618: getFibonacciRetracement(q.direction, previousLow, currentHigh, previousHigh, 1.618),
+                        retracement382: getFibonacciRetracement(q.direction, previousLow, currentHigh, currentLow, previousHigh, 0.382),
+                        retracement50: getFibonacciRetracement(q.direction, previousLow, currentHigh, currentLow,  previousHigh, 0.5),
+                        retracement618: getFibonacciRetracement(q.direction, previousLow, currentHigh, currentLow, previousHigh, 0.618),
+                        retracement100: getFibonacciRetracement(q.direction, previousLow, currentHigh, currentLow, previousHigh, 1),
+                        retracement1618: getFibonacciRetracement(q.direction, previousLow, currentHigh, currentLow, previousHigh, 1.618),
                         confirmationEntryPrice: confirmationEntryPrice
                     }
                 });
@@ -182,6 +183,27 @@ let udfController = (
             });
     };
 
+    let getMarksGreenArrowsProjections = (req, res) => {
+        let symbol = req.query.symbol;
+        let resolution = req.query.resolution;
+        let from = new Date(req.query.from * 1000);
+        let to = new Date(req.query.to * 1000);
+        quotes.getHistoricalQuotes(symbol, from, to)
+            .then(quotes.getIndicators)
+            .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
+            .then((fullQuotes) => {
+
+                let threeArrowSignals = threeArrowValidatorUtils.getThreeArrowChartMarks(fullQuotes);
+
+                let grenMarksProjections = findFibPivotPoints(fullQuotes, threeArrowSignals);
+
+                res.send(grenMarksProjections);
+            })
+            .catch((error) => {
+                res.statusCode(500).send("error");
+                console.log(error);
+            });
+    };
 
     let getMarks = (req, res) => {
         let symbol = req.query.symbol;
@@ -266,6 +288,104 @@ let udfController = (
         });
     };
 
+    let findFibPivotPoints = (quotes, signals) => {
+        let signalProjections = [];
+
+        for(let signal of signals) {
+            let sigIndex = _.findIndex(quotes, function(s) { return s.timeStampDate === signal.time; });
+            let a = signal.low;
+            let b = signal.high;
+            let c = signal.low;
+            let priceRange = 1;
+
+            a = find_A_fibPivotPoint(a, quotes, sigIndex, priceRange);
+            let fibPivotBPoint = find_B_fibPivotPoint(b, quotes, sigIndex, priceRange);
+            b = fibPivotBPoint.b;
+            c = find_C_fibPivotPoint(c, quotes, fibPivotBPoint.bIndex, priceRange);
+
+            let fib618Projection = getFibonacciProjection('up', a, b, c, null, null, 0.618);
+            let fib382Projection = getFibonacciProjection('up', a, b, c, null, null, 0.382);
+            let confirmationEntryPrice = getGapEntryPoint('up', fib382Projection, fib618Projection);
+
+            signalProjections.push(
+                {
+                    high: signal.high,
+                    low: signal.low,
+                    direction: 'up',
+                    signalDate: signal.time,
+                    drawExtensionDate: Math.floor(new Date(signal.time * 1000) / 1000 + 4 * 30 * 24 * 60 * 60),
+                    projection382: fib382Projection,
+                    projection50: getFibonacciProjection('up', a, b, c, null, null, 0.5),
+                    projection618: getFibonacciProjection('up', a, b, c, null, null, 0.618),
+                    projection100: getFibonacciProjection('up', a, b, c, null, null, 1),
+                    projection1618: getFibonacciProjection('up', a, b, c, null, null, 1.618),
+                    retracement382: getFibonacciRetracement('up', a, b, c, null, 0.382),
+                    retracement50: getFibonacciRetracement('up', a, b, c, null, 0.5),
+                    retracement618: getFibonacciRetracement('up', a, b, c, null, 0.618),
+                    retracement100: getFibonacciRetracement('up', a, b, c, null, 1),
+                    retracement1618: getFibonacciRetracement('up', a, b, c, null, 1.618),
+                    confirmationEntryPrice: confirmationEntryPrice
+                }
+            )
+        }
+        return signalProjections;
+    };
+
+    let find_A_fibPivotPoint = (a, quotes, signalIndex, numOfDaysRange) => {
+        let calculated_A = a;
+        for (let i = signalIndex- 1; i > 0; i--) {
+
+            if(numOfDaysRange === 0){
+                break;
+            }
+            if(quotes[i].low < calculated_A){
+                calculated_A = quotes[i].low;
+            } else{
+                numOfDaysRange--;
+            }
+        }
+        return calculated_A;
+    };
+
+    let find_B_fibPivotPoint = (b, quotes,  signalIndex, numOfDaysRange) => {
+        let calculated_B = b;
+        let calculated_BIndex = signalIndex;
+
+        for (let i = signalIndex + 1; i < quotes.length; i++) {
+
+            if(numOfDaysRange === 0){
+                break;
+            }
+            if(quotes[i].high > calculated_B){
+                calculated_BIndex = i;
+                calculated_B = quotes[i].high;
+            } else{
+                numOfDaysRange--;
+            }
+        }
+
+        return {b:calculated_B, bIndex: calculated_BIndex};
+    };
+
+    let find_C_fibPivotPoint = (c, quotes, signalIndex, numOfDaysRange) => {
+        let calculated_C = c;
+
+        for (let i = signalIndex + 1; i < quotes.length; i++) {
+
+            if(numOfDaysRange === 0){
+                break;
+            }
+            if(quotes[i].low < calculated_C){
+                calculated_C = quotes[i].low;
+            } else{
+                numOfDaysRange--;
+            }
+        }
+
+        return calculated_C;
+    };
+
+
     return {
         getHistory: getHistory,
         getConfig: getConfig,
@@ -276,10 +396,11 @@ let udfController = (
         getMarksGreenArrows: getMarksGreenArrows,
         getSymbols: getSymbols,
         getTimescaleMarks: getTimescaleMarks,
-        getMarksGapWithPreviousQuote: getMarksGapWithPreviousQuote
+        getMarksGapWithPreviousQuote: getMarksGapWithPreviousQuote,
+        getMarksGreenArrowsProjections: getMarksGreenArrowsProjections
     }
 
-}
+};
 
 module.exports = udfController;
 

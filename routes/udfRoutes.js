@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const moment = require('moment');
+const _ = require('lodash');
 const quotes = require('../server/services/quote.service');
 const gapValidatorUtils = require('../server/common/gapValidatorUtils');
 const charMarkUtils = require('../server/common/charMarkUtils');
@@ -14,6 +15,7 @@ let routes = function(){
         axios,
         quotes,
         moment,
+        _,
         gapValidatorUtils,
         charMarkUtils,
         threeArrowValidatorUtils,
@@ -42,6 +44,9 @@ let routes = function(){
 
     udfRouter.route('/marksgreenarrows')
         .get(udfController.getMarksGreenArrows);
+
+    udfRouter.route('/marksgreenarrowsprojections')
+        .get(udfController.getMarksGreenArrowsProjections);
 
     udfRouter.route('/symbols')
         .get(udfController.getSymbols);

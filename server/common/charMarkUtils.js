@@ -39,11 +39,15 @@ let formatThreeArrowChartMark = (quote, index) => {
     return {
         id:index,
         time:quote.timeStampDate,
+        strDate: new Date(quote.timeStampDate * 1000).toString(),
         color:"green",
         text:"3 Green Arrows",
         label:"^",
         labelFontColor:"black",
-        minSize:20
+        minSize:20,
+        high: quote.high,
+        low: quote.low,
+        close: quote.close
     }
 }
 
