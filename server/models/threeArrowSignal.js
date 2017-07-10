@@ -11,6 +11,10 @@ var ThreeArrowSignal = mongoose.model('ThreeArrowSignal', {
       type: String,
       default: null
     },
+    dateId: {
+      type: Number,
+      default: null
+    },
     open: {
       type: Number,
       default: null
@@ -70,7 +74,28 @@ var ThreeArrowSignal = mongoose.model('ThreeArrowSignal', {
     isRedArrow: {
       type: Boolean,
       default: null
+    },
+    exchange: {
+        type: String,
+        default: ''
+    },
+    summaryQuoteUrl: {
+        type: String,
+        default: ''
+    },
+    industry: {
+        type: String,
+        default: ''
+    },
+    sector: {
+        type: String,
+        default: ''
+    },
+    name: {
+        type: String,
+        default: ''
     }
+
 });
 
 module.exports = {

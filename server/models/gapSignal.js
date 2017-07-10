@@ -11,6 +11,10 @@ var GapSignal = mongoose.model('GapSignal', {
         type: String,
         default: null
     },
+    dateId:{
+        type: Number,
+        default: null
+    },
     open: {
         type: Number,
         default: null
@@ -40,6 +44,26 @@ var GapSignal = mongoose.model('GapSignal', {
         default: null
     },
     direction: {
+        type: String,
+        default: ''
+    },
+    exchange: {
+        type: String,
+        default: ''
+    },
+    summaryQuoteUrl: {
+        type: String,
+        default: ''
+    },
+    industry: {
+        type: String,
+        default: ''
+    },
+    sector: {
+        type: String,
+        default: ''
+    },
+    name: {
         type: String,
         default: ''
     }

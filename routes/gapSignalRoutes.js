@@ -10,6 +10,9 @@ let routes = function(GapSignal){
         .post(gapSignalController.post)
         .get(gapSignalController.get);
 
+    gapSignalRouter.route('/creategapsallsymbols')
+        .post(gapSignalController.postGapSignalsForAllSymbols);
+
     return gapSignalRouter;
 }
 

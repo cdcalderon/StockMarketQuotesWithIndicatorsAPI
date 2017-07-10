@@ -10,6 +10,9 @@ let routes = function(ThreeArrowSignal){
         .post(threeArrowSignalController.post)
         .get(threeArrowSignalController.get);
 
+    threeArrowSignalRouter.route('/createthreearrowsignalsallsymbols')
+        .post(threeArrowSignalController.postThreeArrowSignalsForAllSymbols);
+
     return threeArrowSignalRouter;
 }
 

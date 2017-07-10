@@ -1,5 +1,6 @@
 const yahooFinance = require('yahoo-finance');
 const googleFinance = require('google-finance');
+const axios = require('axios');
 
 let getQuoteSnapshot = (symbol, fields) => {
     yahooFinance.snapshot({
@@ -25,7 +26,46 @@ let getHistoricalQuotes = (symbol, from, to)=> {
     // });
 };
 
+let getHistoricalQuotesYahoo = (symbol, from, to)=> {
+    return yahooFinance.historical({
+        symbol: symbol,
+        from: from,
+        to: to,
+        // period: 'd'  // 'd' (daily), 'w' (weekly), 'm' (monthly), 'v' (dividends only)
+    });
+};
+
+
+
+let getHistoricalQuotesQuand = (symbol, from, to) => {
+
+    let quandUrl = `https://www.quandl.com/api/v3/datasets/WIKI/${symbol}.json?start_date=${from}&end_date=${to}&api_key=bnz5KFRPyhYVR2Catk1Q`;
+    // let base = 'http://www.quandl.com';
+    // var address = "/api/v3/datatables/WIKI/PRICES.json" +
+    //     "?api_key=" + 'bnz5KFRPyhYVR2Catk1Q' + // you should create a free account on quandl.com to get this key
+    //     "&ticker=" + symbol +
+    //     "&date.gte=" + from +
+    //     "&date.lte=" + to;
+
+    //console.log("Sending request to quandl for symbol " + symbol + ". url=" + address);
+
+    return axios.get(quandUrl);
+    // httpGet("www.quandl.com", address, function(result) {
+    //     if (response.finished) {
+    //         // we can be here if error happened on socket disconnect
+    //         return;
+    //     }
+    //     var content = JSON.stringify(convertQuandlHistoryToUDFFormat(result));
+    //     quandlCache[key] = content;
+    //     sendResult(content);
+    // });
+};
+
+
+
 module.exports = {
     getQuoteSnapshot,
-    getHistoricalQuotes
+    getHistoricalQuotes,
+    getHistoricalQuotesQuand,
+    getHistoricalQuotesYahoo
 };
