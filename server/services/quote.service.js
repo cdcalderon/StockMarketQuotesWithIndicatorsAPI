@@ -12,7 +12,7 @@ let getHistoricalQuotes = (symbol, from, to, resolve, reject) => {
                 resolve(formatQuandQuotes(quotes));
             });
         } else {
-            return quotesService.getHistoricalQuotes(symbol, from, to).then((gQuotes) => {
+            return quotesService.getHistoricalQuotesGoogle(symbol, from, to).then((gQuotes) => {
                 if(gQuotes && gQuotes.length > 0) {
                     return new Promise((resolve) => {
                         resolve(gQuotes);
@@ -272,7 +272,7 @@ let formatQuandQuotes = (quotes) => {
                 close: q[4],
                 volume: q[5]
             }
-        });
+        }).reverse();
     }
 };
 

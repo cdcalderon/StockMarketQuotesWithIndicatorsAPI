@@ -11,7 +11,8 @@ let getQuoteSnapshot = (symbol, fields) => {
     });
 };
 
-let getHistoricalQuotes = (symbol, from, to)=> {
+let getHistoricalQuotesGoogle = (symbol, from, to)=> {
+    console.log("Reading------------------------------ Google Quotes");
     return googleFinance.historical({
         symbol: symbol,
         from: from,
@@ -27,6 +28,7 @@ let getHistoricalQuotes = (symbol, from, to)=> {
 };
 
 let getHistoricalQuotesYahoo = (symbol, from, to)=> {
+    console.log("Reading------------------------------ Yahoo Quotes");
     return yahooFinance.historical({
         symbol: symbol,
         from: from,
@@ -38,7 +40,7 @@ let getHistoricalQuotesYahoo = (symbol, from, to)=> {
 
 
 let getHistoricalQuotesQuand = (symbol, from, to) => {
-
+    console.log("Reading------------------------------ Quand Quotes");
     let quandUrl = `https://www.quandl.com/api/v3/datasets/WIKI/${symbol}.json?start_date=${from}&end_date=${to}&api_key=bnz5KFRPyhYVR2Catk1Q`;
     // let base = 'http://www.quandl.com';
     // var address = "/api/v3/datatables/WIKI/PRICES.json" +
@@ -65,7 +67,7 @@ let getHistoricalQuotesQuand = (symbol, from, to) => {
 
 module.exports = {
     getQuoteSnapshot,
-    getHistoricalQuotes,
+    getHistoricalQuotesGoogle,
     getHistoricalQuotesQuand,
     getHistoricalQuotesYahoo
 };
