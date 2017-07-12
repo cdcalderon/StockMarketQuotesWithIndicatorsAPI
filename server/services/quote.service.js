@@ -33,7 +33,7 @@ let getHistoricalQuotes = (symbol, from, to, resolve, reject) => {
         }
     }, (error) => {
         if(error) {
-            return quotesService.getHistoricalQuotes(symbol, from, to).then((gQuotes) => {
+            return quotesService.getHistoricalQuotesGoogle(symbol, from, to).then((gQuotes) => {
                 if(gQuotes) {
                     return new Promise((resolve) => {
                         resolve(gQuotes);
@@ -66,9 +66,6 @@ let getHistoricalQuotes = (symbol, from, to, resolve, reject) => {
             })
         }
     });
-    //
-    //
-    // return Promise.resolve(quotesService.getHistoricalQuotesQuand(symbol,from,to,resolve, reject));
 };
 
 let getIndicators = (quotes) => {

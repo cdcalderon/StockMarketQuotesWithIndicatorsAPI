@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fd65eb87-316e-4a18-92d0-4584b9962f98" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/common/stockMarketQuotesService.js" afterPath="$PROJECT_DIR$/server/common/stockMarketQuotesService.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/services/quote.service.js" afterPath="$PROJECT_DIR$/server/services/quote.service.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -118,8 +117,8 @@
       <file leaf-file-name="quote.service.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/services/quote.service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="68" column="6" lean-forward="true" selection-start-line="68" selection-start-column="6" selection-end-line="68" selection-end-column="6" />
+            <state relative-caret-position="995">
+              <caret line="67" column="7" lean-forward="false" selection-start-line="67" selection-start-column="7" selection-end-line="67" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -574,7 +573,7 @@
       <workItem from="1499325136903" duration="477000" />
       <workItem from="1499500131043" duration="932000" />
       <workItem from="1499640203855" duration="28565000" />
-      <workItem from="1499832804216" duration="5068000" />
+      <workItem from="1499832804216" duration="5899000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1489915159189</created>
@@ -912,11 +911,18 @@
       <option name="project" value="LOCAL" />
       <updated>1499679184119</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Fix Get Quand Historical quotes reversed">
+      <created>1499844109593</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1499844109593</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="360451000" />
+    <option name="totallyTimeSpent" value="361282000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -977,7 +983,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix bug in post('/threearrowsignals) endpoint" />
     <MESSAGE value="add momentjs" />
     <MESSAGE value="add google.finance as a backup option since yahoo.finance stopped working, add momentjs" />
     <MESSAGE value="refactor: extract greenarror validation into own utility library, , extract quote requests to own service" />
@@ -1002,7 +1007,8 @@
     <MESSAGE value="Implement getMarksGreenArrowsProjections" />
     <MESSAGE value="Adjust Algorithm getMarksGreenArrowsProjections, fix bugs." />
     <MESSAGE value="adjust getHistoricalQuotes,getHistoricalQuotesQuand,&#10;getHistoricalQuotesYahoo functions, fixgaps and arrw signal endpoints" />
-    <option name="LAST_COMMIT_MESSAGE" value="adjust getHistoricalQuotes,getHistoricalQuotesQuand,&#10;getHistoricalQuotesYahoo functions, fixgaps and arrw signal endpoints" />
+    <MESSAGE value="Fix Get Quand Historical quotes reversed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Get Quand Historical quotes reversed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1099,32 +1105,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>232</line>
+          <line>229</line>
           <option name="timeStamp" value="473" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>234</line>
+          <line>231</line>
           <option name="timeStamp" value="475" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>226</line>
+          <line>223</line>
           <option name="timeStamp" value="478" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>231</line>
+          <line>228</line>
           <option name="timeStamp" value="479" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>217</line>
+          <line>214</line>
           <option name="timeStamp" value="537" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>221</line>
+          <line>218</line>
           <option name="timeStamp" value="539" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -1149,22 +1155,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>125</line>
+          <line>122</line>
           <option name="timeStamp" value="587" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>206</line>
+          <line>203</line>
           <option name="timeStamp" value="588" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>203</line>
+          <line>200</line>
           <option name="timeStamp" value="589" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>201</line>
+          <line>198</line>
           <option name="timeStamp" value="590" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -1448,8 +1454,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/services/quote.service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="68" column="6" lean-forward="true" selection-start-line="68" selection-start-column="6" selection-end-line="68" selection-end-column="6" />
+        <state relative-caret-position="995">
+          <caret line="67" column="7" lean-forward="false" selection-start-line="67" selection-start-column="7" selection-end-line="67" selection-end-column="7" />
           <folding />
         </state>
       </provider>
