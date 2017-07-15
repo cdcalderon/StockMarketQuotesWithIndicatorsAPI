@@ -1,8 +1,20 @@
 <component name="libraryTable">
   <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/dist/server/server.js" />
+        <item url="file://$PROJECT_DIR$/dist/server/services/quote.service.js" />
+        <item url="file://$PROJECT_DIR$/dist/server/common/indicatorsUtils.js" />
+        <item url="file://$PROJECT_DIR$/dist/server/db/mongoose.js" />
+      </sourceFilesUrls>
+    </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/dist/buildScripts/srcServer.js" />
       <root url="file://$PROJECT_DIR$/dist/buildScripts/srcServer.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/server.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/services/quote.service.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/common/indicatorsUtils.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/db/mongoose.js" />
     </CLASSES>
     <SOURCES />
   </library>

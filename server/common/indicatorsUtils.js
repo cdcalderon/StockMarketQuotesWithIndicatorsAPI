@@ -105,24 +105,8 @@ let getMACDs = (values, fastPeriod, slowPeriod, signalPeriod,
     return [...offsetMACD, ...macds];
 };
 
-let getSTOCHs = (name, slowK_Period, fastK_Period, slowKMAType,
-                 slowD_Period, slowD_MAType, startIdx, endIdx,
-                 highs, lows, closes, resolve, reject) => {
-
-    console.log(startIdx, endIdx);
-    talib.execute({
-        name: name,
-        optInSlowK_Period: slowK_Period,
-        optInFastK_Period: fastK_Period,
-        optInSlowK_MAType: slowKMAType,
-        optInSlowD_Period: slowD_Period,
-        optInSlowD_MAType: slowD_MAType,
-        startIdx: startIdx,
-        endIdx: endIdx,
-        high: highs,
-        low: lows,
-        close: closes
-    }, function(data) {
+let getSTOCHs = (stochsInput, resolve, reject) => {
+    talib.execute(stochsInput, function(data) {
         if(data.error != null){
             return reject("Something when wrong getting STOCHs");
         }

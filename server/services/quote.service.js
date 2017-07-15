@@ -1,11 +1,10 @@
 const indicatorsUtils = require('../common/indicatorsUtils');
 const { ThreeArrowSignal } = require('../models/threeArrowSignal');
 const { GapSignal} = require('../models/gapSignal');
-const moment = require('moment');
 const quotesService = require('../common/stockMarketQuotesService');
 const gapValidatorService = require('../common/gapValidatorUtils');
 
-let getHistoricalQuotes = (symbol, from, to, resolve, reject) => {
+let getHistoricalQuotes = (symbol, from, to) => {
     return quotesService.getHistoricalQuotesQuand(symbol,from,to).then((quotes) => {
         if(isQuand(quotes) && quotes.data.dataset.data.length > 0) {
             return new Promise((resolve) => {
@@ -55,7 +54,7 @@ let getHistoricalQuotes = (symbol, from, to, resolve, reject) => {
                     return  quotesService.getHistoricalQuotesYahoo(symbol, from, to).then((yQuotes) => {
                         return new Promise((resolve, reject) => {
                             if(yQuotes) {
-                                resolve(gQuotes);
+                                resolve(yQuotes);
                             } else{
                                 reject('Error : could not find any quotes');
                             }
@@ -73,11 +72,9 @@ let getIndicators = (quotes) => {
 };
 
 let getMACDWithSMAS = (quotes) => {
-    let { highs, lows, closes } = indicatorsUtils.getHLC(quotes);
+    let { highs, closes } = indicatorsUtils.getHLC(quotes);
     let smas = indicatorsUtils.getSMAs(10, closes);
     let macds = indicatorsUtils.getMACDs(closes, 8, 17, 9, true, true);
-    let endIndex = highs.length -1;
-
     return Promise.resolve({quotes: quotes, smas: smas, macds: macds});
 };
 
@@ -99,7 +96,7 @@ let getSTOCHs = (quotes) => {
     };
 
     return new Promise((resolve, reject) => {
-        indicatorsUtils.getSTOCHs("STOCH",5,14,0,5,0,0,endIndex,highs,lows, closes,resolve,reject);
+        indicatorsUtils.getSTOCHs(stochsInput,resolve,reject);
     });
 };
 
