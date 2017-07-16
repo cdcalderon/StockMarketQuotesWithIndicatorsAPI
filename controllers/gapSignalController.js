@@ -59,16 +59,19 @@ let gapSignalController = (GapSignal, quotes) => {
                         console.log("Done with GapSignals");
                         res.send("OK");
                     }
-                },2000);
+                },200);
             });
     };
 
-    let get = (req, res) => {
-        let symbol = req.query.symbol;
-        let from = new Date(req.query.from);
-        let to = new Date(req.query.to);
+    let getGaps = (req, res) => {
+        let symbol = req.body.symbol;
+        let from = req.body.from;
+        let to = req.body.to;
 
-        GapSignal.find().then((signals) => {
+
+
+        let dateF = {dateId: {$gte: from, $lte: to}};
+        GapSignal.find(dateF).sort([['dateId', 'ascending']]).then((signals) => {
             res.send(signals)
         });
     };
@@ -87,7 +90,7 @@ let gapSignalController = (GapSignal, quotes) => {
 
     return {
         post: post,
-        get: get,
+        getGaps: getGaps,
         postGapSignalsForAllSymbols: postGapSignalsForAllSymbols
     }
 
