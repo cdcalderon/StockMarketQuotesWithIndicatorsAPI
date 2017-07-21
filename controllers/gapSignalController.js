@@ -59,20 +59,29 @@ let gapSignalController = (GapSignal, quotes) => {
                         console.log("Done with GapSignals");
                         res.send("OK");
                     }
-                },200);
+                },400);
             });
     };
 
     let getGaps = (req, res) => {
-        let symbol = req.body.symbol;
         let from = req.body.from;
         let to = req.body.to;
+        let pagingInfo = req.body.pagingInfo;
 
+        let cap = req.body.cap;
 
+        let query = {dateId: {$gte: from, $lte: to}};
 
-        let dateF = {dateId: {$gte: from, $lte: to}};
-        GapSignal.find(dateF).sort([['dateId', 'ascending']]).then((signals) => {
-            res.send(signals)
+        let offset = pagingInfo.pageSize * ( pagingInfo.currentPage - 1 );
+        let options = {
+            sort: { dateId: 1 },
+            lean: true,
+            offset: offset,
+            limit: pagingInfo.pageSize
+        };
+
+        GapSignal.paginate(query, options, function(err, result) {
+            res.send(result)
         });
     };
 
@@ -88,12 +97,12 @@ let gapSignalController = (GapSignal, quotes) => {
         return axios.get(`${baseHerokuUdpUrl}${getAllSymbols}`);
     };
 
-    return {
+        return {
         post: post,
         getGaps: getGaps,
         postGapSignalsForAllSymbols: postGapSignalsForAllSymbols
     }
 
-}
+};
 
 module.exports = gapSignalController;

@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
+let mongoosePaginate = require('mongoose-paginate');
 
-var GapSignal = mongoose.model('GapSignal', {
+let schema = new mongoose.Schema({
     symbol: {
         type: String,
         required: true,
@@ -68,6 +69,8 @@ var GapSignal = mongoose.model('GapSignal', {
         default: ''
     }
 });
+schema.plugin(mongoosePaginate);
+let GapSignal = mongoose.model('GapSignal', schema);
 
 module.exports = {
     GapSignal

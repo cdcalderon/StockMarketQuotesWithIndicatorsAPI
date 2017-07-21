@@ -121,8 +121,6 @@ let getSTOCHs = (stochsInput, resolve, reject) => {
 
 };
 
-
-
 let getHLC = (quotes) => {
     return {
         closes: _.pluck(quotes, 'close'),
