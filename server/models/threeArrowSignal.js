@@ -94,6 +94,14 @@ var ThreeArrowSignal = mongoose.model('ThreeArrowSignal', {
     name: {
         type: String,
         default: ''
+    },
+    marketCapNumeric: {
+        type: Number,
+        default:null
+    },
+    marketCap: {
+        type: String,
+        default: ''
     }
 
 });

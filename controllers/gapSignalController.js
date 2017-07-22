@@ -59,30 +59,94 @@ let gapSignalController = (GapSignal, quotes) => {
                         console.log("Done with GapSignals");
                         res.send("OK");
                     }
-                },400);
+                },100);
             });
     };
 
     let getGaps = (req, res) => {
+        let pagingInfo = req.body.pagingInfo;
         let from = req.body.from;
         let to = req.body.to;
-        let pagingInfo = req.body.pagingInfo;
 
-        let cap = req.body.cap;
+        let bodyQuery = req.body.query;
+        let filterQuery = {};
 
-        let query = {dateId: {$gte: from, $lte: to}};
+        // {$in: ['some title', 'some other title']}
+        addDateRangeFilter(filterQuery, from, to);
 
+        if(bodyQuery.symbols.length === 0) {
+            addMarketCapFilter(filterQuery, bodyQuery.marketCaps);
+            addExchangeFilter(filterQuery, bodyQuery.exchanges);
+        }
+
+
+        let paginationOptions = getPaginationOptions(pagingInfo);
+
+        GapSignal.paginate(filterQuery, paginationOptions, function(err, result) {
+            res.send(result)
+        });
+    };
+
+    let getPaginationOptions = (pagingInfo) => {
         let offset = pagingInfo.pageSize * ( pagingInfo.currentPage - 1 );
-        let options = {
+        return {
             sort: { dateId: 1 },
             lean: true,
             offset: offset,
             limit: pagingInfo.pageSize
         };
+    };
 
-        GapSignal.paginate(query, options, function(err, result) {
-            res.send(result)
-        });
+
+
+    let addMarketCapFilter = (filterQuery, mCaps) => {
+        let cps = [];
+        for(let c of mCaps) {
+            if(c === 'l'){
+                cps.push({marketCapNumeric: {$gte: (10 * 1000 * 1000 * 1000), }});
+            } else if(c === 'm') {
+                cps.push({marketCapNumeric: {$gte: 2 * 1000 * 1000 * 1000, $lte: 10 * 1000 * 1000 * 1000}});
+            } else if(c === 's') {
+                cps.push({marketCapNumeric: {$gte: 300 * 1000, $lte: 2 * 1000 * 1000 * 1000}});
+            }
+        }
+
+        if(filterQuery.hasOwnProperty('$and')){
+            filterQuery.$and.push({ $or : cps});
+        } else {
+            filterQuery.$and = [{ $or : cps}];
+        }
+
+        return filterQuery;
+    };
+
+    let addExchangeFilter = (filterQuery, exchangeFilterOptions) => {
+        let exchanges = [];
+        for(let c of exchangeFilterOptions) {
+            if(c === 'nasdaq'){
+                exchanges.push({exchange: 'NasdaqNM'});
+            } else if(c === 'nyse') {
+                exchanges.push({exchange: 'NYSE'});
+            } else if(c === 'amex') {
+                exchanges.push({exchange: 'AMEX'});
+            }
+        }
+
+        if(filterQuery.hasOwnProperty('$and')){
+            filterQuery.$and.push({ $or : exchanges});
+        } else {
+            filterQuery.$and = [{ $or : exchanges}];
+        }
+
+        return filterQuery;
+    };
+
+    let addDateRangeFilter = (filterQuery, from, to) => {
+        if(from && to) {
+            filterQuery.dateId = {$gte: from, $lte: to};
+        }
+
+        return filterQuery;
     };
 
     function *genSymbols(array) {
@@ -92,7 +156,8 @@ let gapSignalController = (GapSignal, quotes) => {
     }
 
     let getAllStocks = () => {
-        const baseHerokuUdpUrl = 'https://enigmatic-waters-56889.herokuapp.com';
+       // const baseHerokuUdpUrl = 'https://enigmatic-waters-56889.herokuapp.com';
+        const baseHerokuUdpUrl = 'http://localhost:4600';
         const getAllSymbols = '/api/udf/allstocksfull';
         return axios.get(`${baseHerokuUdpUrl}${getAllSymbols}`);
     };

@@ -145,7 +145,9 @@ let populateThreeArrowSignal = (from, to, stock) => {
                                 summaryQuoteUrl: stock.summaryQuoteUrl,
                                 industry: stock.industry,
                                 sector: stock.sector,
-                                name: stock.name
+                                name: stock.name,
+                                marketCapNumeric: stock.marketCapNumeric,
+                                marketCap: stock.marketCap
                             });
 
                             sQuote.save().then((doc) => {
@@ -189,7 +191,9 @@ let populateGapSignals = (from, to, stock) => {
                                 summaryQuoteUrl: stock.summaryQuoteUrl,
                                 industry: stock.industry,
                                 sector: stock.sector,
-                                name: stock.name
+                                name: stock.name,
+                                marketCapNumeric: stock.marketCapNumeric,
+                                marketCap: stock.marketCap
                             });
 
                             sQuote.save().then((doc) => {

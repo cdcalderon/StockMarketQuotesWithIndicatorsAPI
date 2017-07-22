@@ -38,7 +38,7 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
                 res.send("OK");
             }
 
-        },5000);
+        },200);
     };
 
     let postThreeArrowSignalsForAllSymbols = (req, res) => {

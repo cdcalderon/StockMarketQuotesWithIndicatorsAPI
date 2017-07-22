@@ -67,6 +67,14 @@ let schema = new mongoose.Schema({
     name: {
         type: String,
         default: ''
+    },
+    marketCapNumeric: {
+        type: Number,
+        default:null
+    },
+    marketCap: {
+        type: String,
+        default: ''
     }
 });
 schema.plugin(mongoosePaginate);
