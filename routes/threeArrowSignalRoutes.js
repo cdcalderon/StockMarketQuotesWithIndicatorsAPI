@@ -8,7 +8,9 @@ let routes = function(ThreeArrowSignal){
 
     threeArrowSignalRouter.route('/')
         .post(threeArrowSignalController.post)
-        .get(threeArrowSignalController.get);
+
+    threeArrowSignalRouter.route('/filter')
+        .post(threeArrowSignalController.getThreeArrowSignals);
 
     threeArrowSignalRouter.route('/createthreearrowsignalsallsymbols')
         .post(threeArrowSignalController.postThreeArrowSignalsForAllSymbols);

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
+let mongoosePaginate = require('mongoose-paginate');
 
-var ThreeArrowSignal = mongoose.model('ThreeArrowSignal', {
+let schema = new mongoose.Schema({
     symbol: {
         type: String,
         required: true,
@@ -105,6 +106,9 @@ var ThreeArrowSignal = mongoose.model('ThreeArrowSignal', {
     }
 
 });
+
+schema.plugin(mongoosePaginate);
+let ThreeArrowSignal = mongoose.model('ThreeArrowSignal', schema);
 
 module.exports = {
     ThreeArrowSignal

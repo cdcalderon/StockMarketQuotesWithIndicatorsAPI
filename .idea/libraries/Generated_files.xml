@@ -2,13 +2,16 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
-        <item url="file://$PROJECT_DIR$/dist/controllers/threeArrowSignalController.js" />
+        <item url="file://$PROJECT_DIR$/dist/routes/threeArrowSignalRoutes.js" />
+        <item url="file://$PROJECT_DIR$/dist/server/common/filterComposerUtils.js" />
         <item url="file://$PROJECT_DIR$/dist/server/server.js" />
+        <item url="file://$PROJECT_DIR$/dist/controllers/threeArrowSignalController.js" />
         <item url="file://$PROJECT_DIR$/dist/controllers/gapSignalController.js" />
         <item url="file://$PROJECT_DIR$/dist/server/models/threeArrowSignal.js" />
         <item url="file://$PROJECT_DIR$/dist/server/services/quote.service.js" />
         <item url="file://$PROJECT_DIR$/dist/server/models/gapSignal.js" />
         <item url="file://$PROJECT_DIR$/dist/routes/gapSignalRoutes.js" />
+        <item url="file://$PROJECT_DIR$/dist/server/common/stockMarketQuotesService.js" />
         <item url="file://$PROJECT_DIR$/dist/server/common/indicatorsUtils.js" />
         <item url="file://$PROJECT_DIR$/dist/server/db/mongoose.js" />
       </sourceFilesUrls>
@@ -16,14 +19,17 @@
     <CLASSES>
       <root url="file://$PROJECT_DIR$/dist/buildScripts/srcServer.js" />
       <root url="file://$PROJECT_DIR$/dist/buildScripts/srcServer.js" />
-      <root url="file://$PROJECT_DIR$/dist/controllers/threeArrowSignalController.js" />
-      <root url="file://$PROJECT_DIR$/dist/server/server.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/common/filterComposerUtils.js" />
       <root url="file://$PROJECT_DIR$/dist/controllers/gapSignalController.js" />
-      <root url="file://$PROJECT_DIR$/dist/server/models/threeArrowSignal.js" />
       <root url="file://$PROJECT_DIR$/dist/server/services/quote.service.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/common/stockMarketQuotesService.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/common/indicatorsUtils.js" />
+      <root url="file://$PROJECT_DIR$/dist/routes/threeArrowSignalRoutes.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/server.js" />
+      <root url="file://$PROJECT_DIR$/dist/controllers/threeArrowSignalController.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/models/threeArrowSignal.js" />
       <root url="file://$PROJECT_DIR$/dist/server/models/gapSignal.js" />
       <root url="file://$PROJECT_DIR$/dist/routes/gapSignalRoutes.js" />
-      <root url="file://$PROJECT_DIR$/dist/server/common/indicatorsUtils.js" />
       <root url="file://$PROJECT_DIR$/dist/server/db/mongoose.js" />
     </CLASSES>
     <SOURCES />
