@@ -73,10 +73,51 @@ let getPaginationOptions = (pagingInfo) => {
     };
 };
 
+let addPriceRangeFilter = (filterQuery, lowPrice, highprice) => {
+    if(lowPrice && highprice) {
+        filterQuery.close = {$gte: lowPrice, $lte: highprice};
+    }
+
+    return filterQuery;
+};
+
+let getFilterQuery = (queryProperties) => {
+    let filterQuery = {};
+
+    let pagingInfo = queryProperties.pagingInfo;
+    let from = queryProperties.from;
+    let to = queryProperties.to;
+
+    let bodyQuery = queryProperties.query;
+
+   addDateRangeFilter(filterQuery, from, to);
+
+    if(!bodyQuery.symbols || (bodyQuery.symbols && bodyQuery.symbols.length === 0)) {
+        if(bodyQuery.marketCaps && bodyQuery.marketCaps.length > 0) {
+            addMarketCapFilter(filterQuery, bodyQuery.marketCaps);
+        }
+
+        if(bodyQuery.exchanges && bodyQuery.exchanges.length > 0) {
+            addExchangeFilter(filterQuery, bodyQuery.exchanges);
+        }
+
+        if(bodyQuery.lowPriceRange >= 0 && bodyQuery.highPriceRange > 0) {
+            addPriceRangeFilter(filterQuery, bodyQuery.lowPriceRange, bodyQuery.highPriceRange);
+        }
+    } else {
+        addSymbolsFilter(filterQuery, bodyQuery.symbols);
+    }
+
+    let paginationOptions = getPaginationOptions(pagingInfo);
+
+    return {paginationOptions, filterQuery};
+};
+
 module.exports = {
     addDateRangeFilter,
     addMarketCapFilter,
     addExchangeFilter,
     addSymbolsFilter,
-    getPaginationOptions
+    getPaginationOptions,
+    getFilterQuery
 };
