@@ -64,8 +64,8 @@ let getHistoricalQuotesQuand = (symbol, from, to) => {
 };
 
 let getAllStocks = () => {
-    // const baseHerokuUdpUrl = 'https://enigmatic-waters-56889.herokuapp.com';
-    const baseHerokuUdpUrl = 'http://localhost:4600';
+     const baseHerokuUdpUrl = 'https://enigmatic-waters-56889.herokuapp.com';
+    //const baseHerokuUdpUrl = 'http://localhost:4600';
     const getAllSymbols = '/api/udf/allstocksfull';
     return axios.get(`${baseHerokuUdpUrl}${getAllSymbols}`);
 };
