@@ -66,7 +66,7 @@ let addSymbolsFilter = (filterQuery, symbolsFilterOptions) => {
 let getPaginationOptions = (pagingInfo) => {
     let offset = pagingInfo.pageSize * ( pagingInfo.currentPage - 1 );
     return {
-        sort: { dateId: 1 },
+        sort: { dateId: -1 },
         lean: true,
         offset: offset,
         limit: pagingInfo.pageSize
@@ -101,7 +101,7 @@ let getFilterQuery = (queryProperties) => {
             addExchangeFilter(filterQuery, bodyQuery.exchanges);
         }
 
-        if(bodyQuery.lowPriceRange >= 0 && bodyQuery.highPriceRange > 0) {
+        if(bodyQuery.lowPriceRange > 0 && bodyQuery.highPriceRange > 0) {
             addPriceRangeFilter(filterQuery, bodyQuery.lowPriceRange, bodyQuery.highPriceRange);
         }
     } else {
@@ -114,10 +114,5 @@ let getFilterQuery = (queryProperties) => {
 };
 
 module.exports = {
-    addDateRangeFilter,
-    addMarketCapFilter,
-    addExchangeFilter,
-    addSymbolsFilter,
-    getPaginationOptions,
     getFilterQuery
 };

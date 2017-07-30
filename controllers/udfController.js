@@ -90,7 +90,7 @@ let udfController = (
             .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
             .then((fullQuotes) => {
                 let gapSignals = gapValidatorUtils.getGapChartMarks(fullQuotes);
-                gapSignals = gapSignals.map((q, i, arr) => {
+                gapSignals = gapSignals.map((q) => {
                     let previousLow = q.previousQuote.low;
                     let currentHigh = q.high;
                     let currentLow = q.low;
@@ -297,12 +297,12 @@ let udfController = (
             let a = signal.low;
             let b = signal.high;
             let c = signal.low;
-            let priceRange = 2;
+            let numOfDaysRange = 1;
 
-            a = find_A_fibPivotPoint(a, quotes, sigIndex, priceRange);
-            let fibPivotBPoint = find_B_fibPivotPoint(b, quotes, sigIndex, priceRange);
+            a = find_A_fibPivotPoint(a, quotes, sigIndex, numOfDaysRange);
+            let fibPivotBPoint = find_B_fibPivotPoint(b, quotes, sigIndex, numOfDaysRange);
             b = fibPivotBPoint.b;
-            c = find_C_fibPivotPoint(b, quotes, fibPivotBPoint.bIndex, priceRange);
+            c = find_C_fibPivotPoint(b, quotes, fibPivotBPoint.bIndex, numOfDaysRange);
 
             let fib618Projection = getFibonacciProjection('up', a, b, c, null, null, 0.618);
             let fib382Projection = getFibonacciProjection('up', a, b, c, null, null, 0.382);

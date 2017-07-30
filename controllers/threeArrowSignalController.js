@@ -63,31 +63,9 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
     };
 
     let getThreeArrowSignals = (req, res) => {
+        let query = filterComposer.getFilterQuery(req.body);
 
-        let pagingInfo = req.body.pagingInfo;
-        let from = req.body.from;
-        let to = req.body.to;
-
-        let bodyQuery = req.body.query;
-        let filterQuery = {};
-
-        filterComposer.addDateRangeFilter(filterQuery, from, to);
-
-        if(!bodyQuery.symbols || (bodyQuery.symbols && bodyQuery.symbols.length === 0)) {
-            if(bodyQuery.marketCaps && bodyQuery.marketCaps.length > 0) {
-                filterComposer.addMarketCapFilter(filterQuery, bodyQuery.marketCaps);
-            }
-
-            if(bodyQuery.exchanges) {
-                filterComposer.addExchangeFilter(filterQuery, bodyQuery.exchanges);
-            }
-        } else {
-            filterComposer.addSymbolsFilter(filterQuery, bodyQuery.symbols);
-        }
-
-        let paginationOptions = filterComposer.getPaginationOptions(pagingInfo);
-
-        ThreeArrowSignal.paginate(filterQuery, paginationOptions, function(err, result) {
+        ThreeArrowSignal.paginate(query.filterQuery, query.paginationOptions, function(err, result) {
             res.send(result)
         });
 
