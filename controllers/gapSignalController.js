@@ -34,7 +34,7 @@ let gapSignalController = (GapSignal, quotes) => {
     let postGapSignalsForAllSymbols = (req, res) => {
         // let from = new Date(req.body.params.from);
         // let to = new Date(req.body.params.to);
-        let from = '2015-01-01';
+        let from = '2017-04-01';
         let to = new Date();
         stockMarketQuotesService.getAllStocks()
             .then(function(stocks) {

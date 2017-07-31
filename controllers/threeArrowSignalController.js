@@ -31,7 +31,7 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
     };
 
     let postThreeArrowSignalsForAllSymbols = (req, res) => {
-        let from = '2015-01-01';
+        let from = '2017-04-01';
         let to = new Date();
 
         stockMarketQuotesService.getAllStocks()
