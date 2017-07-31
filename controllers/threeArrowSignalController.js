@@ -49,7 +49,6 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
                             console.log(`about to send response::  ${result}` );
 
                         });
-
                     stock = generatedSymbols.next();
 
                     if(stock.done === true){
