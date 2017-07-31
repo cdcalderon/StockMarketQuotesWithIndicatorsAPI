@@ -58,7 +58,7 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
                         res.send("OK");
                     }
 
-                },2000);
+                },1000);
             });
     };
 

@@ -59,7 +59,7 @@ let gapSignalController = (GapSignal, quotes) => {
                         console.log("Done with GapSignals");
                         res.send("OK");
                     }
-                },5000);
+                },1000);
             });
     };
 
