@@ -38,8 +38,8 @@
       <file leaf-file-name="gapSignalController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/gapSignalController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="36" column="27" lean-forward="false" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+            <state relative-caret-position="624">
+              <caret line="61" column="21" lean-forward="false" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -108,8 +108,8 @@
       <file leaf-file-name="threeArrowSignalController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/threeArrowSignalController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="40" column="61" lean-forward="true" selection-start-line="40" selection-start-column="61" selection-end-line="40" selection-end-column="61" />
+            <state relative-caret-position="451">
+              <caret line="59" column="21" lean-forward="false" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -593,14 +593,7 @@
       <workItem from="1500108529130" duration="1774000" />
       <workItem from="1500110841172" duration="40909000" />
       <workItem from="1500440104708" duration="56708000" />
-      <workItem from="1501311696190" duration="22022000" />
-    </task>
-    <task id="LOCAL-00014" summary="and 3 arrow signal end point">
-      <created>1493873145511</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1493873145511</updated>
+      <workItem from="1501311696190" duration="23590000" />
     </task>
     <task id="LOCAL-00015" summary="Implement populate 3ArrowGreen Signal to Mongo DB using Mongoose">
       <created>1494251458038</created>
@@ -938,11 +931,18 @@
       <option name="project" value="LOCAL" />
       <updated>1501459902567</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="change signals date">
+      <created>1501469834337</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1501469834337</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="482999000" />
+    <option name="totallyTimeSpent" value="484567000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1003,7 +1003,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Implement populateGapSignals populate3GreenArrows using all symbols array" />
     <MESSAGE value="remove wrong positioned res.send(&quot;OK&quot;); response" />
     <MESSAGE value="Implement Gap Signals Fib Projections" />
     <MESSAGE value="Adjust Gap Signals Criteria" />
@@ -1028,7 +1027,8 @@
     <MESSAGE value="set Heroku baseHerokuUdpUrl endpoint location" />
     <MESSAGE value="chnage signal time frame" />
     <MESSAGE value="sync" />
-    <option name="LAST_COMMIT_MESSAGE" value="sync" />
+    <MESSAGE value="change signals date" />
+    <option name="LAST_COMMIT_MESSAGE" value="change signals date" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1436,16 +1436,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/gapSignalController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="36" column="27" lean-forward="false" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+        <state relative-caret-position="624">
+          <caret line="61" column="21" lean-forward="false" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/threeArrowSignalController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="40" column="61" lean-forward="true" selection-start-line="40" selection-start-column="61" selection-end-line="40" selection-end-column="61" />
+        <state relative-caret-position="451">
+          <caret line="59" column="21" lean-forward="false" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
           <folding />
         </state>
       </provider>
