@@ -27,7 +27,7 @@ let gapSignalController = (GapSignal, quotes) => {
                 res.send("OK");
             }
 
-        },7500);
+        },1500);
 
     };
 
