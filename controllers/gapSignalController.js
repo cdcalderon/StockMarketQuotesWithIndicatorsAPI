@@ -2,7 +2,6 @@ const filterComposer = require('../server/common/filterComposerUtils');
 const stockMarketQuotesService = require('../server/common/stockMarketQuotesService');
 
 let gapSignalController = (GapSignal, quotes) => {
-
     let post = (req, res) => {
         let symbols = req.body.params.symbols;
         let from = new Date(req.body.params.from);
@@ -27,7 +26,7 @@ let gapSignalController = (GapSignal, quotes) => {
                 res.send("OK");
             }
 
-        },1500);
+        },100);
 
     };
 

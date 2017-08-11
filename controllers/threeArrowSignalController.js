@@ -67,7 +67,6 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
         ThreeArrowSignal.paginate(query.filterQuery, query.paginationOptions, function(err, result) {
             res.send(result)
         });
-
     };
 
 
