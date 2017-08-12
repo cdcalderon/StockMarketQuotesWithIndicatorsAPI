@@ -33,9 +33,6 @@ let routes = function(){
     udfRouter.route('/historicalgaps')
         .get(udfController.getHistoricalGaps);
 
-    udfRouter.route('/marksgapswithpreviousquote')
-        .get(udfController.getMarksGapWithPreviousQuote);
-
     udfRouter.route('/marks')
         .get(udfController.getMarks);
 
@@ -44,9 +41,6 @@ let routes = function(){
 
     udfRouter.route('/marksgreenarrows')
         .get(udfController.getMarksGreenArrows);
-
-    udfRouter.route('/marksgreenarrowsprojections')
-        .get(udfController.getMarksGreenArrowsProjections);
 
     udfRouter.route('/symbols')
         .get(udfController.getSymbols);
