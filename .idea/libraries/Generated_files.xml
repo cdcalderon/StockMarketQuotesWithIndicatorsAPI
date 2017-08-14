@@ -5,10 +5,13 @@
         <item url="file://$PROJECT_DIR$/dist/server/common/filterComposerUtils.js" />
         <item url="file://$PROJECT_DIR$/dist/controllers/gapSignalController.js" />
         <item url="file://$PROJECT_DIR$/dist/server/services/quote.service.js" />
+        <item url="file://$PROJECT_DIR$/dist/server/common/stoch307ValidatorUtils.js" />
+        <item url="file://$PROJECT_DIR$/dist/controllers/stoch307SignalController.js" />
         <item url="file://$PROJECT_DIR$/dist/routes/signalFibProjections.js" />
         <item url="file://$PROJECT_DIR$/dist/server/common/stockMarketQuotesService.js" />
-        <item url="file://$PROJECT_DIR$/dist/server/common/indicatorsUtils.js" />
         <item url="file://$PROJECT_DIR$/dist/routes/signalFibProjectionsRoutes.js" />
+        <item url="file://$PROJECT_DIR$/dist/server/common/indicatorsUtils.js" />
+        <item url="file://$PROJECT_DIR$/dist/server/services/quotes.signals.stoch307.js" />
         <item url="file://$PROJECT_DIR$/dist/controllers/signalFibProjectionsController.js" />
         <item url="file://$PROJECT_DIR$/dist/controllers/udfController.js" />
         <item url="file://$PROJECT_DIR$/dist/routes/threeArrowSignalRoutes.js" />
@@ -16,6 +19,7 @@
         <item url="file://$PROJECT_DIR$/dist/controllers/threeArrowSignalController.js" />
         <item url="file://$PROJECT_DIR$/dist/routes/udfRoutes.js" />
         <item url="file://$PROJECT_DIR$/dist/server/models/threeArrowSignal.js" />
+        <item url="file://$PROJECT_DIR$/dist/routes/stoch307Routes.js" />
         <item url="file://$PROJECT_DIR$/dist/server/models/gapSignal.js" />
         <item url="file://$PROJECT_DIR$/dist/routes/gapSignalRoutes.js" />
         <item url="file://$PROJECT_DIR$/dist/server/db/mongoose.js" />
@@ -27,10 +31,13 @@
       <root url="file://$PROJECT_DIR$/dist/server/common/filterComposerUtils.js" />
       <root url="file://$PROJECT_DIR$/dist/controllers/gapSignalController.js" />
       <root url="file://$PROJECT_DIR$/dist/server/services/quote.service.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/common/stoch307ValidatorUtils.js" />
+      <root url="file://$PROJECT_DIR$/dist/controllers/stoch307SignalController.js" />
       <root url="file://$PROJECT_DIR$/dist/routes/signalFibProjections.js" />
       <root url="file://$PROJECT_DIR$/dist/server/common/stockMarketQuotesService.js" />
-      <root url="file://$PROJECT_DIR$/dist/server/common/indicatorsUtils.js" />
       <root url="file://$PROJECT_DIR$/dist/routes/signalFibProjectionsRoutes.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/common/indicatorsUtils.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/services/quotes.signals.stoch307.js" />
       <root url="file://$PROJECT_DIR$/dist/controllers/signalFibProjectionsController.js" />
       <root url="file://$PROJECT_DIR$/dist/controllers/udfController.js" />
       <root url="file://$PROJECT_DIR$/dist/routes/threeArrowSignalRoutes.js" />
@@ -38,6 +45,7 @@
       <root url="file://$PROJECT_DIR$/dist/controllers/threeArrowSignalController.js" />
       <root url="file://$PROJECT_DIR$/dist/routes/udfRoutes.js" />
       <root url="file://$PROJECT_DIR$/dist/server/models/threeArrowSignal.js" />
+      <root url="file://$PROJECT_DIR$/dist/routes/stoch307Routes.js" />
       <root url="file://$PROJECT_DIR$/dist/server/models/gapSignal.js" />
       <root url="file://$PROJECT_DIR$/dist/routes/gapSignalRoutes.js" />
       <root url="file://$PROJECT_DIR$/dist/server/db/mongoose.js" />

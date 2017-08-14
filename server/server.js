@@ -12,12 +12,17 @@ app.use(bodyParser.json());
 
 const gapSignalRouter = require('../routes/gapSignalRoutes')(GapSignal);
 const threeArrowSignalRouter = require('../routes/threeArrowSignalRoutes')(ThreeArrowSignal);
+const stoch307SignalRouter = require('../routes/stoch307Routes')();
 const udfRouter = require('../routes/udfRoutes')();
 const signalFibProjectionsRouter = require('../routes/signalFibProjectionsRoutes')();
+
+
 app.use('/api/gapsignals', gapSignalRouter);
 app.use('/api/threearrowsignals', threeArrowSignalRouter);
+app.use('/api/signals/stoch307', stoch307SignalRouter);
 app.use('/api/udf', udfRouter);
 app.use('/api/signals/fibprojections', signalFibProjectionsRouter);
+
 
 app.listen(port, () => {
   console.log(`Started up at port ${port}`)

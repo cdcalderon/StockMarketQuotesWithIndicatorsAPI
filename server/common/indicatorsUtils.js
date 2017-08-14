@@ -1,4 +1,5 @@
 const SMA = require('technicalindicators').SMA;
+const EMA = require('technicalindicators').EMA;
 const talib = require("talib")
 const MACD = require('technicalindicators').MACD;
 const _ = require('lodash-node');
@@ -62,6 +63,7 @@ let createQuotesWithIndicatorsAndArrowSignals = (quotes,smas,macds,stochs ) => {
     });
 };
 
+
 let calculateIsGreenArrow = (previousQuote, previousSMA10, currentClose, currentSMA10,
                              previousMacd, currentMacd,
                              previousSlowK, currentSlowK, currentSlowD,
@@ -82,6 +84,15 @@ let calculateIsGreenArrow = (previousQuote, previousSMA10, currentClose, current
 let getSMAs = (period, values) => {
     let offsetSMA = new Array(period -1).fill(undefined);
     let smas =  SMA.calculate({
+        period: period,
+        values: values
+    });
+    return [...offsetSMA, ...smas];// unshift undefined period - 1 times
+};
+
+let getEMAs = (period, values) => {
+    let offsetSMA = new Array(period -1).fill(undefined);
+    let smas =  EMA.calculate({
         period: period,
         values: values
     });
@@ -134,6 +145,7 @@ module.exports = {
     getMACDs,
     getSTOCHs,
     createQuotesWithIndicatorsAndArrowSignals,
-    getHLC
+    getHLC,
+    getEMAs
 
 };

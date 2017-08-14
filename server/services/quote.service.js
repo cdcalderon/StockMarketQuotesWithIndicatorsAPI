@@ -71,6 +71,11 @@ let getIndicators = (quotes) => {
   return Promise.all([getMACDWithSMAS(quotes), getSTOCHs(quotes)]);
 };
 
+let getIndicatorsForStoch307For307Signal = (quotes) => {
+    return Promise.all([getMACDWithSMASForStoch307Signal(quotes), getSTOCHsForStoch307Signal(quotes)]);
+};
+
+
 let getMACDWithSMAS = (quotes) => {
     let { highs, closes } = indicatorsUtils.getHLC(quotes);
     let smas = indicatorsUtils.getSMAs(10, closes);
@@ -87,6 +92,36 @@ let getSTOCHs = (quotes) => {
         optInFastK_Period: 14,
         optInSlowK_MAType: 0,
         optInSlowD_Period: 5,
+        optInSlowD_MAType: 0,
+        startIdx: 0,
+        endIdx: endIndex,
+        high: highs,
+        low: lows,
+        close: closes,
+    };
+
+    return new Promise((resolve, reject) => {
+        indicatorsUtils.getSTOCHs(stochsInput,resolve,reject);
+    });
+};
+
+let getMACDWithSMASForStoch307Signal = (quotes) => {
+    let { highs, closes } = indicatorsUtils.getHLC(quotes);
+    let xmas7 = indicatorsUtils.getEMAs(7, closes);
+    let xmas30 = indicatorsUtils.getEMAs(30, closes);
+    let macds = indicatorsUtils.getMACDs(closes, 8, 17, 9, true, true);
+    return Promise.resolve({quotes: quotes, xmas: {xmas7: xmas7, xmas30: xmas30}, macds: macds});
+};
+
+let getSTOCHsForStoch307Signal = (quotes) => {
+    let { highs, lows, closes } = indicatorsUtils.getHLC(quotes);
+    let endIndex = highs.length -1;
+    let stochsInput = {
+        name: "STOCH",
+        optInSlowK_Period: 1,
+        optInFastK_Period: 10,
+        optInSlowK_MAType: 0,
+        optInSlowD_Period: 1,
         optInSlowD_MAType: 0,
         startIdx: 0,
         endIdx: endIndex,
@@ -285,5 +320,7 @@ module.exports = {
     createQuotesWithIndicatorsAndArrowSignals,
     populateThreeArrowSignal,
     populateGapSignals,
-    populateGapSignalsAllSymbols
+    populateGapSignalsAllSymbols,
+    getIndicatorsForStoch307For307Signal
+
 };
