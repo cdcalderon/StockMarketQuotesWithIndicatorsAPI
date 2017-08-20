@@ -7,6 +7,7 @@ const gapValidatorUtils = require('../server/common/gapValidatorUtils');
 const charMarkUtils = require('../server/common/charMarkUtils');
 const threeArrowValidatorUtils = require('../server/common/threeArrowValidatorUtils');
 const stockSignalsUtils = require('../server/common/stockSignalsUtils');
+const quotesStoch307SignalsService = require('../server/services/quotes.signals.stoch307');
 
 let routes = function(){
     let udfRouter = express.Router();
@@ -19,7 +20,8 @@ let routes = function(){
         gapValidatorUtils,
         charMarkUtils,
         threeArrowValidatorUtils,
-        stockSignalsUtils);
+        stockSignalsUtils,
+        quotesStoch307SignalsService);
 
     udfRouter.route('/history')
         .get(udfController.getHistory);
@@ -29,6 +31,9 @@ let routes = function(){
 
     udfRouter.route('/marksgaps')
         .get(udfController.getMarksGaps);
+
+    udfRouter.route('/markstoch307bull')
+        .get(udfController.getStoch307BullMarks);
 
     udfRouter.route('/historicalgaps')
         .get(udfController.getHistoricalGaps);

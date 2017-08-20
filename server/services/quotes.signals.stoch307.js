@@ -1,10 +1,19 @@
 const stoch307SignalValidator = require('../common/stoch307ValidatorUtils');
+const quotes = require('./quote.service');
+const moment = require('moment');
+const {Stoch307Signal} = require('../models/stoch307Signal');
 
-let getStoch307Signals = (indicators) => {
+let getStoch307SignalsBull = (symbol, from, to) => {
+    return quotes.getHistoricalQuotes(symbol, from, to)
+        .then(quotes.getIndicatorsForStoch307For307Signal)
+        .then(getStoch307SignalsBullStep2);
+};
+
+let getStoch307SignalsBullStep2 = (indicators) => {
     let macdSmasQuotes = indicators[0];
     let stochs = indicators[1];
 
-    return Promise.resolve(createQuotes(
+    return Promise.resolve(getStoch307SignalsBullStep3(
         macdSmasQuotes.quotes,
         macdSmasQuotes.xmas.xmas7,
         macdSmasQuotes.xmas.xmas30,
@@ -12,10 +21,12 @@ let getStoch307Signals = (indicators) => {
         stochs));
 };
 
-let createQuotes= (quotes,xmas7,xmas30,macds,stochs ) => {
+let getStoch307SignalsBullStep3= (quotes,xmas7,xmas30,macds,stochs ) => {
     let loadedQuotes = quotes.map((q, i, quotesArr) => {
+        let dateTS = moment(q.date).utc();
         return {
             date: q.date,
+            timeStampDate: dateTS.valueOf() / 1000,
             open: q.open,
             close: q.close,
             high: q.high,
@@ -46,6 +57,57 @@ let createQuotes= (quotes,xmas7,xmas30,macds,stochs ) => {
     });
 };
 
+let postStoch307BullSignalsForAllSymbols = (from, to, stock) => {
+    return getStoch307SignalsBull(stock.symbol, from, to)
+        .then((fullQuotes) => {
+            for(let quote of fullQuotes) {
+                Stoch307Signal.find({
+                    symbol: stock.symbol,
+                    dateId: new Date(quote.date) / 1000})
+                    .then((stoch307Signals => {
+                        if (stoch307Signals.length === 0) {
+                            let sQuote = new Stoch307Signal({
+                                symbol: stock.symbol,
+                                dateStr: quote.date,
+                                open: quote.open,
+                                high: quote.high,
+                                low: quote.low,
+                                close: quote.close,
+                                movingExAvg7: quote.XMA7,
+                                movingExAvg30: quote.XMA30,
+                                stochasticsK: quote.stochasticsK,
+                                stochasticsD: quote.stochasticsD,
+                                macdHistogram: quote.histogram,
+                                dateId: new Date(quote.date) / 1000,
+                                exchange: stock.exchange,
+                                summaryQuoteUrl: stock.summaryQuoteUrl,
+                                industry: stock.industry,
+                                sector: stock.sector,
+                                name: stock.name,
+                                marketCapNumeric: stock.marketCapNumeric,
+                                marketCap: stock.marketCap,
+                                movingExAvg30PositiveSlope: quote.EMA30PositiveSlope,
+                                directionType: 'bull'
+                            });
+
+                            sQuote.save().then((doc) => {
+                                console.log('success saving.. : ', doc);
+                            }, (e) => {
+                                console.log('error saving.. : ', e);
+                            });
+                        } else {
+                            console.log(`Stoch 307 Signal already on DB symbol ${stock.symbol}`);
+                        }
+                    }));
+            }
+
+            return 1;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
+
 let addMonth = (date, month) => {
     let temp = date;
     temp = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -59,7 +121,8 @@ let addMonth = (date, month) => {
 };
 
 module.exports = {
-    getStoch307Signals,
+    getStoch307SignalsBull,
+    postStoch307BullSignalsForAllSymbols,
     addMonth
 };
 

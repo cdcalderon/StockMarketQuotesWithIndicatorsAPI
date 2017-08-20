@@ -47,7 +47,6 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
                     quotes.populateThreeArrowSignal(from, to, stock.value)
                         .then((result) => {
                             console.log(`about to send response::  ${result}` );
-
                         });
                     stock = generatedSymbols.next();
 

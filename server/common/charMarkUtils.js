@@ -51,8 +51,29 @@ let formatThreeArrowChartMark = (quote, index) => {
     }
 }
 
+
+let formatStoch307ChartMarks = (quotes) => {
+
+    return quotes.map((q, i) => {
+        return {
+            id:i,
+            time:q.timeStampDate,
+            strDate: new Date(q.timeStampDate * 1000).toString(),
+            color:"yellow",
+            text:"Stoch 307",
+            label:"S307",
+            labelFontColor:"black",
+            minSize:20,
+            high: q.high,
+            low: q.low,
+            close: q.close
+        }
+    });
+};
+
 module.exports = {
     formatMarksResult,
     formatGapChartMark,
-    formatThreeArrowChartMark
+    formatThreeArrowChartMark,
+    formatStoch307ChartMarks
 };

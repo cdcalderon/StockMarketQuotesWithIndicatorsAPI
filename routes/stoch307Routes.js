@@ -17,7 +17,13 @@ let routes = function(){
         stockSignalsUtils);
 
     stoch307Router.route('/stoch307bull')
-        .get(stoch307Controller.getMarksStoch307Bull);
+        .get(stoch307Controller.getStoch307BullSignals);
+
+    stoch307Router.route('/createstoch307bullsignalsallsymbols')
+        .post(stoch307Controller.postStoch307BullSignalsForAllSymbols);
+
+    stoch307Router.route('/bullwithfilter')
+        .post(stoch307Controller.getStoch307BullSignalsWithFilter);
 
     return stoch307Router;
 };

@@ -6,17 +6,16 @@ let udfController = (
     gapValidatorUtils,
     charMarkUtils,
     threeArrowValidatorUtils,
-    stockSignalsUtils) => {
+    stockSignalsUtils,
+    quotesStoch307SignalsService) => {
 
-    // const historyQuotesUrl = 'http://localhost:4600/api/udf/history';
+     //const historyQuotesUrl = 'http://localhost:4600/api/udf/history';
     // const symbolsQuotesUrl  = 'http://localhost:4600/api/udf/symbols';
 
     const historyQuotesUrl = 'https://enigmatic-waters-56889.herokuapp.com/api/udf/history';
     const symbolsQuotesUrl = 'https://enigmatic-waters-56889.herokuapp.com/api/udf/symbols';
     const timescale_marksQuotesUrl = 'https://demo_feed.tradingview.com/timescale_marks';
 
-    //Implement new yahoo UDP quotes service
-    //https://github.com/tradingview/yahoo_datafeed/blob/master/yahoo.js
      let getHistory = (req, res) => {
         let symbol = req.query.symbol;
         let resolution = req.query.resolution;
@@ -96,6 +95,25 @@ let udfController = (
 
                 let marks = charMarkUtils.formatMarksResult(threeArrowSignals);
 
+                res.send(marks);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    let getStoch307BullMarks = (req, res) => {
+        let symbol = req.query.symbol;
+        let from = new Date(req.query.from * 1000);
+        let to = new Date(req.query.to * 1000);
+
+        from = quotesStoch307SignalsService.addMonth(from, -1); // needed because of 30 day  mavg
+
+        quotesStoch307SignalsService.getStoch307SignalsBull(symbol, from, to)
+            .then((stoch307SignalQuotes) => {
+
+                let marks = charMarkUtils.formatStoch307ChartMarks(stoch307SignalQuotes);
+                marks = charMarkUtils.formatMarksResult(marks);
                 res.send(marks);
             })
             .catch((error) => {
@@ -190,10 +208,11 @@ let udfController = (
         getHistory: getHistory,
         getConfig: getConfig,
         getMarksGaps: getMarksGaps,
+        getMarksGreenArrows: getMarksGreenArrows,
+        getStoch307BullMarks:getStoch307BullMarks,
         getHistoricalGaps: getHistoricalGaps,
         getMarks: getMarks,
         getSignals: getSignals,
-        getMarksGreenArrows: getMarksGreenArrows,
         getSymbols: getSymbols,
         getTimescaleMarks: getTimescaleMarks
     }

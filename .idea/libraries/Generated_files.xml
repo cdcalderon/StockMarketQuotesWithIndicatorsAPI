@@ -19,6 +19,8 @@
         <item url="file://$PROJECT_DIR$/dist/controllers/threeArrowSignalController.js" />
         <item url="file://$PROJECT_DIR$/dist/routes/udfRoutes.js" />
         <item url="file://$PROJECT_DIR$/dist/server/models/threeArrowSignal.js" />
+        <item url="file://$PROJECT_DIR$/dist/server/common/charMarkUtils.js" />
+        <item url="file://$PROJECT_DIR$/dist/server/models/stoch307Signal.js" />
         <item url="file://$PROJECT_DIR$/dist/routes/stoch307Routes.js" />
         <item url="file://$PROJECT_DIR$/dist/server/models/gapSignal.js" />
         <item url="file://$PROJECT_DIR$/dist/routes/gapSignalRoutes.js" />
@@ -45,6 +47,8 @@
       <root url="file://$PROJECT_DIR$/dist/controllers/threeArrowSignalController.js" />
       <root url="file://$PROJECT_DIR$/dist/routes/udfRoutes.js" />
       <root url="file://$PROJECT_DIR$/dist/server/models/threeArrowSignal.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/common/charMarkUtils.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/models/stoch307Signal.js" />
       <root url="file://$PROJECT_DIR$/dist/routes/stoch307Routes.js" />
       <root url="file://$PROJECT_DIR$/dist/server/models/gapSignal.js" />
       <root url="file://$PROJECT_DIR$/dist/routes/gapSignalRoutes.js" />
