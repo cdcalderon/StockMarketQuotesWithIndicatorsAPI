@@ -202,6 +202,67 @@ let populateThreeArrowSignal = (from, to, stock) => {
         });
 };
 
+let populateThreeArrowSignalFromQuotes = (stock, fullQuotes) => {
+    return new Promise((resolve, reject) => {
+            return getIndicators(fullQuotes)
+            .then(createQuotesWithIndicatorsAndArrowSignals)
+            .then((signals) => {
+
+                let validatedSignals = signals.filter((q) => {
+                    return q.is3ArrowGreenPositive === true;
+                });
+
+                for(let signal of validatedSignals) {
+
+                    ThreeArrowSignal.find({
+                        symbol: stock.symbol,
+                        dateId: new Date(signal.date) / 1000})
+                        .then((threeArrowSignals => {
+                            if (threeArrowSignals.length === 0) {
+                                let sQuote = new ThreeArrowSignal({
+                                    symbol: stock.symbol,
+                                    dateStr: signal.date,
+                                    open: signal.open,
+                                    high: signal.high,
+                                    low: signal.low,
+                                    close: signal.close,
+                                    movingAvg10: signal.SMA10,
+                                    stochasticsK: signal.stochasticsK,
+                                    stochasticsD: signal.stochasticsD,
+                                    macdHistogram: signal.histogram,
+                                    isGreenArrow: signal.is3ArrowGreenPositive,
+                                    dateId: new Date(signal.date) / 1000,
+                                    exchange: stock.exchange,
+                                    summaryQuoteUrl: stock.summaryQuoteUrl,
+                                    industry: stock.industry,
+                                    sector: stock.sector,
+                                    name: stock.name,
+                                    marketCapNumeric: stock.marketCapNumeric,
+                                    marketCap: stock.marketCap
+                                });
+
+                                sQuote.save().then((doc) => {
+                                    log(chalk.green('success saving.. : ', doc));
+                                    resolve("Ok saving threearrow");
+                                }, (e) => {
+                                    log(chalk.red('error saving.. : '), e);
+                                    reject("Error saving threearrow");
+                                });
+                            } else {
+                                log(chalk.green(`Three Arrow Signal already on DB symbol ${chalk.magenta(stock.symbol)}`));
+                                resolve("Threearrow exists");
+                            }
+                        }));
+                }
+
+            })
+                .catch((error) => {
+                    log(chalk.red(error));
+                    reject(`Error saving Threearrow ${error}`);
+                });
+    });
+};
+
 let populateGapSignals = (from, to, stock) => {
     return getHistoricalQuotes(stock.symbol, from, to)
         .then((fullQuotes) => {
@@ -247,6 +308,54 @@ let populateGapSignals = (from, to, stock) => {
 
             return 1;
         });
+};
+
+let populateGapSignalsFromQuotes = (stock, fullQuotes) => {
+    return new Promise((resolve, reject) => {
+        let gapSignals = gapValidatorService.getGapSignals(fullQuotes);
+        for(let quote of gapSignals) {
+
+            GapSignal.find({
+                symbol: stock.symbol,
+                dateId: new Date(quote.date) / 1000})
+                .then((gaps => {
+                    if(gaps.length === 0) {
+                        let sQuote = new GapSignal({
+                            symbol: stock.symbol,
+                            dateStr: quote.date,
+                            open: quote.open,
+                            high: quote.high,
+                            low: quote.low,
+                            close: quote.close,
+                            gapSize: quote.gapSize,
+                            previousClose: quote.previousClose,
+                            direction: quote.direction,
+                            dateId: new Date(quote.date) / 1000,
+                            exchange: stock.exchange,
+                            summaryQuoteUrl: stock.summaryQuoteUrl,
+                            industry: stock.industry,
+                            sector: stock.sector,
+                            name: stock.name,
+                            marketCapNumeric: stock.marketCapNumeric,
+                            marketCap: stock.marketCap
+                        });
+
+                        sQuote.save().then((doc) => {
+                            log(chalk.blue('success saving.. : ', doc));
+                            resolve("Ok saving gap");
+                        }, (e) => {
+                            log(chalk.blue(chalk.red('error saving.. : '), e));
+                            reject("error saving gap");
+                        });
+                    } else {
+                        log(chalk.blue(`Gap already on DB symbol ${chalk.cyan(stock.symbol)}`));
+                        resolve("Gap exists");
+                    }
+                }));
+
+        }
+    });
+
 };
 
 let populateGapSignalsAllSymbols = (from, to, symbols) => {
@@ -323,6 +432,8 @@ module.exports = {
     populateThreeArrowSignal,
     populateGapSignals,
     populateGapSignalsAllSymbols,
-    getIndicatorsForStoch307For307Signal
+    getIndicatorsForStoch307For307Signal,
+    populateGapSignalsFromQuotes,
+    populateThreeArrowSignalFromQuotes
 
 };

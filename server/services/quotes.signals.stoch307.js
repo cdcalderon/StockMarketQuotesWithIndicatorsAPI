@@ -12,6 +12,11 @@ let getStoch307SignalsBull = (symbol, from, to) => {
         .then(getStoch307SignalsBullStep2);
 };
 
+let getStoch307SignalsBullFromQuotes = (fullQuotes) => {
+    return quotes.getIndicatorsForStoch307For307Signal(fullQuotes)
+        .then(getStoch307SignalsBullStep2);
+};
+
 let getStoch307SignalsBullStep2 = (indicators) => {
     let macdSmasQuotes = indicators[0];
     let stochs = indicators[1];
@@ -111,6 +116,62 @@ let postStoch307BullSignalsForAllSymbols = (from, to, stock) => {
         });
 };
 
+let postStoch307BullSignalsForAllSymbolsFromQuotes = (stock, fullQuotes) => {
+    return new Promise((resolve, reject) => {
+        return getStoch307SignalsBullFromQuotes(fullQuotes)
+            .then((signals) => {
+                for(let signal of signals) {
+                    Stoch307Signal.find({
+                        symbol: stock.symbol,
+                        dateId: new Date(signal.date) / 1000})
+                        .then((stoch307Signals => {
+                            if (stoch307Signals.length === 0) {
+                                let sQuote = new Stoch307Signal({
+                                    symbol: stock.symbol,
+                                    dateStr: signal.date,
+                                    open: signal.open,
+                                    high: signal.high,
+                                    low: signal.low,
+                                    close: signal.close,
+                                    movingExAvg7: signal.XMA7,
+                                    movingExAvg30: signal.XMA30,
+                                    stochasticsK: signal.stochasticsK,
+                                    stochasticsD: signal.stochasticsD,
+                                    macdHistogram: signal.histogram,
+                                    dateId: new Date(signal.date) / 1000,
+                                    exchange: stock.exchange,
+                                    summaryQuoteUrl: stock.summaryQuoteUrl,
+                                    industry: stock.industry,
+                                    sector: stock.sector,
+                                    name: stock.name,
+                                    marketCapNumeric: stock.marketCapNumeric,
+                                    marketCap: stock.marketCap,
+                                    movingExAvg30PositiveSlope: signal.EMA30PositiveSlope,
+                                    directionType: 'bull'
+                                });
+
+                                sQuote.save().then((doc) => {
+                                    log(chalk.yellow('success saving.. : ', doc));
+                                    resolve('Ok saving stoch307');
+                                }, (e) => {
+                                    log(chalk.yellow(chalk.red('error saving.. : '), e));
+                                    reject('Error saving stoch307')
+                                });
+                            } else {
+                                log(chalk.yellow(`Stoch 307 Signal already on DB symbol ${chalk.magenta(stock.symbol)}`));
+                                resolve('stoch307 Exists');
+                            }
+                        }));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(`Error saving stoch307 ${error}`);
+            });
+    });
+
+};
+
 let addMonth = (date, month) => {
     let temp = date;
     temp = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -126,6 +187,8 @@ let addMonth = (date, month) => {
 module.exports = {
     getStoch307SignalsBull,
     postStoch307BullSignalsForAllSymbols,
+    getStoch307SignalsBullFromQuotes,
+    postStoch307BullSignalsForAllSymbolsFromQuotes,
     addMonth
 };
 

@@ -20,20 +20,38 @@ let signalsDataFeedController = () => {
                 let intervalGapId = setInterval(() => {
                     console.log("Current Symbol" + stock.value.symbol);
 
-                    quotesService.populateGapSignals(from, to, stock.value)
-                        .then((result) => {
-                            log(chalk.blue(`Populate Gap Signal response::  ${result}` ));
+                    quotesService.getHistoricalQuotes(stock.value.symbol, from, to)
+                        .then((fullQuotes) => {
+                            quotesService.populateGapSignalsFromQuotes(stock.value, fullQuotes)
+                                .then((result) => {
+                                    log(chalk.blue(`Populate Gap Signal response::  ${result}` ));
+                                });
+                            quotesService.populateThreeArrowSignalFromQuotes(stock.value, fullQuotes)
+                                .then((result) => {
+                                    log(chalk.green(`Populate ThreeArrow Signal response::  ${result}` ));
+                                });
+                            quotesStoch307Signals.postStoch307BullSignalsForAllSymbolsFromQuotes(stock.value, fullQuotes)
+                                .then((result) => {
+                                    log(chalk.yellow(`Populate Stoch307 response::  ${result}` ));
+
+                                });
+
                         });
 
-                    quotesStoch307Signals.postStoch307BullSignalsForAllSymbols(from, to, stock.value)
-                        .then((result) => {
-                            log(chalk.yellow(`Populate Stoch307 response::  ${result}` ));
+                    // quotesService.populateGapSignals(from, to, stock.value)
+                    //     .then((result) => {
+                    //         log(chalk.blue(`Populate Gap Signal response::  ${result}` ));
+                    //     });
 
-                        });
-                    quotesService.populateThreeArrowSignal(from, to, stock.value)
-                        .then((result) => {
-                            log(chalk.green(`Populate ThreeArrow Signal response::  ${result}` ));
-                        });
+                    // quotesStoch307Signals.postStoch307BullSignalsForAllSymbols(from, to, stock.value)
+                    //     .then((result) => {
+                    //         log(chalk.yellow(`Populate Stoch307 response::  ${result}` ));
+                    //
+                    //     });
+                    // quotesService.populateThreeArrowSignal(from, to, stock.value)
+                    //     .then((result) => {
+                    //         log(chalk.green(`Populate ThreeArrow Signal response::  ${result}` ));
+                    //     });
 
                     stock = generatedSymbols.next();
 

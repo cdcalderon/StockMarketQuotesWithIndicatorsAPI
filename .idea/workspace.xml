@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd65eb87-316e-4a18-92d0-4584b9962f98" name="Default" comment="implement stoch307 signal Marks">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/signalsDataFeedController.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes/signalsDataFeedRoutes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" />
+    <list default="true" id="fd65eb87-316e-4a18-92d0-4584b9962f98" name="Default" comment="implement pupulateAllSignalsForAllSymbols and add chalk to log messages">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/signalsDataFeedController.js" afterPath="$PROJECT_DIR$/controllers/signalsDataFeedController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/services/quote.service.js" afterPath="$PROJECT_DIR$/server/services/quote.service.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/services/quotes.signals.stoch307.js" afterPath="$PROJECT_DIR$/server/services/quotes.signals.stoch307.js" />
     </list>
@@ -29,11 +26,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="udfController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/udfController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="383">
+              <caret line="90" column="35" lean-forward="false" selection-start-line="90" selection-start-column="35" selection-end-line="90" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="gapSignalController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/gapSignalController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="705">
-              <caret line="74" column="5" lean-forward="true" selection-start-line="32" selection-start-column="3" selection-end-line="74" selection-end-column="5" />
+            <state relative-caret-position="-230">
+              <caret line="18" column="19" lean-forward="true" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -49,21 +56,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/server.js">
+      <file leaf-file-name="udfRoutes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/udfRoutes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="9" lean-forward="true" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="29" />
+            <state relative-caret-position="580">
+              <caret line="47" column="38" lean-forward="false" selection-start-line="47" selection-start-column="38" selection-end-line="47" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="signalsDataFeedController.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="signalsDataFeedController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/signalsDataFeedController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="27" column="53" lean-forward="false" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
+            <state relative-caret-position="120">
+              <caret line="8" column="39" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -79,11 +86,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="quotes.signals.stoch307.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="quotes.signals.stoch307.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/services/quotes.signals.stoch307.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="79" column="36" lean-forward="true" selection-start-line="79" selection-start-column="36" selection-end-line="79" selection-end-column="36" />
+            <state relative-caret-position="655">
+              <caret line="169" column="15" lean-forward="true" selection-start-line="166" selection-start-column="12" selection-end-line="169" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -92,28 +99,8 @@
       <file leaf-file-name="threeArrowSignalController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/threeArrowSignalController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="67">
+            <state relative-caret-position="-31">
               <caret line="32" column="48" lean-forward="false" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="threeArrowSignalRoutes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/threeArrowSignalRoutes.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="60" lean-forward="false" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stoch307SignalController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/stoch307SignalController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -122,8 +109,18 @@
       <file leaf-file-name="quote.service.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/services/quote.service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="204" column="4" lean-forward="false" selection-start-line="204" selection-start-column="4" selection-end-line="204" selection-end-column="4" />
+            <state relative-caret-position="860">
+              <caret line="256" column="0" lean-forward="true" selection-start-line="256" selection-start-column="0" selection-end-line="256" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="indicatorsUtils.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/common/indicatorsUtils.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="21">
+              <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -140,8 +137,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>event</find>
-      <find>.</find>
       <find>...</find>
       <find>populateGapSignals</find>
       <find>getPaginationOptions</find>
@@ -170,6 +165,8 @@
       <find>populateStoch307Signal</find>
       <find>quotesStoch307Signals</find>
       <find>gapSignalRouter</find>
+      <find>to</find>
+      <find>symbol</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -223,9 +220,9 @@
         <option value="$PROJECT_DIR$/routes/signalDataFeedRoutes.js" />
         <option value="$PROJECT_DIR$/server/server.js" />
         <option value="$PROJECT_DIR$/routes/signalsDataFeedRoutes.js" />
+        <option value="$PROJECT_DIR$/server/services/quotes.signals.stoch307.js" />
         <option value="$PROJECT_DIR$/controllers/signalsDataFeedController.js" />
         <option value="$PROJECT_DIR$/server/services/quote.service.js" />
-        <option value="$PROJECT_DIR$/server/services/quotes.signals.stoch307.js" />
       </list>
     </option>
   </component>
@@ -249,7 +246,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="1680" />
     <option name="y" value="23" />
-    <option name="width" value="1203" />
+    <option name="width" value="1296" />
     <option name="height" value="1403" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -598,14 +595,7 @@
       <workItem from="1502519949041" duration="6156000" />
       <workItem from="1502582956871" duration="31015000" />
       <workItem from="1503160981925" duration="22448000" />
-      <workItem from="1503259933731" duration="4260000" />
-    </task>
-    <task id="LOCAL-00026" summary="Add app.get('/gapsignals'">
-      <created>1495339885136</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1495339885136</updated>
+      <workItem from="1503259933731" duration="8866000" />
     </task>
     <task id="LOCAL-00027" summary="Fix Bug in 3 green arrows marks endpoint">
       <created>1495698413108</created>
@@ -943,11 +933,18 @@
       <option name="project" value="LOCAL" />
       <updated>1503223279795</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="implement pupulateAllSignalsForAllSymbols and add chalk to log messages">
+      <created>1503298147070</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1503298147071</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="551800000" />
+    <option name="totallyTimeSpent" value="556406000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -959,20 +956,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1680" y="23" width="1203" height="1403" extended-state="0" />
+    <frame x="1680" y="23" width="1296" height="1403" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2741117" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25411764" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32867885" sideWeight="0.497151" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3440122" sideWeight="0.28680202" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.49961862" sideWeight="0.14588235" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.48910412" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32867885" sideWeight="0.49671054" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3440122" sideWeight="0.71319795" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.49961862" sideWeight="0.85411763" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24637681" sideWeight="0.6362098" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26773456" sideWeight="0.750423" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26773456" sideWeight="0.74554294" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1008,7 +1005,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adjust Gap Confirmation Entry price" />
     <MESSAGE value="Fix bug signal is undefined on Gap entry price" />
     <MESSAGE value="Implement getMarksGreenArrowsProjections" />
     <MESSAGE value="Adjust Algorithm getMarksGreenArrowsProjections, fix bugs." />
@@ -1033,7 +1029,8 @@
     <MESSAGE value="Refactor Extract Gap and ThreeArrow Signals From UDF controller to new Controller" />
     <MESSAGE value="implement stoch307 signal" />
     <MESSAGE value="implement stoch307 signal Marks" />
-    <option name="LAST_COMMIT_MESSAGE" value="implement stoch307 signal Marks" />
+    <MESSAGE value="implement pupulateAllSignalsForAllSymbols and add chalk to log messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement pupulateAllSignalsForAllSymbols and add chalk to log messages" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1100,42 +1097,42 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>267</line>
+          <line>376</line>
           <option name="timeStamp" value="473" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>269</line>
+          <line>378</line>
           <option name="timeStamp" value="475" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>261</line>
+          <line>370</line>
           <option name="timeStamp" value="478" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>266</line>
+          <line>375</line>
           <option name="timeStamp" value="479" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>252</line>
+          <line>361</line>
           <option name="timeStamp" value="537" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>256</line>
+          <line>365</line>
           <option name="timeStamp" value="539" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>213</line>
+          <line>274</line>
           <option name="timeStamp" value="637" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/services/quote.service.js</url>
-          <line>210</line>
+          <line>271</line>
           <option name="timeStamp" value="638" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -1179,11 +1176,6 @@
           <option name="timeStamp" value="758" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/services/quotes.signals.stoch307.js</url>
-          <line>64</line>
-          <option name="timeStamp" value="759" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/controllers/signalsDataFeedController.js</url>
           <line>9</line>
           <properties />
@@ -1195,8 +1187,26 @@
           <properties />
           <option name="timeStamp" value="773" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/signalsDataFeedController.js</url>
+          <line>22</line>
+          <properties />
+          <option name="timeStamp" value="781" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/signalsDataFeedController.js</url>
+          <line>23</line>
+          <properties />
+          <option name="timeStamp" value="782" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/signalsDataFeedController.js</url>
+          <line>24</line>
+          <properties />
+          <option name="timeStamp" value="783" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="774" />
+      <option name="time" value="784" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1370,13 +1380,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/common/indicatorsUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="45" column="7" lean-forward="false" selection-start-line="45" selection-start-column="7" selection-end-line="45" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/common/charMarkUtils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -1414,14 +1417,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/udfRoutes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" column="38" lean-forward="false" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/models/stoch307Signal.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
@@ -1437,34 +1432,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/udfController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2010">
-          <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/stoch307SignalController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/gapSignalController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="74" column="5" lean-forward="true" selection-start-line="32" selection-start-column="3" selection-end-line="74" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/threeArrowSignalController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67">
-          <caret line="32" column="48" lean-forward="false" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
           <folding />
         </state>
       </provider>
@@ -1501,26 +1472,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/services/quote.service.js">
+    <entry file="file://$PROJECT_DIR$/controllers/gapSignalController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="204" column="4" lean-forward="false" selection-start-line="204" selection-start-column="4" selection-end-line="204" selection-end-column="4" />
+        <state relative-caret-position="-230">
+          <caret line="18" column="19" lean-forward="true" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/signalsDataFeedController.js">
+    <entry file="file://$PROJECT_DIR$/controllers/threeArrowSignalController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="27" column="53" lean-forward="false" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
+        <state relative-caret-position="-31">
+          <caret line="32" column="48" lean-forward="false" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/common/indicatorsUtils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/udfRoutes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="580">
+          <caret line="47" column="38" lean-forward="false" selection-start-line="47" selection-start-column="38" selection-end-line="47" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/udfController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="90" column="35" lean-forward="false" selection-start-line="90" selection-start-column="35" selection-end-line="90" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/services/quotes.signals.stoch307.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="79" column="36" lean-forward="true" selection-start-line="79" selection-start-column="36" selection-end-line="79" selection-end-column="36" />
+        <state relative-caret-position="655">
+          <caret line="169" column="15" lean-forward="true" selection-start-line="166" selection-start-column="12" selection-end-line="169" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/services/quote.service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="860">
+          <caret line="256" column="0" lean-forward="true" selection-start-line="256" selection-start-column="0" selection-end-line="256" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/signalsDataFeedController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="39" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="39" />
           <folding />
         </state>
       </provider>
