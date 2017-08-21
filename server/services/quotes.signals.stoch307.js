@@ -2,6 +2,9 @@ const stoch307SignalValidator = require('../common/stoch307ValidatorUtils');
 const quotes = require('./quote.service');
 const moment = require('moment');
 const {Stoch307Signal} = require('../models/stoch307Signal');
+const chalk = require('chalk');
+const log = console.log;
+
 
 let getStoch307SignalsBull = (symbol, from, to) => {
     return quotes.getHistoricalQuotes(symbol, from, to)
@@ -91,12 +94,12 @@ let postStoch307BullSignalsForAllSymbols = (from, to, stock) => {
                             });
 
                             sQuote.save().then((doc) => {
-                                console.log('success saving.. : ', doc);
+                                log(chalk.yellow('success saving.. : ', doc));
                             }, (e) => {
-                                console.log('error saving.. : ', e);
+                                log(chalk.yellow(chalk.red('error saving.. : '), e));
                             });
                         } else {
-                            console.log(`Stoch 307 Signal already on DB symbol ${stock.symbol}`);
+                            log(chalk.yellow(`Stoch 307 Signal already on DB symbol ${stock.symbol}`));
                         }
                     }));
             }

@@ -3,6 +3,8 @@ const { ThreeArrowSignal } = require('../models/threeArrowSignal');
 const { GapSignal} = require('../models/gapSignal');
 const quotesService = require('../common/stockMarketQuotesService');
 const gapValidatorService = require('../common/gapValidatorUtils');
+const chalk = require('chalk');
+const log = console.log;
 
 let getHistoricalQuotes = (symbol, from, to) => {
     return quotesService.getHistoricalQuotesQuand(symbol,from,to).then((quotes) => {
@@ -186,12 +188,12 @@ let populateThreeArrowSignal = (from, to, stock) => {
                             });
 
                             sQuote.save().then((doc) => {
-                                console.log('success saving.. : ', doc);
+                                log(chalk.green('success saving.. : ', doc));
                             }, (e) => {
-                                console.log('error saving.. : ', e);
+                                log(chalk.red('error saving.. : '), e);
                             });
                         } else {
-                            console.log(`Three Arrow Signal already on DB symbol ${stock.symbol}`);
+                            log(chalk.green(`Three Arrow Signal already on DB symbol ${stock.symbol}`));
                         }
                     }));
             }
@@ -232,12 +234,12 @@ let populateGapSignals = (from, to, stock) => {
                             });
 
                             sQuote.save().then((doc) => {
-                                console.log('success saving.. : ', doc);
+                                log(chalk.blue('success saving.. : ', doc));
                             }, (e) => {
-                                console.log('error saving.. : ', e);
+                                log(chalk.blue(chalk.red('error saving.. : '), e));
                             });
                         } else {
-                            console.log(`Gap already on DB symbol ${stock.symbol}`);
+                            log(chalk.blue(`Gap already on DB symbol ${stock.symbol}`));
                         }
                     }));
 

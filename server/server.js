@@ -15,6 +15,7 @@ const threeArrowSignalRouter = require('../routes/threeArrowSignalRoutes')(Three
 const stoch307SignalRouter = require('../routes/stoch307Routes')();
 const udfRouter = require('../routes/udfRoutes')();
 const signalFibProjectionsRouter = require('../routes/signalFibProjectionsRoutes')();
+const signalsDataFeedRouter = require('../routes/signalsDataFeedRoutes')();
 
 
 app.use('/api/gapsignals', gapSignalRouter);
@@ -22,6 +23,7 @@ app.use('/api/threearrowsignals', threeArrowSignalRouter);
 app.use('/api/signals/stoch307', stoch307SignalRouter);
 app.use('/api/udf', udfRouter);
 app.use('/api/signals/fibprojections', signalFibProjectionsRouter);
+app.use('/api/signalsdatafeed', signalsDataFeedRouter);
 
 
 app.listen(port, () => {
