@@ -16,9 +16,9 @@ let signalsDataFeedController = () => {
                 allStocks = allStocks.map((s, i) => {
                     return Object.assign(s, {index: i + 1});
                 });
-                allStocks = allStocks.filter((q) => {
-                    return q.symbol === 'AAPL';
-                });
+                // allStocks = allStocks.filter((q) => {
+                //     return q.symbol === 'AAPL';
+                // });
 
                 console.log(`Got: ${allStocks}`);
 
