@@ -13,9 +13,9 @@ let signalsDataFeedController = () => {
             .then(function(stocks) {
                 let allStocks = stocks.data;
 
-                allStocks = allStocks.filter((q) => {
-                    return q.symbol === 'AAPL';
-                });
+                // allStocks = allStocks.filter((q) => {
+                //     return q.symbol === 'AAPL';
+                // });
 
                 console.log(`Got: ${allStocks}`);
 
@@ -27,10 +27,13 @@ let signalsDataFeedController = () => {
 
                     if(stock.done === true){
                         clearInterval(intervalGapId);
-                        log(chalk.gray.bgCyan.bold("Done Populating Signals for all Symbols"));
-                        res.send("OK");
+                        setTimeout(() => {
+                            log(chalk.black.bgCyan.bold("Done Populating Signals for all Symbols"));
+                            res.send("Ok");
+                        }, 2000);
+
                     } else {
-                        log(chalk.gray.bgMagenta.bold("Current Symbol" + stock.value.symbol));
+                        log(chalk.gray.bgMagenta.bold("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  Current Symbol " + stock.value.symbol + "  @@@@@@@@@@@@@@@@@@@@@@@@@@@"));
                         quotesService.getHistoricalQuotes(stock.value.symbol, from, to)
                             .then((fullQuotes) => {
                                 quotesService.populateGapSignalsFromQuotes(stock.value, fullQuotes)
@@ -50,7 +53,7 @@ let signalsDataFeedController = () => {
                             });
 
                     }
-                },1000);
+                },200);
             });
     };
 
