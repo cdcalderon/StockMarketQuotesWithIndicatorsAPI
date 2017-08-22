@@ -242,14 +242,14 @@ let populateThreeArrowSignalFromQuotes = (stock, fullQuotes) => {
                                 });
 
                                 sQuote.save().then((doc) => {
-                                    log(chalk.green('success saving.. : ', doc));
+                                    log(chalk.gray.bgGreen.bold('success saving.. : ', doc));
                                     resolve("Ok saving threearrow");
                                 }, (e) => {
                                     log(chalk.red('error saving.. : '), e);
                                     reject("Error saving threearrow");
                                 });
                             } else {
-                                log(chalk.green(`Three Arrow Signal already on DB symbol ${chalk.magenta(stock.symbol)}`));
+                                log(chalk.gray.bgGreen.bold(`Three Arrow Signal already on DB symbol ${chalk.magenta(stock.symbol)}`));
                                 resolve("Threearrow exists");
                             }
                         }));
@@ -341,14 +341,14 @@ let populateGapSignalsFromQuotes = (stock, fullQuotes) => {
                         });
 
                         sQuote.save().then((doc) => {
-                            log(chalk.blue('success saving.. : ', doc));
+                            log(chalk.gray.bgBlue.bold('success saving.. : ', doc));
                             resolve("Ok saving gap");
                         }, (e) => {
-                            log(chalk.blue(chalk.red('error saving.. : '), e));
+                            log(chalk.gray.bgBlue.bold(chalk.red('error saving.. : '), e));
                             reject("error saving gap");
                         });
                     } else {
-                        log(chalk.blue(`Gap already on DB symbol ${chalk.cyan(stock.symbol)}`));
+                        log(chalk.gray.bgBlue.bold(`Gap already on DB symbol ${chalk.cyan(stock.symbol)}`));
                         resolve("Gap exists");
                     }
                 }));

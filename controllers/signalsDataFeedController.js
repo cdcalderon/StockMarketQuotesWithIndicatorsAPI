@@ -12,53 +12,43 @@ let signalsDataFeedController = () => {
         stockMarketQuotesService.getAllStocks()
             .then(function(stocks) {
                 let allStocks = stocks.data;
+
+                allStocks = allStocks.filter((q) => {
+                    return q.symbol === 'AAPL';
+                });
+
                 console.log(`Got: ${allStocks}`);
 
                 let generatedSymbols = genSymbols(allStocks);
-                let stock = generatedSymbols.next();
+               // let stock = generatedSymbols.next();
 
                 let intervalGapId = setInterval(() => {
-                    console.log("Current Symbol" + stock.value.symbol);
-
-                    quotesService.getHistoricalQuotes(stock.value.symbol, from, to)
-                        .then((fullQuotes) => {
-                            quotesService.populateGapSignalsFromQuotes(stock.value, fullQuotes)
-                                .then((result) => {
-                                    log(chalk.blue(`Populate Gap Signal response::  ${result}` ));
-                                });
-                            quotesService.populateThreeArrowSignalFromQuotes(stock.value, fullQuotes)
-                                .then((result) => {
-                                    log(chalk.green(`Populate ThreeArrow Signal response::  ${result}` ));
-                                });
-                            quotesStoch307Signals.postStoch307BullSignalsForAllSymbolsFromQuotes(stock.value, fullQuotes)
-                                .then((result) => {
-                                    log(chalk.yellow(`Populate Stoch307 response::  ${result}` ));
-
-                                });
-
-                        });
-
-                    // quotesService.populateGapSignals(from, to, stock.value)
-                    //     .then((result) => {
-                    //         log(chalk.blue(`Populate Gap Signal response::  ${result}` ));
-                    //     });
-
-                    // quotesStoch307Signals.postStoch307BullSignalsForAllSymbols(from, to, stock.value)
-                    //     .then((result) => {
-                    //         log(chalk.yellow(`Populate Stoch307 response::  ${result}` ));
-                    //
-                    //     });
-                    // quotesService.populateThreeArrowSignal(from, to, stock.value)
-                    //     .then((result) => {
-                    //         log(chalk.green(`Populate ThreeArrow Signal response::  ${result}` ));
-                    //     });
-
-                    stock = generatedSymbols.next();
+                    let stock = generatedSymbols.next();
 
                     if(stock.done === true){
                         clearInterval(intervalGapId);
-                        console.log("Done with GapSignals");
+                        log(chalk.gray.bgCyan.bold("Done Populating Signals for all Symbols"));
                         res.send("OK");
+                    } else {
+                        log(chalk.gray.bgMagenta.bold("Current Symbol" + stock.value.symbol));
+                        quotesService.getHistoricalQuotes(stock.value.symbol, from, to)
+                            .then((fullQuotes) => {
+                                quotesService.populateGapSignalsFromQuotes(stock.value, fullQuotes)
+                                    .then((result) => {
+                                        log(chalk.blue(`Populate Gap Signal response::  ${result}` ));
+                                    });
+                                quotesService.populateThreeArrowSignalFromQuotes(stock.value, fullQuotes)
+                                    .then((result) => {
+                                        log(chalk.green(`Populate ThreeArrow Signal response::  ${result}` ));
+                                    });
+                                quotesStoch307Signals.postStoch307BullSignalsForAllSymbolsFromQuotes(stock.value, fullQuotes)
+                                    .then((result) => {
+                                        log(chalk.yellow(`Populate Stoch307 response::  ${result}` ));
+
+                                    });
+
+                            });
+
                     }
                 },1000);
             });

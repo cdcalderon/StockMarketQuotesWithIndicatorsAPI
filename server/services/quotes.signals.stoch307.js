@@ -151,14 +151,14 @@ let postStoch307BullSignalsForAllSymbolsFromQuotes = (stock, fullQuotes) => {
                                 });
 
                                 sQuote.save().then((doc) => {
-                                    log(chalk.yellow('success saving.. : ', doc));
+                                    log(chalk.gray.bgYellow.bold('success saving.. : ', doc));
                                     resolve('Ok saving stoch307');
                                 }, (e) => {
-                                    log(chalk.yellow(chalk.red('error saving.. : '), e));
+                                    log(chalk.gray.bgYellow.bold(chalk.red('error saving.. : '), e));
                                     reject('Error saving stoch307')
                                 });
                             } else {
-                                log(chalk.yellow(`Stoch 307 Signal already on DB symbol ${chalk.magenta(stock.symbol)}`));
+                                log(chalk.gray.bgYellow.bold(`Stoch 307 Signal already on DB symbol ${chalk.magenta(stock.symbol)}`));
                                 resolve('stoch307 Exists');
                             }
                         }));
