@@ -6,16 +6,19 @@ const log = console.log;
 
 let signalsDataFeedController = () => {
 
-    let pupulateAllSignalsForAllSymbols = (req, res) => {
+    let populateAllSignalsForAllSymbols = (req, res) => {
         let from = '2014-01-01';
         let to = new Date();
         stockMarketQuotesService.getAllStocks()
             .then(function(stocks) {
                 let allStocks = stocks.data;
 
-                // allStocks = allStocks.filter((q) => {
-                //     return q.symbol === 'AAPL';
-                // });
+                allStocks = allStocks.map((s, i) => {
+                    return Object.assign(s, {index: i + 1});
+                });
+                allStocks = allStocks.filter((q) => {
+                    return q.symbol === 'AAPL';
+                });
 
                 console.log(`Got: ${allStocks}`);
 
@@ -33,7 +36,7 @@ let signalsDataFeedController = () => {
                         }, 2000);
 
                     } else {
-                        log(chalk.gray.bgMagenta.bold("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  Current Symbol " + stock.value.symbol + "  @@@@@@@@@@@@@@@@@@@@@@@@@@@"));
+                        log(chalk.gray.bgMagenta.bold(`${stock.value.index } / ${allStocks.length} @@@@@@@@@@ ${new Date().toString()} @@@@@@@@@@@@@@@@@@@@  Current Symbol  ${stock.value.symbol}   @@@@@@@@@@@@@@@@@@@@@@@@@@@`));
                         quotesService.getHistoricalQuotes(stock.value.symbol, from, to)
                             .then((fullQuotes) => {
                                 quotesService.populateGapSignalsFromQuotes(stock.value, fullQuotes)
@@ -53,7 +56,7 @@ let signalsDataFeedController = () => {
                             });
 
                     }
-                },200);
+                },2000);
             });
     };
 
@@ -64,7 +67,7 @@ let signalsDataFeedController = () => {
     }
 
     return {
-        pupulateAllSignalsForAllSymbols: pupulateAllSignalsForAllSymbols
+        populateAllSignalsForAllSymbols: populateAllSignalsForAllSymbols
     }
 
 };

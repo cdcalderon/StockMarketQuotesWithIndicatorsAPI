@@ -6,7 +6,7 @@ let routes = function(){
     let signalsDataFeedController = require('../controllers/signalsDataFeedController')();
 
     signalsDataFeedRouter.route('/populateall')
-        .post(signalsDataFeedController.pupulateAllSignalsForAllSymbols);
+        .post(signalsDataFeedController.populateAllSignalsForAllSymbols);
 
     return signalsDataFeedRouter;
 }

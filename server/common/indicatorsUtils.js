@@ -119,7 +119,7 @@ let getMACDs = (values, fastPeriod, slowPeriod, signalPeriod,
 let getSTOCHs = (stochsInput, resolve, reject) => {
     talib.execute(stochsInput, function(data) {
         if(data.error != null){
-            return reject("Something when wrong getting STOCHs");
+            return reject(`Something when wrong getting STOCHs ${data.error}`);
         }
         let offsetSTOCH = new Array(data.begIndex).fill(undefined);
         let talibStochastics = data.result;
