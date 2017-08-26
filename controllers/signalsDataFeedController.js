@@ -7,7 +7,7 @@ const log = console.log;
 let signalsDataFeedController = () => {
 
     let populateAllSignalsForAllSymbols = (req, res) => {
-        let from = '2014-01-01';
+        let from = '2017-01-01';
         let to = new Date();
         stockMarketQuotesService.getAllStocks()
             .then(function(stocks) {
@@ -56,7 +56,7 @@ let signalsDataFeedController = () => {
                             });
 
                     }
-                },2000);
+                },7000);
             });
     };
 
