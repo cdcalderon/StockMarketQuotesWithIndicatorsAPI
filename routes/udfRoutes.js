@@ -9,7 +9,7 @@ const threeArrowValidatorUtils = require('../server/common/threeArrowValidatorUt
 const stockSignalsUtils = require('../server/common/stockSignalsUtils');
 const quotesStoch307SignalsService = require('../server/services/quotes.signals.stoch307');
 const { GapSignal } = require('../server/models/gapSignal');
-
+const { ThreeArrowSignal } = require('../server/models/threeArrowSignal');
 
 let routes = function(){
     let udfRouter = express.Router();
@@ -24,7 +24,8 @@ let routes = function(){
         threeArrowValidatorUtils,
         stockSignalsUtils,
         quotesStoch307SignalsService,
-        GapSignal);
+        GapSignal,
+        ThreeArrowSignal);
 
     udfRouter.route('/history')
         .get(udfController.getHistory);

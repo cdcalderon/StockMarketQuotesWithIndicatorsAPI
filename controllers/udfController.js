@@ -8,7 +8,8 @@ let udfController = (
     threeArrowValidatorUtils,
     stockSignalsUtils,
     quotesStoch307SignalsService,
-    GapSignal) => {
+    GapSignal,
+    ThreeArrowSignal) => {
 
      //const historyQuotesUrl = 'http://localhost:4600/api/udf/history';
     // const symbolsQuotesUrl  = 'http://localhost:4600/api/udf/symbols';
@@ -36,20 +37,40 @@ let udfController = (
 
     let getMarksGaps = (req, res) => {
         let symbol = req.query.symbol;
+        let from = new Date(req.query.from * 1000);
+        let limitDate = new Date(2014, 5, 1);
+        if(from - limitDate > 0){
+            GapSignal.find({
+                $and: [{dateId: {$gte: req.query.from, $lte: req.query.to}}, {symbol: symbol}]
 
-        GapSignal.find({
-            $and: [{dateId: {$gte: req.query.from, $lte: req.query.to}}, {symbol: symbol}]
+            }).then((gaps)=> {
+                let marks = gaps.map((q, i) => {
+                    q._doc.timeStampDate = q._doc.dateId;
+                    q._doc.previousQuote = q._doc.previousClose;
+                    return charMarkUtils.formatGapChartMark(q._doc,i);
+                });
 
-        }).then((gaps)=> {
-            let marks = gaps.map((q, i) => {
-                q._doc.timeStampDate = q._doc.dateId;
-                q._doc.previousQuote = q._doc.previousClose;
-                return charMarkUtils.formatGapChartMark(q._doc,i);
+                marks = charMarkUtils.formatMarksResult(marks);
+                res.send(marks);
             });
+        } else {
+            let from = new Date(req.query.from * 1000);
+            let to = new Date(req.query.to * 1000);
+            quotes.getHistoricalQuotes(symbol, from, to)
+                .then(quotes.getIndicators)
+                .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
+                .then((fullQuotes) => {
+                    let gapSignals = gapValidatorUtils.getGapChartMarks(fullQuotes);
+                    let marks = charMarkUtils.formatMarksResult(gapSignals);
 
-             marks = charMarkUtils.formatMarksResult(marks);
-            res.send(marks);
-        });
+                    res.send(marks);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+
+
     };
 
     let getHistoricalGaps = (req, res) => {
@@ -81,23 +102,39 @@ let udfController = (
 
     let getMarksGreenArrows = (req, res) => {
         let symbol = req.query.symbol;
-        let resolution = req.query.resolution;
         let from = new Date(req.query.from * 1000);
         let to = new Date(req.query.to * 1000);
-        quotes.getHistoricalQuotes(symbol, from, to)
-            .then(quotes.getIndicators)
-            .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
-            .then((fullQuotes) => {
+        let limitDate = new Date(2014, 5, 1);
 
-                let threeArrowSignals = threeArrowValidatorUtils.getThreeArrowChartMarks(fullQuotes);
+        if(from - limitDate > 0){
+            ThreeArrowSignal.find({
+                $and: [{dateId: {$gte: req.query.from, $lte: req.query.to}}, {symbol: symbol}]
 
-                let marks = charMarkUtils.formatMarksResult(threeArrowSignals);
+            }).then((gaps)=> {
+                let marks = gaps.map((q, i) => {
+                    q._doc.timeStampDate = q._doc.dateId;
+                    return charMarkUtils.formatThreeArrowChartMark(q._doc,i);
+                });
 
+                marks = charMarkUtils.formatMarksResult(marks);
                 res.send(marks);
-            })
-            .catch((error) => {
-                console.log(error);
             });
+        } else {
+            quotes.getHistoricalQuotes(symbol, from, to)
+                .then(quotes.getIndicators)
+                .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
+                .then((fullQuotes) => {
+
+                    let threeArrowSignals = threeArrowValidatorUtils.getThreeArrowChartMarks(fullQuotes);
+
+                    let marks = charMarkUtils.formatMarksResult(threeArrowSignals);
+
+                    res.send(marks);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     };
 
     let getStoch307BullMarks = (req, res) => {
