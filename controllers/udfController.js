@@ -7,7 +7,8 @@ let udfController = (
     charMarkUtils,
     threeArrowValidatorUtils,
     stockSignalsUtils,
-    quotesStoch307SignalsService) => {
+    quotesStoch307SignalsService,
+    GapSignal) => {
 
      //const historyQuotesUrl = 'http://localhost:4600/api/udf/history';
     // const symbolsQuotesUrl  = 'http://localhost:4600/api/udf/symbols';
@@ -35,23 +36,20 @@ let udfController = (
 
     let getMarksGaps = (req, res) => {
         let symbol = req.query.symbol;
-        let resolution = req.query.resolution;
-        // let from = moment.unix(req.query.from).format("MM/DD/YYYY");
-        // let to = moment.unix(req.query.to).format("MM/DD/YYYY");
-        let from = new Date(req.query.from * 1000);
-        let to = new Date(req.query.to * 1000);
-        quotes.getHistoricalQuotes(symbol, from, to)
-            .then(quotes.getIndicators)
-            .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
-            .then((fullQuotes) => {
-                let gapSignals = gapValidatorUtils.getGapChartMarks(fullQuotes);
-                let marks = charMarkUtils.formatMarksResult(gapSignals);
 
-                res.send(marks);
-            })
-            .catch((error) => {
-                console.log(error);
+        GapSignal.find({
+            $and: [{dateId: {$gte: req.query.from, $lte: req.query.to}}, {symbol: symbol}]
+
+        }).then((gaps)=> {
+            let marks = gaps.map((q, i) => {
+                q._doc.timeStampDate = q._doc.dateId;
+                q._doc.previousQuote = q._doc.previousClose;
+                return charMarkUtils.formatGapChartMark(q._doc,i);
             });
+
+             marks = charMarkUtils.formatMarksResult(marks);
+            res.send(marks);
+        });
     };
 
     let getHistoricalGaps = (req, res) => {
