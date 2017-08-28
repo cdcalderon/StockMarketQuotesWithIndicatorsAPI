@@ -1,3 +1,4 @@
+const gapSignalsService = require('../server/services/gap-signals-service');
 let udfController = (
     axios,
     quotes,
@@ -38,39 +39,27 @@ let udfController = (
     let getMarksGaps = (req, res) => {
         let symbol = req.query.symbol;
         let from = new Date(req.query.from * 1000);
+        let to = new Date(req.query.to * 1000);
         let limitDate = new Date(2014, 5, 1);
         if(from - limitDate > 0){
-            GapSignal.find({
-                $and: [{dateId: {$gte: req.query.from, $lte: req.query.to}}, {symbol: symbol}]
-
-            }).then((gaps)=> {
-                let marks = gaps.map((q, i) => {
-                    q._doc.timeStampDate = q._doc.dateId;
-                    q._doc.previousQuote = q._doc.previousClose;
-                    return charMarkUtils.formatGapChartMark(q._doc,i);
-                });
-
-                marks = charMarkUtils.formatMarksResult(marks);
+            console.log('Gap marks from Collection');
+            gapSignalsService.getGapMarksFromCollection(symbol,req.query.from,req.query.to).then((marks) => {
                 res.send(marks);
-            });
-        } else {
-            let from = new Date(req.query.from * 1000);
-            let to = new Date(req.query.to * 1000);
-            quotes.getHistoricalQuotes(symbol, from, to)
-                .then(quotes.getIndicators)
-                .then(quotes.createQuotesWithIndicatorsAndArrowSignals)
-                .then((fullQuotes) => {
-                    let gapSignals = gapValidatorUtils.getGapChartMarks(fullQuotes);
-                    let marks = charMarkUtils.formatMarksResult(gapSignals);
+            })
+            .catch((error) => {
+                console.log(error);
+             });
 
+        } else {
+            console.log('Gap marks from Quotes');
+            gapSignalsService.getGapMarksFromQuotes(symbol, from, to)
+                .then((marks) => {
                     res.send(marks);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         }
-
-
     };
 
     let getHistoricalGaps = (req, res) => {
