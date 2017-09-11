@@ -4,6 +4,7 @@ const moment = require('moment');
 const {Stoch307Signal} = require('../models/stoch307Signal');
 const chalk = require('chalk');
 const log = console.log;
+const dateUtils = require('../common/dateUtils');
 
 
 let getStoch307SignalsBull = (symbol, from, to) => {
@@ -121,9 +122,10 @@ let postStoch307BullSignalsForAllSymbolsFromQuotes = (stock, fullQuotes) => {
         return getStoch307SignalsBullFromQuotes(fullQuotes)
             .then((signals) => {
                 for(let signal of signals) {
+                    let dateTimeStamp = dateUtils.getGenericTimeStampDate(signal.date);
                     Stoch307Signal.find({
                         symbol: stock.symbol,
-                        dateId: new Date(signal.date) / 1000})
+                        dateId: dateTimeStamp})
                         .then((stoch307Signals => {
                             if (stoch307Signals.length === 0) {
                                 let sQuote = new Stoch307Signal({
@@ -138,7 +140,7 @@ let postStoch307BullSignalsForAllSymbolsFromQuotes = (stock, fullQuotes) => {
                                     stochasticsK: signal.stochasticsK,
                                     stochasticsD: signal.stochasticsD,
                                     macdHistogram: signal.histogram,
-                                    dateId: new Date(signal.date) / 1000,
+                                    dateId: dateTimeStamp,
                                     exchange: stock.exchange,
                                     summaryQuoteUrl: stock.summaryQuoteUrl,
                                     industry: stock.industry,

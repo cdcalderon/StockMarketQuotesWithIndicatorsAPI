@@ -5,6 +5,8 @@ const quotesService = require('../common/stockMarketQuotesService');
 const gapValidatorService = require('../common/gapValidatorUtils');
 const chalk = require('chalk');
 const log = console.log;
+const dateUtils = require('../common/dateUtils');
+
 
 let getHistoricalQuotes = (symbol, from, to) => {
     return quotesService.getHistoricalQuotesQuand(symbol,from,to).then((quotes) => {
@@ -213,10 +215,10 @@ let populateThreeArrowSignalFromQuotes = (stock, fullQuotes) => {
                 });
 
                 for(let signal of validatedSignals) {
-
+                    let dateTimeStamp = dateUtils.getGenericTimeStampDate(signal.date);
                     ThreeArrowSignal.find({
                         symbol: stock.symbol,
-                        dateId: new Date(signal.date) / 1000})
+                        dateId: dateTimeStamp})
                         .then((threeArrowSignals => {
                             if (threeArrowSignals.length === 0) {
                                 let sQuote = new ThreeArrowSignal({
@@ -231,7 +233,7 @@ let populateThreeArrowSignalFromQuotes = (stock, fullQuotes) => {
                                     stochasticsD: signal.stochasticsD,
                                     macdHistogram: signal.histogram,
                                     isGreenArrow: signal.is3ArrowGreenPositive,
-                                    dateId: new Date(signal.date) / 1000,
+                                    dateId: dateTimeStamp,
                                     exchange: stock.exchange,
                                     summaryQuoteUrl: stock.summaryQuoteUrl,
                                     industry: stock.industry,
@@ -314,10 +316,10 @@ let populateGapSignalsFromQuotes = (stock, fullQuotes) => {
     return new Promise((resolve, reject) => {
         let gapSignals = gapValidatorService.getGapSignals(fullQuotes);
         for(let quote of gapSignals) {
-
+            let dateTimeStamp = dateUtils.getGenericTimeStampDate(quote.date);
             GapSignal.find({
                 symbol: stock.symbol,
-                dateId: new Date(quote.date) / 1000})
+                dateId: dateTimeStamp})
                 .then((gaps => {
                     if(gaps.length === 0) {
                         let sQuote = new GapSignal({
@@ -330,7 +332,7 @@ let populateGapSignalsFromQuotes = (stock, fullQuotes) => {
                             gapSize: quote.gapSize,
                             previousClose: quote.previousClose,
                             direction: quote.direction,
-                            dateId: new Date(quote.date) / 1000,
+                            dateId: dateTimeStamp,
                             exchange: stock.exchange,
                             summaryQuoteUrl: stock.summaryQuoteUrl,
                             industry: stock.industry,

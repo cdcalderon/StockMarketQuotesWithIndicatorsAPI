@@ -88,7 +88,6 @@ let udfController = (
             });
     };
 
-
     let getMarksGreenArrows = (req, res) => {
         let symbol = req.query.symbol;
         let from = new Date(req.query.from * 1000);

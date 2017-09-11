@@ -24,6 +24,7 @@
         <item url="file://$PROJECT_DIR$/dist/server/services/quote.service.js" />
         <item url="file://$PROJECT_DIR$/dist/controllers/signalsDataFeedController.js" />
         <item url="file://$PROJECT_DIR$/dist/routes/signalsDataFeedRoutes.js" />
+        <item url="file://$PROJECT_DIR$/dist/server/common/dateUtils.js" />
         <item url="file://$PROJECT_DIR$/dist/routes/signalDataFeedRoutes.js" />
         <item url="file://$PROJECT_DIR$/dist/server/models/threeArrowSignal.js" />
         <item url="file://$PROJECT_DIR$/dist/server/common/charMarkUtils.js" />
@@ -56,6 +57,7 @@
       <root url="file://$PROJECT_DIR$/dist/server/services/quote.service.js" />
       <root url="file://$PROJECT_DIR$/dist/controllers/signalsDataFeedController.js" />
       <root url="file://$PROJECT_DIR$/dist/routes/signalsDataFeedRoutes.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/common/dateUtils.js" />
       <root url="file://$PROJECT_DIR$/dist/routes/signalDataFeedRoutes.js" />
       <root url="file://$PROJECT_DIR$/dist/server/models/threeArrowSignal.js" />
       <root url="file://$PROJECT_DIR$/dist/server/common/charMarkUtils.js" />
