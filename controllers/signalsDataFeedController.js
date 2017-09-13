@@ -33,7 +33,7 @@ let signalsDataFeedController = () => {
                         setTimeout(() => {
                             log(chalk.black.bgCyan.bold("Done Populating Signals for all Symbols"));
                             res.send("Ok");
-                        }, 2000);
+                        }, 1000);
 
                     } else {
                         log(chalk.gray.bgMagenta.bold(`${stock.value.index } / ${allStocks.length} @@@@@@@@@@ ${new Date().toString()} @@@@@@@@@@@@@@@@@@@@  Current Symbol  ${stock.value.symbol}   @@@@@@@@@@@@@@@@@@@@@@@@@@@`));
