@@ -12,10 +12,10 @@ let udfController = (
     GapSignal,
     ThreeArrowSignal) => {
 
-     //const historyQuotesUrl = 'http://localhost:4600/api/udf/history';
+     const historyQuotesUrl = 'http://localhost:4600/api/udf/history';
     // const symbolsQuotesUrl  = 'http://localhost:4600/api/udf/symbols';
-
-    const historyQuotesUrl = 'https://enigmatic-waters-56889.herokuapp.com/api/udf/history';
+   // const historyQuotesUrl = 'https://demo_feed.tradingview.com/history/';
+   // const historyQuotesUrl = 'https://enigmatic-waters-56889.herokuapp.com/api/udf/history';
     const symbolsQuotesUrl = 'https://enigmatic-waters-56889.herokuapp.com/api/udf/symbols';
     const timescale_marksQuotesUrl = 'https://demo_feed.tradingview.com/timescale_marks';
 
