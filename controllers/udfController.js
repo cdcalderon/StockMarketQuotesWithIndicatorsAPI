@@ -248,7 +248,7 @@ let tradingViewConfig = `{
     "supports_search": true,
         "supports_group_request": false,
         "supports_marks": true,
-        "supports_timescale_marks": false,
+        "supports_timescale_marks": true,
         "supports_time": true,
         "exchanges": [
         {
