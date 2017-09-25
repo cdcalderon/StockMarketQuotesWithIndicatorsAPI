@@ -68,6 +68,26 @@ let gapSignalController = (GapSignal, quotes) => {
         });
     };
 
+    let getTopCompanyGaps = (req, res) => {
+        let symbols = ['AAPL', 'AMZN'];
+        let from = 1483250400;
+        let to = 1504242000;
+        let query = {
+            '$and': [
+                {
+                    symbol: {$in: symbols}
+                },
+                {
+                    dateId: {$gte: from, $lte: to}
+                }
+            ]
+        };
+        GapSignal.find(query)
+            .then((gaps => {
+                    console.log(gaps);
+            }));
+    };
+
     function *genSymbols(array) {
         for (let i = 0; i < array.length; i++) {
             yield array[i];
@@ -76,7 +96,8 @@ let gapSignalController = (GapSignal, quotes) => {
         return {
         post: post,
         getGaps: getGaps,
-        postGapSignalsForAllSymbols: postGapSignalsForAllSymbols
+        postGapSignalsForAllSymbols: postGapSignalsForAllSymbols,
+        getTopCompanyGaps: getTopCompanyGaps
     }
 
 };

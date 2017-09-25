@@ -12,6 +12,9 @@ let routes = function(GapSignal){
     gapSignalRouter.route('/filter')
         .post(gapSignalController.getGaps);
 
+    gapSignalRouter.route('/filter/ranking')
+        .post(gapSignalController.getTopCompanyGaps);
+
     gapSignalRouter.route('/creategapsallsymbols')
         .post(gapSignalController.postGapSignalsForAllSymbols);
 

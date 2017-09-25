@@ -63,6 +63,8 @@ let addSymbolsFilter = (filterQuery, symbolsFilterOptions) => {
     return filterQuery;
 };
 
+
+
 let getPaginationOptions = (pagingInfo) => {
     let offset = pagingInfo.pageSize * ( pagingInfo.currentPage - 1 );
     return {
