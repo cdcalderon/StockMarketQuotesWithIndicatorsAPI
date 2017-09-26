@@ -85,6 +85,15 @@ let gapSignalController = (GapSignal, quotes) => {
         GapSignal.find(query)
             .then((gaps => {
                     console.log(gaps);
+                    let topGaps = gaps.map((g) => {
+                        return {
+                            symbol: g._doc.symbol,
+                            dateStr: g._doc.dateStr,
+                            dateNumberic: g._doc.dateId,
+                            signalType: 'gap'
+                        }
+                    });
+                    res.send(topGaps);
             }));
     };
 
