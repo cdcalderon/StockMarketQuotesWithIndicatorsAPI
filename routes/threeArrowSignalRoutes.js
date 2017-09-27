@@ -12,8 +12,13 @@ let routes = function(ThreeArrowSignal){
     threeArrowSignalRouter.route('/filter')
         .post(threeArrowSignalController.getThreeArrowSignals);
 
+    threeArrowSignalRouter.route('/filter/ranking')
+        .post(threeArrowSignalController.getTopCompanyThreeArrow);
+
     threeArrowSignalRouter.route('/createthreearrowsignalsallsymbols')
         .post(threeArrowSignalController.postThreeArrowSignalsForAllSymbols);
+
+
 
     return threeArrowSignalRouter;
 }
