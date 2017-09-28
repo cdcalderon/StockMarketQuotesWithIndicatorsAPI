@@ -64,10 +64,40 @@ let stoch307SignalController = (
         });
     };
 
+    let getTopCompanyStoch307 = (req, res) => {
+        let symbols = ['IBM', 'ULTI', 'DPZ'];
+        let from = 1483250400;
+        let to = 1504242000;
+        let query = {
+            '$and': [
+                {
+                    symbol: {$in: symbols}
+                },
+                {
+                    dateId: {$gte: from, $lte: to}
+                }
+            ]
+        };
+        Stoch307Signal.find(query)
+            .then((gaps => {
+                console.log(gaps);
+                let topGaps = gaps.map((g) => {
+                    return {
+                        symbol: g._doc.symbol,
+                        dateStr: g._doc.dateStr,
+                        dateNumberic: g._doc.dateId,
+                        signalType: 'gap'
+                    }
+                });
+                res.send(topGaps);
+            }));
+    };
+
     return {
         getStoch307BullSignals,
         postStoch307BullSignalsForAllSymbols,
-        getStoch307BullSignalsWithFilter
+        getStoch307BullSignalsWithFilter,
+        getTopCompanyStoch307
     }
 
 };
