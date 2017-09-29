@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd65eb87-316e-4a18-92d0-4584b9962f98" name="Default" comment="Implement getTopCompanyThreeArrow endpoint">
+    <list default="true" id="fd65eb87-316e-4a18-92d0-4584b9962f98" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/stoch307SignalController.js" afterPath="$PROJECT_DIR$/controllers/stoch307SignalController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/stoch307Routes.js" afterPath="$PROJECT_DIR$/routes/stoch307Routes.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -108,8 +107,8 @@
       <file leaf-file-name="stoch307Routes.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/stoch307Routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" column="49" lean-forward="false" selection-start-line="27" selection-start-column="49" selection-end-line="27" selection-end-column="49" />
+            <state relative-caret-position="300">
+              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -629,14 +628,7 @@
       <workItem from="1506470390761" duration="696000" />
       <workItem from="1506472882764" duration="1897000" />
       <workItem from="1506479424205" duration="77000" />
-      <workItem from="1506569618530" duration="264000" />
-    </task>
-    <task id="LOCAL-00043" summary="Fix Get historic gaps endpoint">
-      <created>1498980996661</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1498980996661</updated>
+      <workItem from="1506569618530" duration="1783000" />
     </task>
     <task id="LOCAL-00044" summary="Adjust Gap Confirmation Entry price">
       <created>1498984819209</created>
@@ -974,11 +966,18 @@
       <option name="project" value="LOCAL" />
       <updated>1506479491551</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL-00092" summary="Implement getTopCompanyStoch307 endpoint">
+      <created>1506569904561</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1506569904561</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="657881000" />
+    <option name="totallyTimeSpent" value="659400000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1065,7 +1064,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="change signals date" />
     <MESSAGE value="Sync" />
     <MESSAGE value="Change time Frame" />
     <MESSAGE value="Change time Frame 100 mls" />
@@ -1090,7 +1088,8 @@
     <MESSAGE value="add getTopCompanyGaps Endpoint to gapSignalsController" />
     <MESSAGE value="Fix getTopCompanyGaps Endpoint error" />
     <MESSAGE value="Implement getTopCompanyThreeArrow endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement getTopCompanyThreeArrow endpoint" />
+    <MESSAGE value="Implement getTopCompanyStoch307 endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement getTopCompanyStoch307 endpoint" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1563,8 +1562,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/stoch307Routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="49" lean-forward="false" selection-start-line="27" selection-start-column="49" selection-end-line="27" selection-end-column="49" />
+        <state relative-caret-position="300">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
       </provider>
