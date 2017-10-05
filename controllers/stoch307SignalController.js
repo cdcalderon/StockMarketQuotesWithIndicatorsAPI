@@ -84,7 +84,7 @@ let stoch307SignalController = (
                 let topGaps = gaps.map((g) => {
                     return {
                         symbol: g._doc.symbol,
-                        dateStr: g._doc.dateStr,
+                        dateStr: moment(new Date(g._doc.dateId * 1000)).format('LL'),
                         dateNumberic: g._doc.dateId,
                         signalType: 'gap'
                     }

@@ -25,7 +25,7 @@ let routes = function(){
     stoch307Router.route('/bullwithfilter')
         .post(stoch307Controller.getStoch307BullSignalsWithFilter);
 
-    stoch307Router.route('/bullwithfilter/topranking')
+    stoch307Router.route('/bullwithfilter/filter/ranking')
         .post(stoch307Controller.getTopCompanyStoch307);
 
     return stoch307Router;

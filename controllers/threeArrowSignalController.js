@@ -1,7 +1,5 @@
 const filterComposer = require('../server/common/filterComposerUtils');
 const stockMarketQuotesService = require('../server/common/stockMarketQuotesService');
-const { ThreeArrowSignal } = require('../models/threeArrowSignal');
-
 let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
 
     let post = (req, res) => {
@@ -70,7 +68,7 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
     };
 
     let getTopCompanyThreeArrow = (req, res) => {
-        let symbols = ['BIDU', 'CMG', 'ULTA'];
+        let symbols = ['MSFT', 'IBM', 'ULTA'];
         let from = 1483250400;
         let to = 1504242000;
         let query = {
@@ -89,7 +87,7 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
                 let topGaps = gaps.map((g) => {
                     return {
                         symbol: g._doc.symbol,
-                        dateStr: g._doc.dateStr,
+                        dateStr: new Date(g._doc.dateId * 1000),
                         dateNumberic: g._doc.dateId,
                         signalType: 'gap'
                     }
