@@ -2,14 +2,14 @@ const quotesStoch307Signals = require('../server/services/quotes.signals.stoch30
 const filterComposer = require('../server/common/filterComposerUtils');
 const stockMarketQuotesService = require('../server/common/stockMarketQuotesService');
 const {Stoch307Signal} = require('../server/models/stoch307Signal');
+const chalk = require('chalk');
+const log = console.log;
 
 let stoch307SignalController = (
     axios,
     quotes,
     moment,
-    _,
-    charMarkUtils,
-    stockSignalsUtils) => {
+    _) => {
 
     let getStoch307BullSignals = (req, res) => {
         let symbol = req.query.symbol;
@@ -59,7 +59,10 @@ let stoch307SignalController = (
     let getStoch307BullSignalsWithFilter = (req, res) => {
         let query = filterComposer.getFilterQuery(req.body);
 
+
+
         Stoch307Signal.paginate(query.filterQuery, query.paginationOptions, function(err, result) {
+            log(chalk.blue(`Populate Gap Signal response::  ${result}` ));
             res.send(result)
         });
     };

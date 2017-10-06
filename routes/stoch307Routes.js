@@ -3,8 +3,6 @@ const axios = require('axios');
 const moment = require('moment');
 const _ = require('lodash');
 const quotes = require('../server/services/quote.service');
-const charMarkUtils = require('../server/common/charMarkUtils');
-const stockSignalsUtils = require('../server/common/stockSignalsUtils');
 
 let routes = function(){
     let stoch307Router = express.Router();
@@ -12,9 +10,7 @@ let routes = function(){
         axios,
         quotes,
         moment,
-        _,
-        charMarkUtils,
-        stockSignalsUtils);
+        _);
 
     stoch307Router.route('/stoch307bull')
         .get(stoch307Controller.getStoch307BullSignals);
