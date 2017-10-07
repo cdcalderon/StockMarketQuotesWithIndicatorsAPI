@@ -1,5 +1,8 @@
 const filterComposer = require('../server/common/filterComposerUtils');
 const stockMarketQuotesService = require('../server/common/stockMarketQuotesService');
+const chalk = require('chalk');
+const log = console.log;
+
 let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
 
     let post = (req, res) => {
@@ -63,12 +66,13 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
         let query = filterComposer.getFilterQuery(req.body);
 
         ThreeArrowSignal.paginate(query.filterQuery, query.paginationOptions, function(err, result) {
+            log(chalk.blue(`Get Three Arrow Signal response::  ${result}` ));
             res.send(result)
         });
     };
 
     let getTopCompanyThreeArrow = (req, res) => {
-        let symbols = ['MSFT', 'IBM', 'ULTA'];
+        let symbols = ['MSFT', 'IBM', 'ULTA', 'AAPL', 'CMG'];
         let from = 1483250400;
         let to = 1504242000;
         let query = {
