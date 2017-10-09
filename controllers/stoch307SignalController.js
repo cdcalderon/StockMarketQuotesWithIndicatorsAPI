@@ -68,7 +68,7 @@ let stoch307SignalController = (
     };
 
     let getTopCompanyStoch307 = (req, res) => {
-        let symbols = ['IBM', 'ULTI', 'DPZ'];
+        let symbols = ['IBM', 'ULTI', 'DPZ', 'PCLN', 'CMG', 'MSFT'];
         let from = 1483250400;
         let to = 1504242000;
         let query = {
