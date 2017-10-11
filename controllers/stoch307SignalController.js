@@ -59,8 +59,6 @@ let stoch307SignalController = (
     let getStoch307BullSignalsWithFilter = (req, res) => {
         let query = filterComposer.getFilterQuery(req.body);
 
-
-
         Stoch307Signal.paginate(query.filterQuery, query.paginationOptions, function(err, result) {
             log(chalk.blue(`Populate Gap Signal response::  ${result}` ));
             res.send(result)

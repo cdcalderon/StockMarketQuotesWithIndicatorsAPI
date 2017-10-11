@@ -56,7 +56,7 @@ let signalsDataFeedController = () => {
                             });
 
                     }
-                },7000);
+                }, 7000);
             });
     };
 

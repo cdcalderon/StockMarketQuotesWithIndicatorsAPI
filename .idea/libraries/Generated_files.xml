@@ -4,6 +4,7 @@
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/dist/server/common/filterComposerUtils.js" />
         <item url="file://$PROJECT_DIR$/dist/server/services/gap-signals-service.js" />
+        <item url="file://$PROJECT_DIR$/dist/controllers/tests/gapSignalControllerTests.js" />
         <item url="file://$PROJECT_DIR$/dist/server/common/stoch307ValidatorUtils.js" />
         <item url="file://$PROJECT_DIR$/dist/controllers/stoch307SignalController.js" />
         <item url="file://$PROJECT_DIR$/dist/routes/signalFibProjections.js" />
@@ -37,6 +38,7 @@
       <root url="file://$PROJECT_DIR$/dist/buildScripts/srcServer.js" />
       <root url="file://$PROJECT_DIR$/dist/server/common/filterComposerUtils.js" />
       <root url="file://$PROJECT_DIR$/dist/server/services/gap-signals-service.js" />
+      <root url="file://$PROJECT_DIR$/dist/controllers/tests/gapSignalControllerTests.js" />
       <root url="file://$PROJECT_DIR$/dist/server/common/stoch307ValidatorUtils.js" />
       <root url="file://$PROJECT_DIR$/dist/controllers/stoch307SignalController.js" />
       <root url="file://$PROJECT_DIR$/dist/routes/signalFibProjections.js" />
