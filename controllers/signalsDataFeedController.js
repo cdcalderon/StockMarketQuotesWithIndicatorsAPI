@@ -23,7 +23,6 @@ let signalsDataFeedController = () => {
                 console.log(`Got: ${allStocks}`);
 
                 let generatedSymbols = genSymbols(allStocks);
-               // let stock = generatedSymbols.next();
 
                 let intervalGapId = setInterval(() => {
                     let stock = generatedSymbols.next();

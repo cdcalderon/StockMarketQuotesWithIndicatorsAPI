@@ -27,10 +27,12 @@
         <item url="file://$PROJECT_DIR$/dist/routes/signalsDataFeedRoutes.js" />
         <item url="file://$PROJECT_DIR$/dist/server/common/dateUtils.js" />
         <item url="file://$PROJECT_DIR$/dist/routes/signalDataFeedRoutes.js" />
+        <item url="file://$PROJECT_DIR$/dist/server/services/stoch307-signal-service.js" />
         <item url="file://$PROJECT_DIR$/dist/server/models/threeArrowSignal.js" />
         <item url="file://$PROJECT_DIR$/dist/server/common/charMarkUtils.js" />
         <item url="file://$PROJECT_DIR$/dist/server/models/stoch307Signal.js" />
         <item url="file://$PROJECT_DIR$/dist/server/models/gapSignal.js" />
+        <item url="file://$PROJECT_DIR$/dist/server/services/threeArrow-signal-service.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
@@ -61,10 +63,12 @@
       <root url="file://$PROJECT_DIR$/dist/routes/signalsDataFeedRoutes.js" />
       <root url="file://$PROJECT_DIR$/dist/server/common/dateUtils.js" />
       <root url="file://$PROJECT_DIR$/dist/routes/signalDataFeedRoutes.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/services/stoch307-signal-service.js" />
       <root url="file://$PROJECT_DIR$/dist/server/models/threeArrowSignal.js" />
       <root url="file://$PROJECT_DIR$/dist/server/common/charMarkUtils.js" />
       <root url="file://$PROJECT_DIR$/dist/server/models/stoch307Signal.js" />
       <root url="file://$PROJECT_DIR$/dist/server/models/gapSignal.js" />
+      <root url="file://$PROJECT_DIR$/dist/server/services/threeArrow-signal-service.js" />
     </CLASSES>
     <SOURCES />
   </library>
