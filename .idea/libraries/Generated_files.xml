@@ -31,6 +31,7 @@
         <item url="file://$PROJECT_DIR$/dist/server/models/threeArrowSignal.js" />
         <item url="file://$PROJECT_DIR$/dist/server/common/charMarkUtils.js" />
         <item url="file://$PROJECT_DIR$/dist/server/models/stoch307Signal.js" />
+        <item url="file://$PROJECT_DIR$/dist/controllers/candleSticksPatternsController.js" />
         <item url="file://$PROJECT_DIR$/dist/server/models/gapSignal.js" />
         <item url="file://$PROJECT_DIR$/dist/server/services/threeArrow-signal-service.js" />
       </sourceFilesUrls>
@@ -67,6 +68,7 @@
       <root url="file://$PROJECT_DIR$/dist/server/models/threeArrowSignal.js" />
       <root url="file://$PROJECT_DIR$/dist/server/common/charMarkUtils.js" />
       <root url="file://$PROJECT_DIR$/dist/server/models/stoch307Signal.js" />
+      <root url="file://$PROJECT_DIR$/dist/controllers/candleSticksPatternsController.js" />
       <root url="file://$PROJECT_DIR$/dist/server/models/gapSignal.js" />
       <root url="file://$PROJECT_DIR$/dist/server/services/threeArrow-signal-service.js" />
     </CLASSES>
