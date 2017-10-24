@@ -6,6 +6,7 @@ const { ThreeArrowSignal } = require('./models/threeArrowSignal');
 const { GapSignal } = require('./models/gapSignal');
 const app = express();
 const port = process.env.PORT || 4000;
+
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());

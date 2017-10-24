@@ -100,6 +100,10 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
             }));
     };
 
+    let postAzureFunc = (req, res) => {
+        res.send("OK - Perfect");
+    };
+
 
     function *genSymbols(array) {
         for (let i = 0; i < array.length; i++) {
@@ -111,7 +115,8 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
         post,
         getThreeArrowSignals,
         postThreeArrowSignalsForAllSymbols,
-        getTopCompanyThreeArrow
+        getTopCompanyThreeArrow,
+        postAzureFunc
     }
 
 };

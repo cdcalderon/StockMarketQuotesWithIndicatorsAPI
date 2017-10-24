@@ -7,7 +7,7 @@ let routes = function(ThreeArrowSignal){
     let threeArrowSignalController = require('../controllers/threeArrowSignalController')(ThreeArrowSignal, quotes);
 
     threeArrowSignalRouter.route('/')
-        .post(threeArrowSignalController.post)
+        .post(threeArrowSignalController.post);
 
     threeArrowSignalRouter.route('/filter')
         .post(threeArrowSignalController.getThreeArrowSignals);
@@ -17,6 +17,9 @@ let routes = function(ThreeArrowSignal){
 
     threeArrowSignalRouter.route('/createthreearrowsignalsallsymbols')
         .post(threeArrowSignalController.postThreeArrowSignalsForAllSymbols);
+
+    threeArrowSignalRouter.route('/testfunction')
+        .post(threeArrowSignalController.postAzureFunc);
 
 
 
