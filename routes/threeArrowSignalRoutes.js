@@ -21,6 +21,9 @@ let routes = function(ThreeArrowSignal){
     threeArrowSignalRouter.route('/testfunction')
         .post(threeArrowSignalController.postAzureFunc);
 
+    threeArrowSignalRouter.route('/testfunction')
+        .get(threeArrowSignalController.postAzureFunc);
+
 
 
     return threeArrowSignalRouter;
