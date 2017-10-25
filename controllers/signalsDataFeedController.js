@@ -31,7 +31,7 @@ let signalsDataFeedController = () => {
                         clearInterval(intervalGapId);
                         setTimeout(() => {
                             log(chalk.black.bgCyan.bold("Done Populating Signals for all Symbols"));
-                            res.send("Ok");
+                           // res.send("Ok");
                         }, 1000);
 
                     } else {
@@ -56,6 +56,8 @@ let signalsDataFeedController = () => {
 
                     }
                 }, 7000);
+
+                res.send("Ok");
             });
     };
 
