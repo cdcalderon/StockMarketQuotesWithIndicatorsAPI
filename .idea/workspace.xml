@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd65eb87-316e-4a18-92d0-4584b9962f98" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/azure-functions/testFunction" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/threeArrowSignalRoutes.js" afterPath="$PROJECT_DIR$/routes/threeArrowSignalRoutes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/threeArrowSignalController.js" afterPath="$PROJECT_DIR$/controllers/threeArrowSignalController.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,7 +29,7 @@
         <entry file="file://$PROJECT_DIR$/controllers/udfController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="332">
-              <caret line="34" column="25" lean-forward="true" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+              <caret line="34" column="25" lean-forward="false" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -39,16 +40,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
               <caret line="18" column="57" lean-forward="false" selection-start-line="18" selection-start-column="57" selection-end-line="18" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="signalFibProjectionsRoutes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/signalFibProjectionsRoutes.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="59" lean-forward="false" selection-start-line="20" selection-start-column="59" selection-end-line="20" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -84,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="threeArrowSignalController.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="threeArrowSignalController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/threeArrowSignalController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="103" column="30" lean-forward="false" selection-start-line="103" selection-start-column="30" selection-end-line="103" selection-end-column="30" />
+            <state relative-caret-position="325">
+              <caret line="51" column="27" lean-forward="true" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -114,11 +105,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="threeArrowSignalRoutes.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="threeArrowSignalRoutes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/threeArrowSignalRoutes.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="390">
-              <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testFunction" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/azure-functions/testFunction">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="159">
+              <caret line="17" column="19" lean-forward="true" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -176,7 +177,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/buildScripts/startMessage.js" />
         <option value="$PROJECT_DIR$/buildScripts/srcServer.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/server/services/quotes.js" />
@@ -225,8 +225,9 @@
         <option value="$PROJECT_DIR$/controllers/candleSticksPatternsController.js" />
         <option value="$PROJECT_DIR$/server/server.js" />
         <option value="$PROJECT_DIR$/server/services/threeArrow-signal-service.js" />
-        <option value="$PROJECT_DIR$/controllers/threeArrowSignalController.js" />
         <option value="$PROJECT_DIR$/routes/threeArrowSignalRoutes.js" />
+        <option value="$PROJECT_DIR$/azure-functions/testFunction" />
+        <option value="$PROJECT_DIR$/controllers/threeArrowSignalController.js" />
       </list>
     </option>
   </component>
@@ -308,7 +309,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="routes" />
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -322,7 +323,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
+              <option name="myItemId" value="azure-functions" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -572,14 +573,7 @@
       <workItem from="1507781224130" duration="1397000" />
       <workItem from="1508123194314" duration="1350000" />
       <workItem from="1508473897560" duration="424000" />
-      <workItem from="1508607269342" duration="4499000" />
-    </task>
-    <task id="LOCAL-00053" summary="add filter support to GetGaps end point">
-      <created>1500641733672</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1500641733672</updated>
+      <workItem from="1508607269342" duration="5815000" />
     </task>
     <task id="LOCAL-00054" summary="Implement Gap MarketCap and Exchange Filter">
       <created>1500737403035</created>
@@ -917,11 +911,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508883441347</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="Add Get three arrow azure function test">
+      <created>1508897396094</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1508897396094</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="681089000" />
+    <option name="totallyTimeSpent" value="682405000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1008,7 +1009,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix pupulateAllSignalsForAllSymbols" />
     <MESSAGE value="Fix populateAllSignalsForAllSymbols clean up" />
     <MESSAGE value="Add time and quote index to populateAllSignalsForAllSymbols" />
     <MESSAGE value="remove testing filter to populateAllSignalsForAllSymbols" />
@@ -1033,7 +1033,8 @@
     <MESSAGE value="Add Initial stoch307 and threeArrow Services - init refactoring" />
     <MESSAGE value="Add CandleStickPatternController" />
     <MESSAGE value="Add three arrow azure function test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add three arrow azure function test" />
+    <MESSAGE value="Add Get three arrow azure function test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Get three arrow azure function test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1119,7 +1120,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/threeArrowSignalController.js" />
     <entry file="file://$PROJECT_DIR$/server/services/earnings.jobs.js" />
     <entry file="file://$PROJECT_DIR$/server/services/quotes.jobs.js" />
     <entry file="file://$PROJECT_DIR$/server/common/stockSignalsUtils.js">
@@ -1398,7 +1398,7 @@
     <entry file="file://$PROJECT_DIR$/controllers/udfController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="332">
-          <caret line="34" column="25" lean-forward="true" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+          <caret line="34" column="25" lean-forward="false" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -1459,18 +1459,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/threeArrowSignalController.js">
+    <entry file="file://$PROJECT_DIR$/routes/threeArrowSignalRoutes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="103" column="30" lean-forward="false" selection-start-line="103" selection-start-column="30" selection-end-line="103" selection-end-column="30" />
+        <state relative-caret-position="390">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/threeArrowSignalRoutes.js">
+    <entry file="file://$PROJECT_DIR$/azure-functions/testFunction">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="159">
+          <caret line="17" column="19" lean-forward="true" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/threeArrowSignalController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="51" column="27" lean-forward="true" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
           <folding />
         </state>
       </provider>

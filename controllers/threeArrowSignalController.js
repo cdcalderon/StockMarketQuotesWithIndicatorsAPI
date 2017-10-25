@@ -55,11 +55,12 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
                     if(stock.done === true){
                         clearInterval(intervalGapId);
                         console.log("Done with Three Arrow Signals");
-                        res.send("OK");
+                       // res.send("OK");
                     }
 
                 },200);
             });
+        res.send("OK");
     };
 
     let getThreeArrowSignals = (req, res) => {

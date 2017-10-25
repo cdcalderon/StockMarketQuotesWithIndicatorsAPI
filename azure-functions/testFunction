@@ -1,0 +1,50 @@
+using System;
+using System.Net;
+using System.Net.Http;
+
+using System.Collections.Generic;
+
+public static async void Run(TimerInfo myTimer, TraceWriter log)
+{
+    log.Info($"Job started at: {DateTime.Now}");
+
+
+            var values = new Dictionary<string, string>();
+            values.Add("ThisIs", "Annoying");
+            var content = new FormUrlEncodedContent(values);
+
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    var httpResponseMessage = await client.PostAsync("https://warm-journey-46979.herokuapp.com/api/threearrowsignals/testfunction", content);
+
+                    if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
+                    {
+                        log.Info("Job ran successfully");
+                        using (HttpContent rContent = httpResponseMessage.Content)
+                        {
+                            var json = rContent.ReadAsStringAsync().Result;
+                            log.Info(json);
+                        }
+                    }
+                }
+                catch (OperationCanceledException) { }
+            }
+
+            // using (var httpClient = new HttpClient())
+        // {
+        //     var result = await httpClient.GetAsync("https://warm-journey-46979.herokuapp.com/api/threearrowsignals/testfunction");
+        //     if (result.StatusCode == System.Net.HttpStatusCode.OK) {
+        //         log.Info("Job ran successfully");
+        //         using (HttpContent content = result.Content)
+        //       {
+        //           var json = content.ReadAsStringAsync().Result;
+        //           log.Info(json);
+        //       }
+        //     }
+        //     else
+        //         log.Error("Job failed. Status Code: " + result.StatusCode);
+        // }
+
+}
