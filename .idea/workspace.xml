@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd65eb87-316e-4a18-92d0-4584b9962f98" name="Default" comment="">
+    <list default="true" id="fd65eb87-316e-4a18-92d0-4584b9962f98" name="Default" comment="Update historyQuotesUrl to heroku">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/udfController.js" afterPath="$PROJECT_DIR$/controllers/udfController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/signalsDataFeedController.js" afterPath="$PROJECT_DIR$/controllers/signalsDataFeedController.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,31 +24,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="udfController.js" pinned="true" current-in-tab="true">
+      <file leaf-file-name="udfController.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/udfController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state relative-caret-position="430">
+              <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="signalsDataFeedController.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="signalsDataFeedController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/signalsDataFeedController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="39" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="39" />
+            <state relative-caret-position="375">
+              <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gapSignalRoutes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/gapSignalRoutes.js">
+      <file leaf-file-name="stoch307SignalController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/stoch307SignalController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="57" lean-forward="false" selection-start-line="18" selection-start-column="57" selection-end-line="18" selection-end-column="57" />
+            <state relative-caret-position="450">
+              <caret line="30" column="28" lean-forward="false" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -146,8 +146,6 @@
       <find>_filte</find>
       <find>prompt</find>
       <find>filter</find>
-      <find>l</find>
-      <find>localh</find>
       <find>localho</find>
       <find>localhos</find>
       <find>local</find>
@@ -165,12 +163,14 @@
       <find>postGapSignalsForAllSymbols</find>
       <find>ThreeArrowSignal</find>
       <find>chalk</find>
+      <find>l</find>
+      <find>localh</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <push-targets>
-      <push-target-info target-remote="heroku" target-branch="master" repo="$PROJECT_DIR$" source="master" />
+      <push-target-info target-remote="origin" target-branch="master" repo="$PROJECT_DIR$" source="master" />
     </push-targets>
   </component>
   <component name="IdeDocumentHistory">
@@ -225,8 +225,8 @@
         <option value="$PROJECT_DIR$/routes/threeArrowSignalRoutes.js" />
         <option value="$PROJECT_DIR$/azure-functions/testFunction" />
         <option value="$PROJECT_DIR$/controllers/threeArrowSignalController.js" />
-        <option value="$PROJECT_DIR$/controllers/signalsDataFeedController.js" />
         <option value="$PROJECT_DIR$/controllers/udfController.js" />
+        <option value="$PROJECT_DIR$/controllers/signalsDataFeedController.js" />
       </list>
     </option>
   </component>
@@ -587,14 +587,7 @@
       <workItem from="1508123194314" duration="1350000" />
       <workItem from="1508473897560" duration="424000" />
       <workItem from="1508607269342" duration="6951000" />
-      <workItem from="1508984531286" duration="84000" />
-    </task>
-    <task id="LOCAL-00056" summary="Refactor Get gaps with filter, add price range condition to filter">
-      <created>1501356739175</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1501356739175</updated>
+      <workItem from="1508984531286" duration="493000" />
     </task>
     <task id="LOCAL-00057" summary="Refactor getThreeArrowSignals &amp; getGaps end point, Adjust algorithm to calculate fib projections and entry points">
       <created>1501394243960</created>
@@ -932,11 +925,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508902353854</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="Update historyQuotesUrl to heroku">
+      <created>1508984670427</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1508984670427</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="683625000" />
+    <option name="totallyTimeSpent" value="684034000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -954,6 +954,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17335767" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3270646" sideWeight="0.4864" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23308271" sideWeight="0.26034063" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.48910412" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22771214" sideWeight="0.49186257" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23308271" sideWeight="0.73965937" order="2" side_tool="false" content_ui="tabs" />
@@ -966,7 +967,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.48910412" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1023,7 +1023,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove testing filter to populateAllSignalsForAllSymbols" />
     <MESSAGE value="update timeframe for population all signals" />
     <MESSAGE value="Refactor getMarksGaps endpoint to use Saved Gaps Signals instead of recalculating it" />
     <MESSAGE value="Implement Execute from Collection or recaldulating Signals based on from date condition" />
@@ -1048,7 +1047,8 @@
     <MESSAGE value="Add Get three arrow azure function test" />
     <MESSAGE value="Add Azure function Test  file, change three arrow function response place for azure testing" />
     <MESSAGE value="Update populateAllSignalsForAllSymbols to test with azure functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update populateAllSignalsForAllSymbols to test with azure functions" />
+    <MESSAGE value="Update historyQuotesUrl to heroku" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update historyQuotesUrl to heroku" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1382,13 +1382,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/stoch307SignalController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="28" lean-forward="false" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/services/threeArrow-signal-service.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1407,14 +1400,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="68" lean-forward="false" selection-start-line="8" selection-start-column="68" selection-end-line="8" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/signalsDataFeedController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="39" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1484,8 +1469,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/udfController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="430">
+          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/stoch307SignalController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="28" lean-forward="false" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/signalsDataFeedController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
