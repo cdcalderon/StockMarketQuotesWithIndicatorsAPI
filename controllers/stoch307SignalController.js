@@ -87,7 +87,7 @@ let stoch307SignalController = (
                         symbol: g._doc.symbol,
                         dateStr: moment(new Date(g._doc.dateId * 1000)).format('LL'),
                         dateNumberic: g._doc.dateId,
-                        signalType: 'gap'
+                        signalType: 'Stoch307'
                     }
                 });
                 res.send(topGaps);

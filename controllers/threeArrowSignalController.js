@@ -94,7 +94,7 @@ let threeArrowSignalController = (ThreeArrowSignal, quotes) => {
                         symbol: g._doc.symbol,
                         dateStr: new Date(g._doc.dateId * 1000),
                         dateNumberic: g._doc.dateId,
-                        signalType: 'gap'
+                        signalType: 'Three Arrow'
                     }
                 });
                 res.send(topGaps);

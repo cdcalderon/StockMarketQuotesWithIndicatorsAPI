@@ -90,7 +90,7 @@ let gapSignalController = (GapSignal, quotes) => {
                             symbol: g._doc.symbol,
                             dateStr: g._doc.dateStr,
                             dateNumberic: g._doc.dateId,
-                            signalType: 'gap'
+                            signalType: 'Gap'
                         }
                     });
                     res.send(topGaps);
