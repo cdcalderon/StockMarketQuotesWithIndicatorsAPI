@@ -69,7 +69,7 @@ let gapSignalController = (GapSignal, quotes) => {
     };
 
     let getTopCompanyGaps = (req, res) => {
-        let symbols = ['AAPL', 'AMZN'];
+        let symbols = ['AAPL', 'AMZN', 'AVGO', 'AXP'];
         let from = 1483250400;
         let to = 1504242000;
         let query = {
