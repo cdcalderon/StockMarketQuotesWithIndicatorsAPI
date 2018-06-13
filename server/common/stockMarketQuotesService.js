@@ -41,6 +41,7 @@ let getHistoricalQuotesYahoo = (symbol, from, to)=> {
 
 let getHistoricalQuotesQuand = (symbol, from, to) => {
     console.log("Reading------------------------------ Quand Quotes");
+    // https://www.quandl.com/api/v3/datasets/WIKI/AON.json?start_date=Sun Apr 30 2017 00:00:00 GMT-0500 (CDT)&end_date=Thu Jan 01 2037 00:00:00 GMT-0600 (CST)&api_key=bnz5KFRPyhYVR2Catk1Q
     let quandUrl = `https://www.quandl.com/api/v3/datasets/WIKI/${symbol}.json?start_date=${from}&end_date=${to}&api_key=bnz5KFRPyhYVR2Catk1Q`;
     // let base = 'http://www.quandl.com';
     // var address = "/api/v3/datatables/WIKI/PRICES.json" +

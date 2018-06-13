@@ -9,66 +9,77 @@ const dateUtils = require('../common/dateUtils');
 
 
 let getHistoricalQuotes = (symbol, from, to) => {
-    return quotesService.getHistoricalQuotesQuand(symbol,from,to).then((quotes) => {
-        if(isQuand(quotes) && quotes.data.dataset.data.length > 0) {
-            return new Promise((resolve) => {
-                resolve(formatQuandQuotes(quotes));
-            });
-        } else {
-            return quotesService.getHistoricalQuotesGoogle(symbol, from, to).then((gQuotes) => {
-                if(gQuotes && gQuotes.length > 0) {
-                    return new Promise((resolve) => {
-                        resolve(gQuotes);
-                    });
-                } else {
-                    return quotesService.getHistoricalQuotesYahoo(symbol, from, to).then((yQuotes) => {
-                        return new Promise((resolve, reject) => {
-                            if(yQuotes && yQuotes.length > 0) {
-                                resolve(gQuotes);
-                            } else{
-                                reject('Error : could not find any quotes');
-                            }
-                        });
+    return  quotesService.getHistoricalQuotesYahoo(symbol, from, to).then((yQuotes) => {
+        return new Promise((resolve, reject) => {
+            if(yQuotes) {
+                resolve(yQuotes);
+            } else{
+                reject('Error : could not find any quotes');
+            }
+        });
 
-                    })
-                }
-            })
-        }
-    }, (error) => {
-        if(error) {
-            return quotesService.getHistoricalQuotesGoogle(symbol, from, to).then((gQuotes) => {
-                if(gQuotes) {
-                    return new Promise((resolve) => {
-                        resolve(gQuotes);
-                    });
-                } else {
-                    return quotesService.getHistoricalQuotesYahoo(symbol, from, to).then((yQuotes) => {
-                        return new Promise((resolve, reject) => {
-                            if(yQuotes) {
-                                resolve(gQuotes);
-                            } else{
-                                reject('Error : could not find any quotes');
-                            }
-                        });
-
-                    })
-                }
-            }, (error) => {
-                if(error) {
-                    return  quotesService.getHistoricalQuotesYahoo(symbol, from, to).then((yQuotes) => {
-                        return new Promise((resolve, reject) => {
-                            if(yQuotes) {
-                                resolve(yQuotes);
-                            } else{
-                                reject('Error : could not find any quotes');
-                            }
-                        });
-
-                    })
-                }
-            })
-        }
     });
+
+    // return quotesService.getHistoricalQuotesQuand(symbol,from,to).then((quotes) => {
+    //     if(isQuand(quotes) && quotes.data.dataset.data.length > 0) {
+    //         return new Promise((resolve) => {
+    //             resolve(formatQuandQuotes(quotes));
+    //         });
+    //     } else {
+    //         return quotesService.getHistoricalQuotesGoogle(symbol, from, to).then((gQuotes) => {
+    //             if(gQuotes && gQuotes.length > 0) {
+    //                 return new Promise((resolve) => {
+    //                     resolve(gQuotes);
+    //                 });
+    //             } else {
+    //                 return quotesService.getHistoricalQuotesYahoo(symbol, from, to).then((yQuotes) => {
+    //                     return new Promise((resolve, reject) => {
+    //                         if(yQuotes && yQuotes.length > 0) {
+    //                             resolve(gQuotes);
+    //                         } else{
+    //                             reject('Error : could not find any quotes');
+    //                         }
+    //                     });
+    //
+    //                 })
+    //             }
+    //         })
+    //     }
+    // }, (error) => {
+    //     if(error) {
+    //         return quotesService.getHistoricalQuotesGoogle(symbol, from, to).then((gQuotes) => {
+    //             if(gQuotes) {
+    //                 return new Promise((resolve) => {
+    //                     resolve(gQuotes);
+    //                 });
+    //             } else {
+    //                 return quotesService.getHistoricalQuotesYahoo(symbol, from, to).then((yQuotes) => {
+    //                     return new Promise((resolve, reject) => {
+    //                         if(yQuotes) {
+    //                             resolve(gQuotes);
+    //                         } else{
+    //                             reject('Error : could not find any quotes');
+    //                         }
+    //                     });
+    //
+    //                 })
+    //             }
+    //         }, (error) => {
+    //             if(error) {
+    //                 return  quotesService.getHistoricalQuotesYahoo(symbol, from, to).then((yQuotes) => {
+    //                     return new Promise((resolve, reject) => {
+    //                         if(yQuotes) {
+    //                             resolve(yQuotes);
+    //                         } else{
+    //                             reject('Error : could not find any quotes');
+    //                         }
+    //                     });
+    //
+    //                 })
+    //             }
+    //         })
+    //     }
+    // });
 };
 
 let getIndicators = (quotes) => {
