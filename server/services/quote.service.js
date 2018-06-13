@@ -12,7 +12,7 @@ let getHistoricalQuotes = (symbol, from, to) => {
     return  quotesService.getHistoricalQuotesYahoo(symbol, from, to).then((yQuotes) => {
         return new Promise((resolve, reject) => {
             if(yQuotes) {
-                resolve(yQuotes);
+                resolve(yQuotes.reverse());
             } else{
                 reject('Error : could not find any quotes');
             }
